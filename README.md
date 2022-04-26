@@ -7,6 +7,7 @@ The McDev liftoff group repo
 - gratton
 - McDev
 - Ruhama
+- Lynn
 - Williams
 - Barrett
 
