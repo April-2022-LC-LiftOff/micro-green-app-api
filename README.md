@@ -8,3 +8,5 @@ The McDev liftoff group repo
 - McDev
 - Ruhama
 - Williams
+- Barrett
+
