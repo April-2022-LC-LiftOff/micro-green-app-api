@@ -38,6 +38,26 @@ public class SeedController {
         return "redirect:";
     }
 
+    @GetMapping("delete")
+    public String displayDeleteEventForm(Model model) {
+        model.addAttribute("title", "Delete Seeds");
+        model.addAttribute("seeds", SeedData.getAll());
+        return "seeds/delete";
+    }
+
+
+    @PostMapping("delete")
+    public String processDeleteSeedsForm(@RequestParam(required = false) int[] seedIds) {
+
+        if (seedIds != null) {
+            for (int id : seedIds) {
+               SeedData.remove(id);
+            }
+        }
+
+        return "redirect:";
+    }
+
 
 //    @GetMapping("seeds")
 //    @ResponseBody
