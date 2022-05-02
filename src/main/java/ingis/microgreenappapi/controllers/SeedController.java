@@ -28,8 +28,13 @@ public class SeedController {
     }
     @PostMapping("create")
     public String processCreateEventForm(@RequestParam String seedName,
+                                         @RequestParam Number seedingDensity,
+                                         @RequestParam Boolean seedPresoak,
+                                         @RequestParam Number blackoutTime,
+                                         @RequestParam Number harvestTime,
                                          @RequestParam Number qty) {
-        seeds.add(new Seed(seedName, qty));
+        seeds.add(new Seed(seedName, seedingDensity, seedPresoak,  blackoutTime, harvestTime, qty));
+        System.out.println(seeds);
         return "redirect:";
     }
 

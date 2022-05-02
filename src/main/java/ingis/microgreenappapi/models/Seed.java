@@ -14,27 +14,35 @@ public class Seed {
 
     //    @Size(max = 50, message = "Name too long!")
     private String seedName;
-//    private Number seedingDensity;
-//    private Boolean seedPresoak;
-//    private Number blackoutTime;
-//    private Number harvestTime;
+    private Number seedingDensity;
+    private Boolean seedPresoak;
+    private Number blackoutTime;
+    private Number harvestTime;
     private Number qty;
     //
     public Seed(Number seedId, String seedName, Number seedingDensity, Boolean seedPresoak, Number blackoutTime, Number harvestTime, Number qty) {
         this.seedName = seedName;
-//        this.seedingDensity = seedingDensity;
-//        this.seedPresoak = seedPresoak;
-//        this.blackoutTime = blackoutTime;
-//        this.harvestTime = harvestTime;
+        this.seedingDensity = seedingDensity;
+        this.seedPresoak = seedPresoak;
+        this.blackoutTime = blackoutTime;
+        this.harvestTime = harvestTime;
         this.qty = qty;
-//        this.seedId = nextId;
-//        nextId++;
+        this.seedId = nextId;
+        nextId++;
     }
     public Seed(String seedName, Number qty) {
         this.seedName = seedName;
         this.qty = qty;
     }
 
+    public Seed(String seedName, Number seedingDensity, Boolean seedPresoak, Number blackoutTime, Number harvestTime, Number qty) {
+        this.seedName = seedName;
+        this.seedingDensity = seedingDensity;
+        this.seedPresoak = seedPresoak;
+        this.blackoutTime = blackoutTime;
+        this.harvestTime = harvestTime;
+        this.qty = qty;
+    }
 
     public String getSeedName() {
         return seedName;
@@ -43,39 +51,39 @@ public class Seed {
     public void setSeedName(String seedName) {
         this.seedName = seedName;
     }
-//
-//    public Number getSeedingDensity() {
-//        return seedingDensity;
-//    }
-//
-//    public void setSeedingDensity(Number seedingDensity) {
-//        this.seedingDensity = seedingDensity;
-//    }
-//
-//    public Boolean getSeedPresoak() {
-//        return seedPresoak;
-//    }
-//
-//    public void setSeedPresoak(Boolean seedPresoak) {
-//        this.seedPresoak = seedPresoak;
-//    }
-//
-//    public Number getBlackoutTime() {
-//        return blackoutTime;
-//    }
-//
-//    public void setBlackoutTime(Number blackoutTime) {
-//        this.blackoutTime = blackoutTime;
-//    }
-//
-//    public Number getHarvestTime() {
-//        return harvestTime;
-//    }
-//
-//    public void setHarvestTime(Number harvestTime) {
-//        this.harvestTime = harvestTime;
-//    }
-//
+
+    public Number getSeedingDensity() {
+        return seedingDensity;
+    }
+
+    public void setSeedingDensity(Number seedingDensity) {
+        this.seedingDensity = seedingDensity;
+    }
+
+    public Boolean getSeedPresoak() {
+        return seedPresoak;
+    }
+
+    public void setSeedPresoak(Boolean seedPresoak) {
+        this.seedPresoak = seedPresoak;
+    }
+
+    public Number getBlackoutTime() {
+        return blackoutTime;
+    }
+
+    public void setBlackoutTime(Number blackoutTime) {
+        this.blackoutTime = blackoutTime;
+    }
+
+    public Number getHarvestTime() {
+        return harvestTime;
+    }
+
+    public void setHarvestTime(Number harvestTime) {
+        this.harvestTime = harvestTime;
+    }
+
     public Number getQty() {
         return qty;
     }
@@ -84,9 +92,9 @@ public class Seed {
         this.qty = qty;
     }
 
-//    public int getId() {
-//        return seedId;
-//    }
+    public int getId() {
+        return seedId;
+    }
 
     @Override
     public String toString() {

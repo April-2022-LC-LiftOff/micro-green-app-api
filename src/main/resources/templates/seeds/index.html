@@ -9,11 +9,19 @@
    <thead>
    <tr>
       <th>Seed</th>
+      <th>Density</th>
+      <th>Presoak</th>
+      <th>Blackout Time</th>
+      <th>Harvest Time</th>
       <th>Qty</th>
    </tr>
    </thead>
    <tr th:each="seed : ${seeds}">
       <td th:text="${seed.seedName}"></td>
+      <td th:text="${seed.seedingDensity}"></td>
+      <td th:text="${seed.seedPresoak}"></td>
+      <td th:text="${seed.blackoutTime}"></td>
+      <td th:text="${seed.harvestTime}"></td>
       <td th:text="${seed.qty}"></td>
    </tr>
 </table>
