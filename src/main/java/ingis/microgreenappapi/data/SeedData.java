@@ -19,12 +19,10 @@ public class SeedData {
     }
 
     public static void add(Seed seed) {
-
         seeds.put(seed.getId(), seed);
     }
 
     public static void remove(int id) {
-
         seeds.remove(id);
     }
 
