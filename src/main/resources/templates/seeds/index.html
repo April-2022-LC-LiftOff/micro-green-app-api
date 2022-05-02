@@ -8,6 +8,7 @@
 <table class="table table-striped">
    <thead>
    <tr>
+      <th>ID</th>
       <th>Seed</th>
       <th>Density</th>
       <th>Presoak</th>
@@ -17,6 +18,7 @@
    </tr>
    </thead>
    <tr th:each="seed : ${seeds}">
+      <td th:text="${seed.Id}"></td>
       <td th:text="${seed.seedName}"></td>
       <td th:text="${seed.seedingDensity}"></td>
       <td th:text="${seed.seedPresoak}"></td>

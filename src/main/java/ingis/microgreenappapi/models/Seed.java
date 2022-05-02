@@ -20,7 +20,7 @@ public class Seed {
     private Number harvestTime;
     private Number qty;
     //
-    public Seed(Number seedId, String seedName, Number seedingDensity, Boolean seedPresoak, Number blackoutTime, Number harvestTime, Number qty) {
+    public Seed(String seedName, Number seedingDensity, Boolean seedPresoak, Number blackoutTime, Number harvestTime, Number qty) {
         this.seedName = seedName;
         this.seedingDensity = seedingDensity;
         this.seedPresoak = seedPresoak;
@@ -32,15 +32,6 @@ public class Seed {
     }
     public Seed(String seedName, Number qty) {
         this.seedName = seedName;
-        this.qty = qty;
-    }
-
-    public Seed(String seedName, Number seedingDensity, Boolean seedPresoak, Number blackoutTime, Number harvestTime, Number qty) {
-        this.seedName = seedName;
-        this.seedingDensity = seedingDensity;
-        this.seedPresoak = seedPresoak;
-        this.blackoutTime = blackoutTime;
-        this.harvestTime = harvestTime;
         this.qty = qty;
     }
 
@@ -98,19 +89,27 @@ public class Seed {
 
     @Override
     public String toString() {
-        return seedName;
+        return "Seed{" +
+                "seedId=" + seedId +
+                ", seedName='" + seedName + '\'' +
+                ", seedingDensity=" + seedingDensity +
+                ", seedPresoak=" + seedPresoak +
+                ", blackoutTime=" + blackoutTime +
+                ", harvestTime=" + harvestTime +
+                ", qty=" + qty +
+                '}';
     }
-//
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//        Seed seed = (Seed) o;
-//        return seedId == seed.seedId;
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(seedId);
-//    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Seed seed = (Seed) o;
+        return seedId == seed.seedId;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(seedId);
+    }
 }

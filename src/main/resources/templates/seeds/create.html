@@ -6,13 +6,39 @@
 <header th:replace="fragments :: header"></header>
 
 <form method="post">
-   <input type="text" name="seedName">
-   <input type="text" name="seedingDensity">
-   <input type="text" name="seedPresoak">
-   <input type="text" name="blackoutTime">
-   <input type="text" name="harvestTime">
-   <input type="text" name="qty">
-   <input type="submit" value="Create">
+   <div class="form-group">
+      <label>Seed Name
+         <input type="text" name="seedName" class="form-control">
+      </label>
+   </div>
+   <div class="form-group">
+      <label>Density
+         <input type="text" name="seedingDensity" class="form-control">
+      </label>
+   </div>
+   <div class="form-group">
+      <label>PreSoak
+         <input type="text" name="seedPresoak" class="form-control">
+      </label>
+   </div>
+   <div class="form-group">
+      <label>Blackout Time
+         <input type="text" name="blackoutTime" class="form-control">
+      </label>
+   </div>
+   <div class="form-group">
+      <label>Harvest Time
+         <input type="text" name="harvestTime" class="form-control">
+      </label>
+   </div>
+   <div class="form-group">
+      <label>Qty
+         <input type="text" name="qty" class="form-control">
+      </label>
+   </div>
+   <div class="form-group">
+      <input type="submit" value="Create" class="btn btn-success">
+   </div>
 </form>
 
 </body>

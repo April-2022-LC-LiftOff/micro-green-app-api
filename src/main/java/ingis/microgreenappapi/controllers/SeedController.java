@@ -1,5 +1,6 @@
 package ingis.microgreenappapi.controllers;
 
+import ingis.microgreenappapi.data.SeedData;
 import ingis.microgreenappapi.models.Seed;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,12 +13,12 @@ import java.util.List;
 @RequestMapping("seeds")
 public class SeedController {
 
-    private static List<Seed> seeds = new ArrayList<>();
+//    private static List<Seed> seeds = new ArrayList<>();
 
     @GetMapping
     public String displayAllSeeds(Model model) {
         model.addAttribute("title", "All Seeds");
-        model.addAttribute("seeds", seeds);
+        model.addAttribute("seeds", SeedData.getAll());
         return "seeds/index";
     }
 
@@ -33,8 +34,7 @@ public class SeedController {
                                          @RequestParam Number blackoutTime,
                                          @RequestParam Number harvestTime,
                                          @RequestParam Number qty) {
-        seeds.add(new Seed(seedName, seedingDensity, seedPresoak,  blackoutTime, harvestTime, qty));
-        System.out.println(seeds);
+        SeedData.add(new Seed(seedName, seedingDensity, seedPresoak,  blackoutTime, harvestTime, qty));
         return "redirect:";
     }
 
