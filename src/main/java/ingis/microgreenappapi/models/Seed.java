@@ -14,31 +14,35 @@ public class Seed {
 
     //    @Size(max = 50, message = "Name too long!")
     private String seedName;
-    private Number seedingDensity;
-    private Boolean seedPresoak;
-    private Number blackoutTime;
-    private Number harvestTime;
+//    private Number seedingDensity;
+//    private Boolean seedPresoak;
+//    private Number blackoutTime;
+//    private Number harvestTime;
     private Number qty;
     //
     public Seed(Number seedId, String seedName, Number seedingDensity, Boolean seedPresoak, Number blackoutTime, Number harvestTime, Number qty) {
         this.seedName = seedName;
-        this.seedingDensity = seedingDensity;
-        this.seedPresoak = seedPresoak;
-        this.blackoutTime = blackoutTime;
-        this.harvestTime = harvestTime;
+//        this.seedingDensity = seedingDensity;
+//        this.seedPresoak = seedPresoak;
+//        this.blackoutTime = blackoutTime;
+//        this.harvestTime = harvestTime;
         this.qty = qty;
-        this.seedId = nextId;
-        nextId++;
+//        this.seedId = nextId;
+//        nextId++;
     }
-//
-//
-//    public String getSeedName() {
-//        return seedName;
-//    }
-//
-//    public void setSeedName(String seedName) {
-//        this.seedName = seedName;
-//    }
+    public Seed(String seedName, Number qty) {
+        this.seedName = seedName;
+        this.qty = qty;
+    }
+
+
+    public String getSeedName() {
+        return seedName;
+    }
+
+    public void setSeedName(String seedName) {
+        this.seedName = seedName;
+    }
 //
 //    public Number getSeedingDensity() {
 //        return seedingDensity;
@@ -72,24 +76,22 @@ public class Seed {
 //        this.harvestTime = harvestTime;
 //    }
 //
-//    public Number getQty() {
-//        return qty;
-//    }
+    public Number getQty() {
+        return qty;
+    }
 //
-//    public void setQty(Number qty) {
-//        this.qty = qty;
-//    }
-//
+    public void setQty(Number qty) {
+        this.qty = qty;
+    }
+
 //    public int getId() {
 //        return seedId;
 //    }
-//
-//    @Override
-//    public String toString() {
-//        return "Seed{" +
-//                "seedName='" + seedName + '\'' +
-//                '}';
-//    }
+
+    @Override
+    public String toString() {
+        return seedName;
+    }
 //
 //    @Override
 //    public boolean equals(Object o) {

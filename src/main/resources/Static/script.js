@@ -1,0 +1,1 @@
+let appName = "Ingi's Microgreen Farm";
