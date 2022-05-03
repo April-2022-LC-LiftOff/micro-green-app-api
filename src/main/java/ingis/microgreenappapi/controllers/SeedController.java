@@ -15,18 +15,21 @@ public class SeedController {
 
 @Autowired
 private SeedRepository seedRepo;
-// veiw all seed information
 
+// view all seed information
     @GetMapping("/seeds")
     public List<Seed> getSeeds() {
         return seedRepo.findAll();
     }
+
+// Save seed info
     @PostMapping(value = "/save")
     public String saveSeed(Seed seed) {
         seedRepo.save(seed);
         return "Saved....";
     }
 
+// Update seed info
     @PutMapping(value = "update/{id}")
     public String updateSeed(@PathVariable Integer id, @RequestBody Seed seed) {
         Seed updatedSeed = seedRepo.findById(id).get();
@@ -39,12 +42,15 @@ private SeedRepository seedRepo;
         return "Updated.....";
     }
 
+//Delete Seed
     @DeleteMapping(value = "delete/{id}")
     public String deleteUser(@PathVariable Integer id) {
         Seed deleteSeed = seedRepo.findById(id).get();
         seedRepo.delete(deleteSeed);
         return "Deleted......";
     }
+
+   //**** following this was to make sure info was entering ********
 
 
 //    @GetMapping
