@@ -4,8 +4,10 @@ import ingis.microgreenappapi.data.SeedData;
 import ingis.microgreenappapi.models.Seed;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,22 +33,17 @@ public class SeedController {
         model.addAttribute("title", "Create Seed");
         return "seeds/create";
     }
-//    @PostMapping("create")
-//    public String processCreateEventForm(@RequestParam String seedName,
-//                                         @RequestParam Number seedingDensity,
-//                                         @RequestParam Boolean seedPresoak,
-//                                         @RequestParam Number blackoutTime,
-//                                         @RequestParam Number harvestTime,
-//                                         @RequestParam Number qty) {
-//        SeedData.add(new Seed(seedName, seedingDensity, seedPresoak,  blackoutTime, harvestTime, qty));
-//
-//        return "redirect:";
-//    }
 
     @PostMapping("create")
-    public String processCreateSeedForm(@ModelAttribute Seed newSeed) {
-        SeedData.add(newSeed);
+    public String processCreateSeedForm(@ModelAttribute @Valid Seed newSeed,
+                                        Errors errors, Model model) {
+        if(errors.hasErrors()) {
+            model.addAttribute("title", "Create Seeds");
+            model.addAttribute("errorMsg", "Bad data!");
+            return "seeds/create";
+        }
 
+        SeedData.add(newSeed);
         return "redirect:";
     }
 

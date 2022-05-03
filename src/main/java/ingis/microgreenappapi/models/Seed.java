@@ -1,18 +1,23 @@
 
 package ingis.microgreenappapi.models;
 
+import org.springframework.lang.NonNull;
+
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
 //@Entity
 public class Seed {
 
-    //    @Id
+//    @Id
 //    @GeneratedValue
 //    @ManyToMany
     private int seedId;
     private static int nextId = 1;
-
-    //    @Size(max = 50, message = "Name too long!")
+    @NotBlank
+    @Size(max = 50, message = "Name too long!")
     private String seedName;
     private Number seedingDensity;
     private Boolean seedPresoak;
@@ -91,8 +96,8 @@ public class Seed {
                 ", seedName='" + seedName + '\'' +
                 ", seedingDensity=" + seedingDensity +
                 ", seedPresoak=" + seedPresoak +
-//                ", blackoutTime=" + blackoutTime +
-//                ", harvestTime=" + harvestTime +
+                ", blackoutTime=" + blackoutTime +
+                ", harvestTime=" + harvestTime +
                 ", qty=" + qty +
                 '}';
     }
