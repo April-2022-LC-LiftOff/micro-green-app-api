@@ -4,15 +4,18 @@ package ingis.microgreenappapi.models;
 import org.springframework.lang.NonNull;
 
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Objects;
 
-//@Entity
+@Entity
 public class Seed {
 
-//    @Id
-//    @GeneratedValue
+    @Id
+    @GeneratedValue
 //    @ManyToMany
     private int seedId;
     private static int nextId = 1;

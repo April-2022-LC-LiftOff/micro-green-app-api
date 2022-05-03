@@ -1,88 +1,97 @@
 package ingis.microgreenappapi.controllers;
 
-import ingis.microgreenappapi.data.SeedData;
+import ingis.microgreenappapi.data.SeedRepository;
 import ingis.microgreenappapi.models.Seed;
-import org.springframework.stereotype.Controller;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 
-@Controller
-@RequestMapping("seeds")
+@RestController
 public class SeedController {
 
-//    private static List<Seed> seeds = new ArrayList<>();
-
+@Autowired
+private SeedRepository seedRepo;
 // veiw all seed information
-    @GetMapping
-    public String displayAllSeeds(Model model) {
-        model.addAttribute("title", "All Seeds");
-        model.addAttribute("seeds", SeedData.getAll());
-        //GET SeedData
-        System.out.println(SeedData.getAll());
-//        return "SeedData.getAll()"
-        return "seeds/index";
+
+    @GetMapping("/seeds")
+    public List<Seed> getSeeds() {
+        return seedRepo.findAll();
+    }
+    @PostMapping(value = "/save")
+    public String saveSeed(Seed seed) {
+        seedRepo.save(seed);
+        return "Saved....";
     }
 
-    @GetMapping("create")
-    public String displayCreateSeedForm(Model model) {
-        model.addAttribute("title", "Create Seed");
-        return "seeds/create";
+    @PutMapping(value = "update/{id}")
+    public String updateSeed(@PathVariable Integer id, @RequestBody Seed seed) {
+        Seed updatedSeed = seedRepo.findById(id).get();
+        updatedSeed.setSeedName(seed.getSeedName());
+        updatedSeed.setSeedingDensity(seed.getSeedingDensity());
+        updatedSeed.setSeedPresoak(seed.getSeedPresoak());
+        updatedSeed.setBlackoutTime(seed.getBlackoutTime());
+        updatedSeed.setHarvestTime(seed.getHarvestTime());
+        seedRepo.save(updatedSeed);
+        return "Updated.....";
     }
 
-    @PostMapping("create")
-    public String processCreateSeedForm(@ModelAttribute @Valid Seed newSeed,
-                                        Errors errors, Model model) {
-        if(errors.hasErrors()) {
-            model.addAttribute("title", "Create Seeds");
-            model.addAttribute("errorMsg", "Bad data!");
-            return "seeds/create";
-        }
-
-        SeedData.add(newSeed);
-        return "redirect:";
-    }
-
-
-    @GetMapping("delete")
-    public String displayDeleteEventForm(Model model) {
-        model.addAttribute("title", "Delete Seeds");
-        model.addAttribute("seeds", SeedData.getAll());
-
-        return "seeds/delete";
+    @DeleteMapping(value = "delete/{id}")
+    public String deleteUser(@PathVariable Integer id) {
+        Seed deleteSeed = seedRepo.findById(id).get();
+        seedRepo.delete(deleteSeed);
+        return "Deleted......";
     }
 
 
-    @PostMapping("delete")
-    public String processDeleteSeedsForm(@RequestParam(required = false) int[] seedIds) {
-
-        if (seedIds != null) {
-            for (int id : seedIds) {
-               SeedData.remove(id);
-            }
-        }
-
-        return "redirect:";
-    }
-
-
-//    @GetMapping("seeds")
-//    @ResponseBody
-//    public String seeds() {
-//        return "seeds";
-//    }
-//
-//    @GetMapping("inventory/seeds")
-//    @ResponseBody
-//    public String seedsInInventory() {
-//
-//        return "seeds in inventory";
+//    @GetMapping
+//    public String displayAllSeeds(Model model) {
+//        model.addAttribute("title", "All Seeds");
+//        model.addAttribute("seeds", SeedRepository.getAll());
+//        //GET SeedData
+//        System.out.println(SeedRepository.getAll());
+//        return "seeds/index";
 //    }
 
-
-
+//    @GetMapping("create")
+//    public String displayCreateSeedForm(Model model) {
+//        model.addAttribute("title", "Create Seed");
+//        return "seeds/create";
+//    }
+//
+//    @PostMapping("create")
+//    public String processCreateSeedForm(@ModelAttribute @Valid Seed newSeed,
+//                                        Errors errors, Model model) {
+//        if(errors.hasErrors()) {
+//            model.addAttribute("title", "Create Seeds");
+//            model.addAttribute("errorMsg", "Bad data!");
+//            return "seeds/create";
+//        }
+//        return "redirect:";
+//    }
+//
+//
+//    @GetMapping("delete")
+//    public String displayDeleteEventForm(Model model) {
+////        model.addAttribute("title", "Delete Seeds");
+////        model.addAttribute("seeds", SeedRepository.getAll());
+//
+//        return "seeds/delete";
+//    }
+//
+//
+//    @PostMapping("delete")
+//    public String processDeleteSeedsForm(@RequestParam(required = false) int[] seedIds) {
+//
+//        if (seedIds != null) {
+//            for (int id : seedIds) {
+////               SeedRepository.remove(id);
+//            }
+//        }
+//
+//        return "redirect:";
+//    }
 }
