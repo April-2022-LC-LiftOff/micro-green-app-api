@@ -1,4 +1,5 @@
 
+
 package ingis.microgreenappapi.models;
 
 import org.springframework.lang.NonNull;
@@ -21,6 +22,7 @@ public class Seed {
     private static int nextId = 1;
     @NotBlank
     @Size(max = 50, message = "Name too long!")
+
     private String seedName;
     private Number seedingDensity;
     private Boolean seedPresoak;
@@ -29,6 +31,7 @@ public class Seed {
     private Number qty;
 
     public Seed(String seedName, Number seedingDensity, Boolean seedPresoak,  Number blackoutTime, Number harvestTime, Number qty) {
+
         this.seedName = seedName;
         this.seedingDensity = seedingDensity;
         this.seedPresoak = seedPresoak;
@@ -38,7 +41,6 @@ public class Seed {
         this.seedId = nextId;
         nextId++;
     }
-
 
     public String getSeedName() {
         return seedName;
@@ -117,4 +119,5 @@ public class Seed {
     public int hashCode() {
         return Objects.hash(seedId);
     }
+
 }
