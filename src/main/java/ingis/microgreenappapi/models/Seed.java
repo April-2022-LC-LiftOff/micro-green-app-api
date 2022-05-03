@@ -19,8 +19,8 @@ public class Seed {
     private Number blackoutTime;
     private Number harvestTime;
     private Number qty;
-    //
-    public Seed(String seedName, Number seedingDensity, Boolean seedPresoak, Number blackoutTime, Number harvestTime, Number qty) {
+
+    public Seed(String seedName, Number seedingDensity, Boolean seedPresoak,  Number blackoutTime, Number harvestTime, Number qty) {
         this.seedName = seedName;
         this.seedingDensity = seedingDensity;
         this.seedPresoak = seedPresoak;
@@ -30,10 +30,7 @@ public class Seed {
         this.seedId = nextId;
         nextId++;
     }
-    public Seed(String seedName, Number qty) {
-        this.seedName = seedName;
-        this.qty = qty;
-    }
+
 
     public String getSeedName() {
         return seedName;
@@ -74,7 +71,7 @@ public class Seed {
     public void setHarvestTime(Number harvestTime) {
         this.harvestTime = harvestTime;
     }
-
+//
     public Number getQty() {
         return qty;
     }
@@ -94,8 +91,8 @@ public class Seed {
                 ", seedName='" + seedName + '\'' +
                 ", seedingDensity=" + seedingDensity +
                 ", seedPresoak=" + seedPresoak +
-                ", blackoutTime=" + blackoutTime +
-                ", harvestTime=" + harvestTime +
+//                ", blackoutTime=" + blackoutTime +
+//                ", harvestTime=" + harvestTime +
                 ", qty=" + qty +
                 '}';
     }

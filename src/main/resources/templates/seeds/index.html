@@ -18,7 +18,7 @@
    </tr>
    </thead>
    <tr th:each="seed : ${seeds}">
-      <td th:text="${seed.Id}"></td>
+      <td th:text="${seed.id}"></td>
       <td th:text="${seed.seedName}"></td>
       <td th:text="${seed.seedingDensity}"></td>
       <td th:text="${seed.seedPresoak}"></td>
@@ -26,6 +26,7 @@
       <td th:text="${seed.harvestTime}"></td>
       <td th:text="${seed.qty}"></td>
    </tr>
+
 </table>
 
 </body>
