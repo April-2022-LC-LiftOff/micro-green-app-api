@@ -1,26 +1,27 @@
 package ingis.microgreenappapi.controllers;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import ingis.microgreenappapi.data.SeedRepository;
+import ingis.microgreenappapi.models.Seed;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+import java.util.List;
+
+
+@RestController
 public class SeedController {
 
-    @GetMapping("seeds")
-    @ResponseBody
-    public String seeds() {
-        return "seeds";
+    @Autowired
+    private SeedRepository seedRepo;
+
+    // view all seed information
+
+    @GetMapping("/seeds")
+    public List<Seed> getSeeds() {
+        return seedRepo.findAll();
     }
-
-    @GetMapping("inventory/seeds")
-    @ResponseBody
-    public String seedsInInventory() {
-
-        return "seeds in inventory";
-    }
-
 
 
 }
+
+
