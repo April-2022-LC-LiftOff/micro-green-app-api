@@ -16,7 +16,7 @@ public class PlantingMediumController {
     @Autowired
     private PlantingMediumRepository mediumRepo;
 
-    // view all seed information
+    // view all planting medium information
 
     @GetMapping("/medium")
     public List<PlantingMedium> getMedium() {
