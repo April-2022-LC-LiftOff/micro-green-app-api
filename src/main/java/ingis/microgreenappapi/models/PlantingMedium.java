@@ -1,11 +1,13 @@
 package ingis.microgreenappapi.models;
 
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.Size;
 import java.util.Objects;
 
+@Entity
 public class PlantingMedium {
     @Id
     @GeneratedValue
@@ -15,13 +17,13 @@ public class PlantingMedium {
     @Size(max = 50, message = "Description to long!")
     private String mediumType;
 
-    private Number qty;
+    private Integer qty;
 
 
 //    @OneToMany
-    private Tray TrayId;
+//    private Tray TrayId;
 
-    public PlantingMedium(Number mediumId, String mediumType, Number qty, Tray trayId) {
+    public PlantingMedium(String mediumType, Integer qty, Tray trayId) {
         this.mediumType = mediumType;
         this.qty = qty;
         this.mediumId = nextId;
@@ -38,21 +40,21 @@ public class PlantingMedium {
         this.mediumType = mediumType;
     }
 
-    public Number getQty() {
+    public Integer getQty() {
         return qty;
     }
 
-    public void setQty(Number qty) {
+    public void setQty(Integer qty) {
         this.qty = qty;
     }
 
-    public Tray getTrayId() {
-        return TrayId;
-    }
-
-    public void setTrayId(Tray trayId) {
-        TrayId = trayId;
-    }
+//    public Tray getTrayId() {
+//        return TrayId;
+//    }
+//
+//    public void setTrayId(Tray trayId) {
+//        TrayId = trayId;
+//    }
 
     public int getMediumId() {
         return mediumId;
