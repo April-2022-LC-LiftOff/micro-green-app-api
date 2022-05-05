@@ -29,6 +29,21 @@ public class SeedController {
         return "Saved....";
     }
 
+    @PutMapping(value = "/update/{seedId}")
+    public String updateSeed(@PathVariable(value = "seedId") Integer seedId, @RequestBody Seed seed) {
+        Seed updatedSeed = seedRepo.findById(seedId).get();
+        updatedSeed.setSeedName(seed.getSeedName());
+        updatedSeed.setSeedingDensity(seed.getSeedingDensity());
+        updatedSeed.setSeedPresoak(seed.getSeedPresoak());
+        updatedSeed.setBlackoutTime(seed.getBlackoutTime());
+        updatedSeed.setQty(seed.getQty());
+
+        seedRepo.save(updatedSeed);
+        return "updated....";
+    }
+
+
+
 }
 
 
