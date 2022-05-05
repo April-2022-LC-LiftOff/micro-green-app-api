@@ -29,25 +29,22 @@ public class TrayController {
         return "Saved....";
     }
 
-//    @PutMapping(value = "/update/{seedId}")
-//    public String updateSeed(@PathVariable(value = "seedId") Integer seedId, @RequestBody Seed seed) {
-//        Seed updatedSeed = seedRepo.findById(seedId).get();
-//        updatedSeed.setSeedName(seed.getSeedName());
-//        updatedSeed.setSeedingDensity(seed.getSeedingDensity());
-//        updatedSeed.setSeedPresoak(seed.getSeedPresoak());
-//        updatedSeed.setBlackoutTime(seed.getBlackoutTime());
-//        updatedSeed.setQty(seed.getQty());
-//
-//        seedRepo.save(updatedSeed);
-//        return "updated....";
-//    }
-//
-//    @DeleteMapping(value = "/delete/{seedId}")
-//    public String deleteSeed(@PathVariable Integer seedId) {
-//        Seed deletedSeed = seedRepo.findById(seedId).get();
-//        seedRepo.delete(deletedSeed);
-//        return "deleted...";
-//    }
+    @PutMapping(value = "/update/{trayId}")
+    public String updateTray(@PathVariable(value = "trayId") Integer trayId, @RequestBody Tray tray) {
+        Tray updatedTray = trayRepo.findById(trayId).get();
+        updatedTray.setTrayType(tray.getTrayType());
+        updatedTray.setSize(tray.getSize());
+        updatedTray.setQty(tray.getQty());
+        trayRepo.save(updatedTray);
+        return "updated....";
+    }
+
+    @DeleteMapping(value = "/delete/{trayId}")
+    public String deleteTray(@PathVariable Integer trayId) {
+        Tray deletedTray = trayRepo.findById(trayId).get();
+        trayRepo.delete(deletedTray);
+        return "deleted...";
+    }
 
 
 
