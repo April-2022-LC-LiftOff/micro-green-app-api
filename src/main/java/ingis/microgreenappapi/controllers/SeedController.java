@@ -42,6 +42,13 @@ public class SeedController {
         return "updated....";
     }
 
+    @DeleteMapping(value = "/delete/{seedId}")
+    public String deleteSeed(@PathVariable Integer seedId) {
+        Seed deletedSeed = seedRepo.findById(seedId).get();
+        seedRepo.delete(deletedSeed);
+        return "deleted...";
+    }
+
 
 
 }
