@@ -1,10 +1,11 @@
 package ingis.microgreenappapi.data;
 
 import ingis.microgreenappapi.models.PlantingMedium;
-import ingis.microgreenappapi.models.Seed;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.support.JpaRepositoryImplementation;
+import org.springframework.stereotype.Repository;
 
-
-public interface PlantingMediumRepository extends JpaRepository<PlantingMedium, Integer> {
+@Repository
+public interface PlantingMediumRepository extends JpaRepositoryImplementation<PlantingMedium, Integer> {
 
 }
