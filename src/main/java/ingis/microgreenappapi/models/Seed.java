@@ -15,9 +15,9 @@ public class Seed {
 //    @ManyToMany
     private int seedId;
     private static int nextId = 1;
+
     @NotBlank
     @Size(max = 50, message = "Name too long!")
-
     private String seedName;
     private Integer seedingDensity;
     private Boolean seedPresoak;
