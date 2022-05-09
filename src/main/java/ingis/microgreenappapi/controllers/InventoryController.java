@@ -7,23 +7,24 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
+//
 @RestController
-@RequestMapping("/seeds")
-public class SeedController {
+@RequestMapping("/inventory")
+//@RequestMapping
+public class InventoryController {
 
     @Autowired
     private SeedRepository seedRepo;
 
     // view all seed information
 
-    @GetMapping
-    public List<Seed> getSeeds() {
+    @GetMapping("/view")
+    public List<Seed> viewInventory() {
         return seedRepo.findAll();
     }
 
     @PostMapping(value = "/add")
-    public String addSeeds(@RequestBody Seed seed) {
+    public String addSeedsToInventory(@RequestBody Seed seed) {
         seedRepo.save(seed);
         return "Saved....";
     }
@@ -32,9 +33,6 @@ public class SeedController {
     public String updateSeed(@PathVariable(value = "seedId") Integer seedId, @RequestBody Seed seed) {
         Seed updatedSeed = seedRepo.findById(seedId).get();
         updatedSeed.setSeedName(seed.getSeedName());
-        updatedSeed.setSeedingDensity(seed.getSeedingDensity());
-        updatedSeed.setSeedPresoak(seed.getSeedPresoak());
-        updatedSeed.setBlackoutTime(seed.getBlackoutTime());
         updatedSeed.setQty(seed.getQty());
 
         seedRepo.save(updatedSeed);
@@ -49,7 +47,5 @@ public class SeedController {
     }
 
 
-
 }
-
 

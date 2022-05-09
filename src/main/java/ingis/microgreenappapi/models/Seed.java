@@ -2,10 +2,8 @@ package ingis.microgreenappapi.models;
 
 import org.springframework.lang.NonNull;
 
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Objects;
@@ -26,9 +24,11 @@ public class Seed {
     private Boolean seedPresoak;
     private Integer blackoutTime;
     private Integer harvestTime;
+    private Integer lot;
     private Integer qty;
+    private String status;
 
-    public Seed(String seedName, Integer seedingDensity, Boolean seedPresoak,  Integer blackoutTime, Integer harvestTime, Integer qty) {
+    public Seed(String seedName, Integer seedingDensity, Boolean seedPresoak,  Integer blackoutTime, Integer harvestTime, Integer lot ,Integer qty, String status) {
 
         this.seedName = seedName;
         this.seedingDensity = seedingDensity;
@@ -36,11 +36,22 @@ public class Seed {
         this.blackoutTime = blackoutTime;
         this.harvestTime = harvestTime;
         this.qty = qty;
+        this.lot = lot;
+        this.status = status;
         this.seedId = nextId;
         nextId++;
     }
 
+    // model for inventory page
     public Seed() {}
+
+    public Seed(String seedName, Integer qty, Integer lot, String status ) {
+        this.seedName = seedName;
+        this.qty = qty;
+        this.lot = lot;
+        this.status = status;
+
+    }
 
     public String getSeedName() {
         return seedName;
@@ -88,6 +99,22 @@ public class Seed {
 
     public void setQty(Integer qty) {
         this.qty = qty;
+    }
+
+    public Integer getLot() {
+        return lot;
+    }
+
+    public void setLot(Integer lot) {
+        this.lot = lot;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public int getId() {

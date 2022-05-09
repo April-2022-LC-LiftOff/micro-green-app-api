@@ -1,8 +1,6 @@
 package ingis.microgreenappapi.controllers;
 
-import ingis.microgreenappapi.data.SeedRepository;
 import ingis.microgreenappapi.data.TrayRepository;
-import ingis.microgreenappapi.models.Seed;
 import ingis.microgreenappapi.models.Tray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
