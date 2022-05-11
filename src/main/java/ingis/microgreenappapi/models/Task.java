@@ -2,24 +2,25 @@ package ingis.microgreenappapi.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
 public class Task {
+
     @Id
     @GeneratedValue
     private int id;
-    private static int nextId = 1;
 
 //    @NotBlank
     private String task;
     private boolean complete = Boolean.FALSE;
+    private String dueDate;
 
-    public Task(String task, boolean complete) {
+    public Task(String task, boolean complete, String dueDate) {
         this.task = task;
         this.complete = complete;
-        this.id=nextId;
-        nextId++;
+        this.dueDate = dueDate;
     }
 
     public Task() {}
@@ -38,6 +39,14 @@ public class Task {
 
     public void setComplete(boolean complete) {
         this.complete = complete;
+    }
+
+    public String getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(String dueDate) {
+        this.dueDate = dueDate;
     }
 
     public int getId() {
