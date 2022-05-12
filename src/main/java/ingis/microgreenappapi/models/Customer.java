@@ -1,10 +1,12 @@
 package ingis.microgreenappapi.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
+
 
 @Entity
 @Table(name = "Customer")
@@ -20,7 +22,7 @@ public class Customer {
     private String customerName;
 
     @OneToMany(mappedBy = "customer")
-    private List<CustomerOrder> customerOrder;
+    private List<CustomerOrder> customerOrder = new ArrayList<>();
 
     public Customer() {
     }
@@ -47,18 +49,22 @@ public class Customer {
         this.customerName = customerName;
     }
 
-    public List<CustomerOrder> getCustomerOrder() {
-        return customerOrder;
-    }
+    //removed getter for customerOrder to prevent infinite recursion
+//    public List<CustomerOrder> getCustomerOrder() {
+//        return customerOrder;
+//    }
 
     public void setCustomerOrder(List<CustomerOrder> customerOrder) {
         this.customerOrder = customerOrder;
     }
 
+
     @Override
     public String toString() {
         return "Customer{" +
-                "customerName='" + customerName + '\'' +
+                "customerId=" + customerId +
+                ", customerName='" + customerName + '\'' +
+                ", customerOrder=" + customerOrder +
                 '}';
     }
 
@@ -67,11 +73,11 @@ public class Customer {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Customer customer = (Customer) o;
-        return customerId == customer.customerId;
+        return customerId == customer.customerId && Objects.equals(customerName, customer.customerName) && Objects.equals(customerOrder, customer.customerOrder);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(customerId);
+        return Objects.hash(customerId, customerName, customerOrder);
     }
 }

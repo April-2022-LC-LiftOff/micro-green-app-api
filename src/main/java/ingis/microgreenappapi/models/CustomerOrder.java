@@ -1,7 +1,9 @@
 package ingis.microgreenappapi.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
+import net.bytebuddy.build.ToStringPlugin;
 import org.apache.tomcat.jni.Local;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -25,8 +27,8 @@ public class CustomerOrder {
     @Column(name = "active_order")
     private Boolean activeOrder;
 
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
+//    @JsonIgnore
+    @ManyToOne
     @JoinColumn(name="customerId")
     private Customer customer;
 
@@ -48,7 +50,7 @@ public class CustomerOrder {
         this.orderDate = orderDate;
         this.deliveryDate = deliveryDate;
         this.activeOrder = activeOrder;
-        this.customer = customer;
+//        this.customer = customer;
         this.seed = seed;
         this.tray = tray;
         this.plantingMedium = plantingMedium;
@@ -85,6 +87,7 @@ public class CustomerOrder {
     public void setActiveOrder(Boolean activeOrder) {
         this.activeOrder = activeOrder;
     }
+
 
     public Customer getCustomer() {
         return customer;
