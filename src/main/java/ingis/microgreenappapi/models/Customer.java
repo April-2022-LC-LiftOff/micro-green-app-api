@@ -1,5 +1,15 @@
 package ingis.microgreenappapi.models;
 
+
+import javax.persistence.OneToMany;
+import javax.validation.constraints.Size;
+import java.util.Objects;
+
+public class Customer {
+
+
+    @OneToMany
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -10,7 +20,6 @@ import java.util.Objects;
 public class Customer{
 
 
-    //    @OneToMany
     @Id
     @GeneratedValue
     private int customerId;
@@ -18,6 +27,7 @@ public class Customer{
 
     @Size(max = 50, message = "Name too long!")
     private String customerName;
+
 
     public Customer() {}
 
@@ -39,6 +49,7 @@ public class Customer{
     public int getId() {
         return customerId;
     }
+
 
     @Override
     public String toString() {

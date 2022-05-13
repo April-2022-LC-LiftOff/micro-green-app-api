@@ -1,10 +1,9 @@
 package ingis.microgreenappapi.data;
 
-import ingis.microgreenappapi.models.Seed;
+import ingis.microgreenappapi.models.Task;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface SeedRepository extends JpaRepository<Seed, Integer> {
-
+public interface TaskRepository extends JpaRepository<Task, Integer> {
 }

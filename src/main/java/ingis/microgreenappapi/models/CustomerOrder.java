@@ -1,5 +1,9 @@
 package ingis.microgreenappapi.models;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.lang.reflect.Type;
 import java.util.Date;
 import java.util.Objects;
@@ -9,7 +13,7 @@ public class CustomerOrder {
 
 //    @Id
 //    @GeneratedValue
-//    @OneToMany
+////    @OneToMany
 //    private int orderId;
 //    private static int nextId = 1;
 //
@@ -18,7 +22,7 @@ public class CustomerOrder {
 //    private Date deliveryDate;
 //    private Boolean activeOrder;
 //
-//    @OneToMany
+////    @OneToMany
 //    private OrderDetails OrderDetails[];
 //
 //    public CustomerOrder(Type customerId, Date orderDate, Date deliveryDate, Boolean activeOrder, ingis.microgreenappapi.models.OrderDetails[] orderDetails) {
@@ -39,7 +43,6 @@ public class CustomerOrder {
 //    public Type getCustomerId() {
 //        return customerId;
 //    }
-//
 //    public void setCustomerId(Type customerId) {
 //        this.customerId = customerId;
 //    }
@@ -47,7 +50,6 @@ public class CustomerOrder {
 //    public Date getOrderDate() {
 //        return orderDate;
 //    }
-//
 //    public void setOrderDate(Date orderDate) {
 //        this.orderDate = orderDate;
 //    }
@@ -55,7 +57,6 @@ public class CustomerOrder {
 //    public Date getDeliveryDate() {
 //        return deliveryDate;
 //    }
-//
 //    public void setDeliveryDate(Date deliveryDate) {
 //        this.deliveryDate = deliveryDate;
 //    }
@@ -63,7 +64,6 @@ public class CustomerOrder {
 //    public ingis.microgreenappapi.models.OrderDetails[] getOrderDetails() {
 //        return OrderDetails;
 //    }
-//
 //    public void setOrderDetails(ingis.microgreenappapi.models.OrderDetails[] orderDetails) {
 //        OrderDetails = orderDetails;
 //    }
@@ -71,7 +71,6 @@ public class CustomerOrder {
 //    public Boolean getActiveOrder() {
 //        return activeOrder;
 //    }
-//
 //    public void setActiveOrder(Boolean activeOrder) {
 //        this.activeOrder = activeOrder;
 //    }
