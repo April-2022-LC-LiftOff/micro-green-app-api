@@ -3,6 +3,7 @@ package ingis.microgreenappapi.models;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 @Entity
 @Table(name = "Tray")
@@ -17,8 +18,8 @@ public class Tray {
     private Double qty;
 
     @ManyToOne
-    @JoinColumn(name="orderId")
-    private CustomerOrder customerOrder;
+    @JoinColumn(name="orderDetailsId")
+    private OrderDetails orderDetails;
 
     @OneToOne(mappedBy = "tray")
     private PlantingMedium plantingMedium;
@@ -26,12 +27,12 @@ public class Tray {
     public Tray() {
     }
 
-    public Tray(int trayId, String trayType, String size, Double qty, CustomerOrder customerOrder, PlantingMedium plantingMedium) {
+    public Tray(int trayId, String trayType, String size, Double qty, OrderDetails orderDetails, PlantingMedium plantingMedium) {
         this.trayId = trayId;
         this.trayType = trayType;
         this.size = size;
         this.qty = qty;
-        this.customerOrder = customerOrder;
+        this.orderDetails = orderDetails;
         this.plantingMedium = plantingMedium;
     }
 
@@ -67,14 +68,13 @@ public class Tray {
         this.qty = qty;
     }
 
-    public CustomerOrder getCustomerOrder() {
-        return customerOrder;
-    }
+//    public OrderDetails getOrderDetails() {
+//        return orderDetails;
+//    }
 
-    public void setCustomerOrder(CustomerOrder customerOrder) {
-        this.customerOrder = customerOrder;
+    public void setOrderDetails(OrderDetails orderDetails) {
+        this.orderDetails = orderDetails;
     }
-
 
     public PlantingMedium getPlantingMedium() {
         return plantingMedium;

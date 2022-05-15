@@ -20,13 +20,13 @@ public class Seed {
     private Number qty;
 
     @ManyToOne
-    @JoinColumn(name="orderId")
-    private CustomerOrder customerOrder;
+    @JoinColumn(name="orderDetailsId")
+    private OrderDetails orderDetails;
 
     public Seed() {
     }
 
-    public Seed(int seedId, String seedName, Number seedingDensity, Boolean seedPresoak, Number blackoutTime, Number harvestTime, Number qty, CustomerOrder customerOrder) {
+    public Seed(int seedId, String seedName, Number seedingDensity, Boolean seedPresoak, Number blackoutTime, Number harvestTime, Number qty, OrderDetails orderDetails) {
         this.seedId = seedId;
         this.seedName = seedName;
         this.seedingDensity = seedingDensity;
@@ -34,7 +34,7 @@ public class Seed {
         this.blackoutTime = blackoutTime;
         this.harvestTime = harvestTime;
         this.qty = qty;
-        this.customerOrder = customerOrder;
+        this.orderDetails = orderDetails;
     }
 
     public int getSeedId() {
@@ -93,11 +93,11 @@ public class Seed {
         this.qty = qty;
     }
 
-    public CustomerOrder getCustomerOrder() {
-        return customerOrder;
-    }
+//    public OrderDetails getOrderDetails() {
+//        return orderDetails;
+//    }
 
-    public void setCustomerOrder(CustomerOrder customerOrder) {
-        this.customerOrder = customerOrder;
+    public void setOrderDetails(OrderDetails orderDetails) {
+        this.orderDetails = orderDetails;
     }
 }

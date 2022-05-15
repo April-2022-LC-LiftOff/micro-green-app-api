@@ -45,10 +45,11 @@ public class CustomerOrderController {
                 updateOrder.setOrderDate(orderDetails.getOrderDate());
                 updateOrder.setDeliveryDate(orderDetails.getDeliveryDate());
                 updateOrder.setActiveOrder(orderDetails.getActiveOrder());
-                updateOrder.setSeed(orderDetails.getSeed());
-                updateOrder.setTray(orderDetails.getTray());
-                updateOrder.setPlantingMedium(orderDetails.getPlantingMedium());
+//                updateOrder.setSeed(orderDetails.getSeed());
+//                updateOrder.setTray(orderDetails.getTray());
+//                updateOrder.setPlantingMedium(orderDetails.getPlantingMedium());
                 updateOrder.setCustomer(orderDetails.getCustomer());
+                updateOrder.setOrderDetails(orderDetails.getOrderDetails());
 
                 customerOrderRepository.save(updateOrder);
                 return ResponseEntity.ok(updateOrder);

@@ -2,6 +2,8 @@ package ingis.microgreenappapi.models;
 
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -12,7 +14,6 @@ public class PlantingMedium {
     private int mediumId;
     private static int nextId = 1;
 
-
     private String mediumType;
 
     private Double qty;
@@ -22,19 +23,19 @@ public class PlantingMedium {
     private Tray tray;
 
     @ManyToOne
-    @JoinColumn(name="orderId")
-    private CustomerOrder customerOrder;
+    @JoinColumn(name="orderDetailsId")
+    private OrderDetails orderDetails;
 
 
     public PlantingMedium() {
     }
 
-    public PlantingMedium(int mediumId, String mediumType, Double qty, Tray tray, CustomerOrder customerOrder) {
+    public PlantingMedium(int mediumId, String mediumType, Double qty, Tray tray, OrderDetails orderDetails) {
         this.mediumId = mediumId;
         this.mediumType = mediumType;
         this.qty = qty;
         this.tray = tray;
-        this.customerOrder = customerOrder;
+        this.orderDetails = orderDetails;
     }
 
     public int getMediumId() {
@@ -61,19 +62,20 @@ public class PlantingMedium {
         this.qty = qty;
     }
 
-    public Tray getTray() {
-        return tray;
-    }
+//    public Tray getTray() {
+//        return tray;
+//    }
 
     public void setTray(Tray tray) {
         this.tray = tray;
     }
 
-    public CustomerOrder getCustomerOrder() {
-        return customerOrder;
-    }
+//    public OrderDetails getOrderDetails() {
+//        return orderDetails;
+//    }
 
-    public void setCustomerOrder(CustomerOrder customerOrder) {
-        this.customerOrder = customerOrder;
+    public void setOrderDetails(OrderDetails orderDetails) {
+        this.orderDetails = orderDetails;
     }
 }
+

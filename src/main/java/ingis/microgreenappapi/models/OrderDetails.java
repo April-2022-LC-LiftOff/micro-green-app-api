@@ -1,70 +1,78 @@
 package ingis.microgreenappapi.models;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
-//@Entity
-//@Table(name = "orderDetails")
+@Entity
+@Table(name = "orderDetails")
 public class OrderDetails {
-//
-//    private int orderDetailsId;
-//    private static int nextId =1;
-//
-//    private Number qty;
-//
-//    @ManyToMany
-//    private Seed seedId;
-//
-//    @ManyToMany
-//    private Tray trayId;
-//
-//    public OrderDetails(Number orderDetailsId, Number qty, Seed seedId, Tray trayId) {
-//        this.qty = qty;
-//        this.seedId = seedId;
-//        this.trayId = trayId;
-//        this.orderDetailsId = nextId;
-//        nextId++;
-//    }
-//
-//    public int getOrderDetailsId() {
-//        return orderDetailsId;
-//    }
-//
-//    public Number getQty() {
-//        return qty;
-//    }
-//
-//    public void setQty(Number qty) {
-//        this.qty = qty;
-//    }
-//
-//    public Seed getSeedId() {
-//        return seedId;
-//    }
-//
-//    public void setSeedId(Seed seedId) {
-//        this.seedId = seedId;
-//    }
-//
-//    public Tray getTrayId() {
-//        return trayId;
-//    }
-//
-//    public void setTrayId(Tray trayId) {
-//        this.trayId = trayId;
-//    }
-//
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//        OrderDetails that = (OrderDetails) o;
-//        return orderDetailsId == that.orderDetailsId;
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(orderDetailsId);
+
+    @Id
+    @GeneratedValue
+    private int orderDetailsId;
+    private static int nextId =1;
+
+    @Column(name = "Qty")
+    private int qty;
+
+    @OneToMany(mappedBy = "orderDetails", fetch = FetchType.LAZY)
+    private List<Seed> seed = new ArrayList<>();
+
+    @OneToMany(mappedBy = "orderDetails", fetch = FetchType.LAZY)
+    private List<Tray> tray = new ArrayList<>();
+
+    @OneToMany(mappedBy = "orderDetails", fetch = FetchType.LAZY)
+    private List<PlantingMedium> plantingMedium = new ArrayList<>();
+
+    @OneToOne(mappedBy = "orderDetails", fetch = FetchType.LAZY)
+    private CustomerOrder customerOrder;
+
+    public int getOrderDetailsId() {
+        return orderDetailsId;
+    }
+
+    public void setOrderDetailsId(int orderDetailsId) {
+        this.orderDetailsId = orderDetailsId;
+    }
+
+    public int getQty() {
+        return qty;
+    }
+
+    public void setQty(int qty) {
+        this.qty = qty;
+    }
+
+    public List<Seed> getSeed() {
+        return seed;
+    }
+
+    public void setSeed(List<Seed> seed) {
+        this.seed = seed;
+    }
+
+    public List<Tray> getTray() {
+        return tray;
+    }
+
+    public void setTray(List<Tray> tray) {
+        this.tray = tray;
+    }
+
+    public List<PlantingMedium> getPlantingMedium() {
+        return plantingMedium;
+    }
+
+    public void setPlantingMedium(List<PlantingMedium> plantingMedium) {
+        this.plantingMedium = plantingMedium;
+    }
+
+//    public CustomerOrder getCustomerOrder() {
+//        return customerOrder;
 //    }
 
+    public void setCustomerOrder(CustomerOrder customerOrder) {
+        this.customerOrder = customerOrder;
+    }
 }
