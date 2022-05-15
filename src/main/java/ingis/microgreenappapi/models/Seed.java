@@ -15,7 +15,6 @@ public class Seed {
     @GeneratedValue
 //    @ManyToMany
     private int seedId;
-    private static int nextId = 1;
 
     @NotBlank
     @Size(max = 50, message = "Name too long!")
@@ -38,19 +37,14 @@ public class Seed {
         this.qty = qty;
         this.lot = lot;
         this.status = status;
-        this.seedId = nextId;
-        nextId++;
     }
 
     // model for inventory page
     public Seed() {}
 
-    public Seed(String seedName, Integer qty, Integer lot, String status ) {
+    public Seed(String seedName, Integer qty) {
         this.seedName = seedName;
         this.qty = qty;
-        this.lot = lot;
-        this.status = status;
-
     }
 
     public String getSeedName() {
