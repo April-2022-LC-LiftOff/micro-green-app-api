@@ -37,13 +37,12 @@ public class InventoryController {
 
 // **** update inventory seed qty
     @PutMapping(value = "/update/{seedId}")
-    public String updateSeed(@PathVariable(value = "seedId") Integer seedId, @RequestBody Seed seed) {
+    public Integer updateSeed(@PathVariable(value = "seedId") Integer seedId, @RequestBody Seed seed) {
         Seed updatedSeed = seedRepo.findById(seedId).get();
         updatedSeed.setSeedName(seed.getSeedName());
-        updatedSeed.setQty(seed.getQty());
         updatedSeed.setQty(seed.getQty() + seedRepo.findById(seedId).get().getQty());
         seedRepo.save(updatedSeed);
-        return "updated....";
+        return (updatedSeed.getQty());
     }
 
     @DeleteMapping(value = "/delete/{seedId}")
