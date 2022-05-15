@@ -27,36 +27,26 @@ public class CustomerOrder {
     @Column(name = "active_order")
     private Boolean activeOrder;
 
+    @OneToOne
+    @JoinColumn(name="orderDetailsId")
+    private  OrderDetails orderDetails;
     //    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="customerId")
     private Customer customer;
 
-    @OneToMany(mappedBy = "customerOrder", fetch = FetchType.LAZY)
-    private List<Seed> seed = new ArrayList<>();
-
-    @OneToMany(mappedBy = "customerOrder", fetch = FetchType.LAZY)
-    private List<Tray> tray = new ArrayList<>();
-
-    @OneToMany(mappedBy = "customerOrder", fetch = FetchType.LAZY)
-    private List<PlantingMedium> plantingMedium = new ArrayList<>();
-
-    @OneToMany(mappedBy = "customerOrder", fetch = FetchType.LAZY)
-    private List<OrderDetails> orderDetails = new ArrayList<>();
 
     public CustomerOrder() {
 
     }
 
-    public CustomerOrder(int orderId, LocalDate orderDate, LocalDate deliveryDate, Boolean activeOrder, Customer customer, List<Seed> seed, List<Tray> tray, List<PlantingMedium> plantingMedium) {
+    public CustomerOrder(int orderId, LocalDate orderDate, LocalDate deliveryDate, Boolean activeOrder, Customer customer, OrderDetails orderDetails) {
         this.orderId = orderId;
         this.orderDate = orderDate;
         this.deliveryDate = deliveryDate;
         this.activeOrder = activeOrder;
+        this.orderDetails = orderDetails;
 //        this.customer = customer;
-        this.seed = seed;
-        this.tray = tray;
-        this.plantingMedium = plantingMedium;
     }
 
     public int getOrderId() {
@@ -100,74 +90,11 @@ public class CustomerOrder {
         this.customer = customer;
     }
 
-//    public Seed getSeed() {
-//        return seed;
-//    }
-//
-//    public void setSeed(Seed seed) {
-//        this.seed = seed;
-//    }
-
-
-    public List<OrderDetails> getOrderDetails() {
+    public OrderDetails getOrderDetails() {
         return orderDetails;
     }
 
-    public void setOrderDetails(List<OrderDetails> orderDetails) {
+    public void setOrderDetails(OrderDetails orderDetails) {
         this.orderDetails = orderDetails;
-    }
-
-    public List<Seed> getSeed() {
-        return seed;
-    }
-
-    public void setSeed(List<Seed> seed) {
-        this.seed = seed;
-    }
-
-//    public Tray getTray() {
-//        return tray;
-//    }
-//
-//    public void setTray(Tray tray) {
-//        this.tray = tray;
-//    }
-//
-//    public PlantingMedium getPlantingMedium() {
-//        return plantingMedium;
-//    }
-//
-//    public void setPlantingMedium(PlantingMedium plantingMedium) {
-//        this.plantingMedium = plantingMedium;
-//    }
-
-
-    public List<Tray> getTray() {
-        return tray;
-    }
-
-    public void setTray(List<Tray> tray) {
-        this.tray = tray;
-    }
-
-    public List<PlantingMedium> getPlantingMedium() {
-        return plantingMedium;
-    }
-
-    public void setPlantingMedium(List<PlantingMedium> plantingMedium) {
-        this.plantingMedium = plantingMedium;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        CustomerOrder that = (CustomerOrder) o;
-        return orderId == that.orderId && Objects.equals(orderDate, that.orderDate) && Objects.equals(deliveryDate, that.deliveryDate) && Objects.equals(activeOrder, that.activeOrder) && Objects.equals(customer, that.customer) && Objects.equals(seed, that.seed) && Objects.equals(tray, that.tray) && Objects.equals(plantingMedium, that.plantingMedium);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(orderId, orderDate, deliveryDate, activeOrder, customer, seed, tray, plantingMedium);
     }
 }
