@@ -15,20 +15,32 @@ public class OrderDetails {
     private int orderDetailsId;
     private static int nextId =1;
 
-   private Number qty;
+    private Integer qty;
 
-    @ManyToMany
+    @OneToOne
     @JoinColumn(name = "seedId")
     private Seed seed;
 
-    @ManyToMany
+    @OneToOne
     @JoinColumn(name = "trayId")
     private Tray tray;
+
+    @ManyToOne
+    @JoinColumn(name = "customer_order_order_id")
+    private CustomerOrder customerOrder;
+
+    public CustomerOrder getCustomerOrder() {
+        return customerOrder;
+    }
+
+    public void setCustomerOrder(CustomerOrder customerOrder) {
+        this.customerOrder = customerOrder;
+    }
 
     public OrderDetails() {
     }
 
-    public OrderDetails(Number orderDetailsId, Number qty, Seed seedId, Tray trayId) {
+    public OrderDetails(Number orderDetailsId, Integer qty, Seed seedId, Tray trayId) {
         this.qty = qty;
         this.seed = seedId;
         this.tray = trayId;
@@ -40,11 +52,11 @@ public class OrderDetails {
         return orderDetailsId;
     }
 
-    public Number getQty() {
+    public Integer getQty() {
         return qty;
     }
 
-    public void setQty(Number qty) {
+    public void setQty(Integer qty) {
         this.qty = qty;
     }
 

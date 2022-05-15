@@ -14,7 +14,6 @@ public class Seed {
 
     @Id
     @GeneratedValue
-
     private int seedId;
     private static int nextId = 1;
 

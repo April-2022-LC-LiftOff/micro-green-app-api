@@ -1,7 +1,7 @@
 package ingis.microgreenappapi.controllers;
 
 import ingis.microgreenappapi.data.TaskRepository;
-import ingis.microgreenappapi.data.TodaysTasksRepository;
+
 import ingis.microgreenappapi.models.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,9 +17,6 @@ public class TaskController {
 
     @Autowired
     private TaskRepository taskRepo;
-
-    @Autowired
-    private TodaysTasksRepository todaysTasksRepo;
 
     public ArrayList<Object> todaysTasks = new ArrayList<>();
     private String dailyTasks;

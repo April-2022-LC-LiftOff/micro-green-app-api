@@ -1,90 +1,173 @@
 package ingis.microgreenappapi.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sun.istack.NotNull;
+import net.bytebuddy.build.ToStringPlugin;
+import org.apache.tomcat.jni.Local;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
+import javax.persistence.*;
 import java.lang.reflect.Type;
-import java.util.Date;
-import java.util.Objects;
+import java.time.LocalDate;
+import java.util.*;
 
-//@Entity
+@Entity
+@Table(name = "customer_orders")
 public class CustomerOrder {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int orderId;
+    private static int nextId = 1;
+    @Column(name = "order_date")
+    private LocalDate orderDate;
+    @Column(name = "delivery_date")
+    private LocalDate deliveryDate;
+    @Column(name = "active_order")
+    private Boolean activeOrder;
 
-//    @Id
-//    @GeneratedValue
-////    @OneToMany
-//    private int orderId;
-//    private static int nextId = 1;
-//
-//    private Type customerId;
-//    private Date orderDate;
-//    private Date deliveryDate;
-//    private Boolean activeOrder;
-//
-////    @OneToMany
-//    private OrderDetails OrderDetails[];
-//
-//    public CustomerOrder(Type customerId, Date orderDate, Date deliveryDate, Boolean activeOrder, ingis.microgreenappapi.models.OrderDetails[] orderDetails) {
-//        this.customerId = customerId;
-//        this.orderDate = orderDate;
-//        this.deliveryDate = deliveryDate;
-//        this.activeOrder = activeOrder;
-//        OrderDetails = orderDetails;
-//        this.orderId = nextId;
-//        nextId++;
-//
+    //    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name="customerId")
+    private Customer customer;
+
+    @OneToMany(mappedBy = "customerOrder", fetch = FetchType.LAZY)
+    private List<Seed> seed = new ArrayList<>();
+
+    @OneToMany(mappedBy = "customerOrder", fetch = FetchType.LAZY)
+    private List<Tray> tray = new ArrayList<>();
+
+    @OneToMany(mappedBy = "customerOrder", fetch = FetchType.LAZY)
+    private List<PlantingMedium> plantingMedium = new ArrayList<>();
+
+    @OneToMany(mappedBy = "customerOrder", fetch = FetchType.LAZY)
+    private List<OrderDetails> orderDetails = new ArrayList<>();
+
+    public CustomerOrder() {
+
+    }
+
+    public CustomerOrder(int orderId, LocalDate orderDate, LocalDate deliveryDate, Boolean activeOrder, Customer customer, List<Seed> seed, List<Tray> tray, List<PlantingMedium> plantingMedium) {
+        this.orderId = orderId;
+        this.orderDate = orderDate;
+        this.deliveryDate = deliveryDate;
+        this.activeOrder = activeOrder;
+//        this.customer = customer;
+        this.seed = seed;
+        this.tray = tray;
+        this.plantingMedium = plantingMedium;
+    }
+
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
+    }
+
+    public LocalDate getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(LocalDate orderDate) {
+        this.orderDate = orderDate;
+    }
+
+    public LocalDate getDeliveryDate() {
+        return deliveryDate;
+    }
+
+    public void setDeliveryDate(LocalDate deliveryDate) {
+        this.deliveryDate = deliveryDate;
+    }
+
+    public Boolean getActiveOrder() {
+        return activeOrder;
+    }
+
+    public void setActiveOrder(Boolean activeOrder) {
+        this.activeOrder = activeOrder;
+    }
+
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+//    public Seed getSeed() {
+//        return seed;
 //    }
 //
-//    public int getOrderId() {
-//        return orderId;
+//    public void setSeed(Seed seed) {
+//        this.seed = seed;
+//    }
+
+
+    public List<OrderDetails> getOrderDetails() {
+        return orderDetails;
+    }
+
+    public void setOrderDetails(List<OrderDetails> orderDetails) {
+        this.orderDetails = orderDetails;
+    }
+
+    public List<Seed> getSeed() {
+        return seed;
+    }
+
+    public void setSeed(List<Seed> seed) {
+        this.seed = seed;
+    }
+
+//    public Tray getTray() {
+//        return tray;
 //    }
 //
-//    public Type getCustomerId() {
-//        return customerId;
-//    }
-//    public void setCustomerId(Type customerId) {
-//        this.customerId = customerId;
+//    public void setTray(Tray tray) {
+//        this.tray = tray;
 //    }
 //
-//    public Date getOrderDate() {
-//        return orderDate;
-//    }
-//    public void setOrderDate(Date orderDate) {
-//        this.orderDate = orderDate;
+//    public PlantingMedium getPlantingMedium() {
+//        return plantingMedium;
 //    }
 //
-//    public Date getDeliveryDate() {
-//        return deliveryDate;
+//    public void setPlantingMedium(PlantingMedium plantingMedium) {
+//        this.plantingMedium = plantingMedium;
 //    }
-//    public void setDeliveryDate(Date deliveryDate) {
-//        this.deliveryDate = deliveryDate;
-//    }
-//
-//    public ingis.microgreenappapi.models.OrderDetails[] getOrderDetails() {
-//        return OrderDetails;
-//    }
-//    public void setOrderDetails(ingis.microgreenappapi.models.OrderDetails[] orderDetails) {
-//        OrderDetails = orderDetails;
-//    }
-//
-//    public Boolean getActiveOrder() {
-//        return activeOrder;
-//    }
-//    public void setActiveOrder(Boolean activeOrder) {
-//        this.activeOrder = activeOrder;
-//    }
-//
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//        CustomerOrder that = (CustomerOrder) o;
-//        return orderId == that.orderId;
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(orderId);
-//    }
+
+
+    public List<Tray> getTray() {
+        return tray;
+    }
+
+    public void setTray(List<Tray> tray) {
+        this.tray = tray;
+    }
+
+    public List<PlantingMedium> getPlantingMedium() {
+        return plantingMedium;
+    }
+
+    public void setPlantingMedium(List<PlantingMedium> plantingMedium) {
+        this.plantingMedium = plantingMedium;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CustomerOrder that = (CustomerOrder) o;
+        return orderId == that.orderId && Objects.equals(orderDate, that.orderDate) && Objects.equals(deliveryDate, that.deliveryDate) && Objects.equals(activeOrder, that.activeOrder) && Objects.equals(customer, that.customer) && Objects.equals(seed, that.seed) && Objects.equals(tray, that.tray) && Objects.equals(plantingMedium, that.plantingMedium);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(orderId, orderDate, deliveryDate, activeOrder, customer, seed, tray, plantingMedium);
+    }
 }
