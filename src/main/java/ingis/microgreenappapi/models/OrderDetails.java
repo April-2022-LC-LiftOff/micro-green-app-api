@@ -1,68 +1,68 @@
 package ingis.microgreenappapi.models;
 
 
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity
 public class OrderDetails {
 
-//    @OneToMany
-//    private int orderDetailsId;
-//    private static int nextId =1;
-//
-//    private Number qty;
-//
-//    @ManyToMany
-//    private Seed seedId;
-//
-//    @ManyToMany
-//    private Tray trayId;
-//
-//    public OrderDetails(Number orderDetailsId, Number qty, Seed seedId, Tray trayId) {
-//        this.qty = qty;
-//        this.seedId = seedId;
-//        this.trayId = trayId;
-//        this.orderDetailsId = nextId;
-//        nextId++;
-//    }
-//
-//    public int getOrderDetailsId() {
-//        return orderDetailsId;
-//    }
-//
-//    public Number getQty() {
-//        return qty;
-//    }
-//
-//    public void setQty(Number qty) {
-//        this.qty = qty;
-//    }
-//
-//    public Seed getSeedId() {
-//        return seedId;
-//    }
-//
-//    public void setSeedId(Seed seedId) {
-//        this.seedId = seedId;
-//    }
-//
-//    public Tray getTrayId() {
-//        return trayId;
-//    }
-//
-//    public void setTrayId(Tray trayId) {
-//        this.trayId = trayId;
-//    }
-//
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//        OrderDetails that = (OrderDetails) o;
-//        return orderDetailsId == that.orderDetailsId;
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(orderDetailsId);
-//    }
+    @Id
+    @GeneratedValue
+    private int orderDetailsId;
+
+    private Integer qty;
+    private Integer seedRefId;
+
+    public OrderDetails(Integer qty, Integer seedRefId) {
+        this.qty = qty;
+        this.seedRefId = seedRefId;
+    }
+
+    public OrderDetails() {
+    }
+
+    public Integer getQty() {
+        return qty;
+    }
+
+    public void setQty(Integer qty) {
+        this.qty = qty;
+    }
+
+    public Integer getSeedRefId() {
+        return seedRefId;
+    }
+
+    public void setSeedRefId(Integer seedRefId) {
+        this.seedRefId = seedRefId;
+    }
+
+    public int getOrderDetailsId() {
+        return orderDetailsId;
+    }
+
+    @Override
+    public String toString() {
+        return "OrderDetails{" +
+                "orderDetailsId=" + orderDetailsId +
+                ", qty=" + qty +
+                ", seedRefId=" + seedRefId +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof OrderDetails)) return false;
+
+        OrderDetails that = (OrderDetails) o;
+
+        return getOrderDetailsId() == that.getOrderDetailsId();
+    }
+
+    @Override
+    public int hashCode() {
+        return getOrderDetailsId();
+    }
 }

@@ -16,6 +16,9 @@ public class Seed {
 //    @ManyToMany
     private int seedId;
 
+//    @OneToMany
+//    OrderDetails orderDetails;
+
     @NotBlank
     @Size(max = 50, message = "Name too long!")
     private String seedName;
