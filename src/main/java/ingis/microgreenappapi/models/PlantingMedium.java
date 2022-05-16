@@ -3,20 +3,31 @@ package ingis.microgreenappapi.models;
 
 import javax.persistence.*;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Objects;
 
 @Entity
+@Table(name = "PlantingMedium")
 public class PlantingMedium {
     @Id
     @GeneratedValue
     private int mediumId;
     private static int nextId = 1;
 
+    @NotBlank
     @Size(max = 50, message = "Description to long!")
     private String mediumType;
 
-    private Integer qty;
+    private Double qty;
+
+    @OneToOne
+    @JoinColumn(name = "trayId")
+    private Tray tray;
+
+    @ManyToOne
+    @JoinColumn(name = "orderId")
+    private CustomerOrder customerOrder;
 
 
 //    @OneToMany
@@ -24,7 +35,7 @@ public class PlantingMedium {
 
     public PlantingMedium(String mediumType, Integer qty, Tray trayId) {
         this.mediumType = mediumType;
-        this.qty = qty;
+        this.qty = Double.valueOf(qty);
         this.mediumId = nextId;
         nextId++;
     }
@@ -39,15 +50,15 @@ public class PlantingMedium {
         this.mediumType = mediumType;
     }
 
-    public Integer getQty() {
+    public Double getQty() {
         return qty;
     }
 
-    public void setQty(Integer qty) {
+    public void setQty(Double qty) {
         this.qty = qty;
     }
 
-//    public Tray getTrayId() {
+    //    public Tray getTrayId() {
 //        return TrayId;
 //    }
 //

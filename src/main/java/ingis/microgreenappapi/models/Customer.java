@@ -1,15 +1,15 @@
 package ingis.microgreenappapi.models;
 
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 
 @Entity
+@Table(name= "Customer")
 public class Customer{
 
 
@@ -18,16 +18,24 @@ public class Customer{
     private int customerId;
     private static int nextId = 1;
 
+    @NotBlank
     @Size(max = 50, message = "Name too long!")
+    @Column(name = "customer_name")
     private String customerName;
 
 
-    public Customer() {}
+    @OneToMany(mappedBy = "customer")
+    private List<CustomerOrder> customerOrder = new ArrayList<>();
 
-    public Customer(String customerName) {
-        this.customerName = customerName;
+    public Customer() {
+
+    }
+
+    public Customer(int customerId, String customerName, List<CustomerOrder> customerOrder) {
         this.customerId = nextId;
         nextId++;
+        this.customerName = customerName;
+        this.customerOrder = customerOrder;
     }
 
     public String getCustomerName() {
@@ -38,11 +46,14 @@ public class Customer{
         this.customerName = customerName;
     }
 
-
     public int getId() {
         return customerId;
     }
 
+
+    public void setCustomerOrder(List<CustomerOrder> customerOrder) {
+        this.customerOrder = customerOrder;
+    }
 
     @Override
     public String toString() {

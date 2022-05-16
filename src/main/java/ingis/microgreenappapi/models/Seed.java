@@ -9,25 +9,36 @@ import javax.validation.constraints.Size;
 import java.util.Objects;
 
 @Entity
+@Table(name = "Seed")
 public class Seed {
 
     @Id
     @GeneratedValue
-//    @ManyToMany
     private int seedId;
 
     @NotBlank
     @Size(max = 50, message = "Name too long!")
     private String seedName;
+
     private Integer seedingDensity;
+
     private Boolean seedPresoak;
+
     private Integer blackoutTime;
+
     private Integer harvestTime;
+
     private Integer lot;
+
     private Integer qty;
+
     private String status;
 
-    public Seed(String seedName, Integer seedingDensity, Boolean seedPresoak,  Integer blackoutTime, Integer harvestTime, Integer lot ,Integer qty, String status) {
+    @ManyToOne
+    @JoinColumn(name = "orderId")
+    private CustomerOrder customerOrder;
+
+    public Seed(String seedName, Integer seedingDensity, Boolean seedPresoak,  Integer blackoutTime, Integer harvestTime, Integer lot ,Integer qty, String status, CustomerOrder customerorder) {
 
         this.seedName = seedName;
         this.seedingDensity = seedingDensity;
