@@ -32,6 +32,11 @@ public class CustomerOrderController {
 
     @PostMapping(value = "/add")
     public String addOrderDetail(@RequestBody OrderDetails orderDetails) {
+
+        //todo check inventory for enough qty
+        //todo deduct from inventory
+        //todo add to tasks
+
         orderDetailsRepo.save(orderDetails);
         return "saved......";
 }
