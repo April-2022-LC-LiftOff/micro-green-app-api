@@ -54,9 +54,11 @@ public class InventoryController {
         return "deleted...";
     }
 
-    public String checkInventory () {
-        return "Not enought inventory";
-    }
+//    public String modifyInventoryQty(seedId, adjQty) {
+//        Seed updatedSeed = seedRepo.findById(seedId).get();
+//        updatedSeed.setQty(seed.getQty() + adjQty);
+//        return "Quantity updated";
+//    }
 
 
 }
