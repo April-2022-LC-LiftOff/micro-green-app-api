@@ -18,6 +18,7 @@ public class TaskController {
     public ArrayList<Object> todaysTasks = new ArrayList<>();
     private String dailyTasks;
 
+
 // view all tasks
     @GetMapping
     public List<Task> findAll() {
