@@ -13,11 +13,13 @@ public class Seed {
     private static int nextId = 1;
 
     private String seedName;
-    private Number seedingDensity;
+    private Integer seedingDensity;
     private Boolean seedPresoak;
-    private Number blackoutTime;
-    private Number harvestTime;
-    private Number qty;
+    private Integer blackoutTime;
+    private Integer harvestTime;
+    private Integer qty;
+
+    private String status;
 
     @ManyToOne
     @JoinColumn(name="orderDetailsId")
@@ -26,7 +28,7 @@ public class Seed {
     public Seed() {
     }
 
-    public Seed(int seedId, String seedName, Number seedingDensity, Boolean seedPresoak, Number blackoutTime, Number harvestTime, Number qty, OrderDetails orderDetails) {
+    public Seed(int seedId, String seedName, Integer seedingDensity, Boolean seedPresoak, Integer blackoutTime, Integer harvestTime, Integer qty, String status, OrderDetails orderDetails) {
         this.seedId = seedId;
         this.seedName = seedName;
         this.seedingDensity = seedingDensity;
@@ -34,6 +36,7 @@ public class Seed {
         this.blackoutTime = blackoutTime;
         this.harvestTime = harvestTime;
         this.qty = qty;
+        this.status = status;
         this.orderDetails = orderDetails;
     }
 
@@ -53,11 +56,11 @@ public class Seed {
         this.seedName = seedName;
     }
 
-    public Number getSeedingDensity() {
+    public Integer getSeedingDensity() {
         return seedingDensity;
     }
 
-    public void setSeedingDensity(Number seedingDensity) {
+    public void setSeedingDensity(Integer seedingDensity) {
         this.seedingDensity = seedingDensity;
     }
 
@@ -69,31 +72,39 @@ public class Seed {
         this.seedPresoak = seedPresoak;
     }
 
-    public Number getBlackoutTime() {
+    public Integer getBlackoutTime() {
         return blackoutTime;
     }
 
-    public void setBlackoutTime(Number blackoutTime) {
+    public void setBlackoutTime(Integer blackoutTime) {
         this.blackoutTime = blackoutTime;
     }
 
-    public Number getHarvestTime() {
+    public Integer getHarvestTime() {
         return harvestTime;
     }
 
-    public void setHarvestTime(Number harvestTime) {
+    public void setHarvestTime(Integer harvestTime) {
         this.harvestTime = harvestTime;
     }
 
-    public Number getQty() {
+    public Integer getQty() {
         return qty;
     }
 
-    public void setQty(Number qty) {
+    public void setQty(Integer qty) {
         this.qty = qty;
     }
 
-//    public OrderDetails getOrderDetails() {
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    //    public OrderDetails getOrderDetails() {
 //        return orderDetails;
 //    }
 

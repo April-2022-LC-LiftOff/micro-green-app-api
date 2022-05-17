@@ -21,8 +21,8 @@ public class Customer {
     @Column(name = "customer_name")
     private String customerName;
 
-    @OneToMany(mappedBy = "customer")
-    private List<CustomerOrder> customerOrder = new ArrayList<>();
+//    @OneToMany(mappedBy = "customer")
+//    private List<CustomerOrder> customerOrder = new ArrayList<>();
 
     public Customer() {
     }
@@ -30,7 +30,7 @@ public class Customer {
     public Customer(int customerId, String customerName, List<CustomerOrder> customerOrder) {
         this.customerId = customerId;
         this.customerName = customerName;
-        this.customerOrder = customerOrder;
+//        this.customerOrder = customerOrder;
     }
 
     public int getCustomerId() {
@@ -54,9 +54,9 @@ public class Customer {
 //        return customerOrder;
 //    }
 
-    public void setCustomerOrder(List<CustomerOrder> customerOrder) {
-        this.customerOrder = customerOrder;
-    }
+//    public void setCustomerOrder(List<CustomerOrder> customerOrder) {
+//        this.customerOrder = customerOrder;
+//    }
 
 
     @Override
@@ -64,7 +64,7 @@ public class Customer {
         return "Customer{" +
                 "customerId=" + customerId +
                 ", customerName='" + customerName + '\'' +
-                ", customerOrder=" + customerOrder +
+//                ", customerOrder=" + customerOrder +
                 '}';
     }
 
@@ -75,11 +75,13 @@ public class Customer {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Customer customer = (Customer) o;
-        return customerId == customer.customerId && Objects.equals(customerName, customer.customerName) && Objects.equals(customerOrder, customer.customerOrder);
+        return customerId == customer.customerId && Objects.equals(customerName, customer.customerName) ;
+//                && Objects.equals(customerOrder, customer.customerOrder);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(customerId, customerName, customerOrder);
+        return Objects.hash(customerId, customerName);
+//                customerOrder);
     }
 }

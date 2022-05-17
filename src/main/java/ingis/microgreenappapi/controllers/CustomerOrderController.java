@@ -14,23 +14,26 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/orders")
+@CrossOrigin(origins = "*")
 public class CustomerOrderController {
 
         @Autowired
         private CustomerOrderRepository customerOrderRepository;
 
         //view all customer orders
-        @GetMapping("/view")
+        @GetMapping
         public List<CustomerOrder> getAllOrders(){
             return customerOrderRepository.findAll();
         }
 
 
-        @PostMapping("/create")
+        //create order
+        @PostMapping("/orders/add")
         public CustomerOrder createOrder(@RequestBody CustomerOrder customerOrder){
             return customerOrderRepository.save(customerOrder);
         }
 
+        //get order by Id
         @GetMapping("/{orderId}")
         public ResponseEntity<CustomerOrder>getOrderById(@PathVariable int orderId){
             CustomerOrder customerOrder = customerOrderRepository.findById(orderId)
@@ -38,6 +41,7 @@ public class CustomerOrderController {
         return ResponseEntity.ok(customerOrder);
         }
 
+        //update order by Id
         @PutMapping("/update/{orderId}")
     public ResponseEntity<CustomerOrder>updateOrder(@PathVariable int orderId, CustomerOrder orderDetails){
             CustomerOrder updateOrder = customerOrderRepository.findById(orderId)
@@ -48,13 +52,14 @@ public class CustomerOrderController {
 //                updateOrder.setSeed(orderDetails.getSeed());
 //                updateOrder.setTray(orderDetails.getTray());
 //                updateOrder.setPlantingMedium(orderDetails.getPlantingMedium());
-                updateOrder.setCustomer(orderDetails.getCustomer());
-                updateOrder.setOrderDetails(orderDetails.getOrderDetails());
+//                updateOrder.setCustomer(orderDetails.getCustomer());
+//                updateOrder.setOrderDetails(orderDetails.getOrderDetails());
 
                 customerOrderRepository.save(updateOrder);
                 return ResponseEntity.ok(updateOrder);
         }
 
+        //delete order by Id
         @DeleteMapping("/delete/{orderId}")
     public ResponseEntity<HttpStatus>deleteOrder(@PathVariable int orderId){
             CustomerOrder customerOrder = customerOrderRepository.findById(orderId)
@@ -62,10 +67,6 @@ public class CustomerOrderController {
                     customerOrderRepository.delete(customerOrder);
                     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-
-
-
-
     }
 
 

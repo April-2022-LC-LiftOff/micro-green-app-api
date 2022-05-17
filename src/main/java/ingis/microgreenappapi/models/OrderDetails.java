@@ -25,8 +25,8 @@ public class OrderDetails {
     @OneToMany(mappedBy = "orderDetails", fetch = FetchType.LAZY)
     private List<PlantingMedium> plantingMedium = new ArrayList<>();
 
-    @OneToOne(mappedBy = "orderDetails", fetch = FetchType.LAZY)
-    private CustomerOrder customerOrder;
+//    @OneToOne(mappedBy = "orderDetails", fetch = FetchType.LAZY)
+//    private CustomerOrder customerOrder;
 
     public int getOrderDetailsId() {
         return orderDetailsId;
@@ -71,8 +71,8 @@ public class OrderDetails {
 //    public CustomerOrder getCustomerOrder() {
 //        return customerOrder;
 //    }
-
-    public void setCustomerOrder(CustomerOrder customerOrder) {
-        this.customerOrder = customerOrder;
-    }
+//
+//    public void setCustomerOrder(CustomerOrder customerOrder) {
+//        this.customerOrder = customerOrder;
+//    }
 }

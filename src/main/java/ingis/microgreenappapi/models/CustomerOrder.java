@@ -19,7 +19,7 @@ public class CustomerOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int orderId;
-    private static int nextId = 1;
+//    private static int nextId = 1;
     @Column(name = "order_date")
     private LocalDate orderDate;
     @Column(name = "delivery_date")
@@ -27,13 +27,13 @@ public class CustomerOrder {
     @Column(name = "active_order")
     private Boolean activeOrder;
 
-    @OneToOne
-    @JoinColumn(name="orderDetailsId")
-    private  OrderDetails orderDetails;
+//    @OneToOne
+//    @JoinColumn(name="orderDetailsId")
+//    private  OrderDetails orderDetails;
 //    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name="customerId")
-    private Customer customer;
+//    @ManyToOne
+//    @JoinColumn(name="customerId")
+//    private Customer customer;
 
 
     public CustomerOrder() {
@@ -45,7 +45,7 @@ public class CustomerOrder {
         this.orderDate = orderDate;
         this.deliveryDate = deliveryDate;
         this.activeOrder = activeOrder;
-        this.orderDetails = orderDetails;
+//        this.orderDetails = orderDetails;
 //        this.customer = customer;
     }
 
@@ -82,19 +82,19 @@ public class CustomerOrder {
     }
 
 
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
-    public OrderDetails getOrderDetails() {
-        return orderDetails;
-    }
-
-    public void setOrderDetails(OrderDetails orderDetails) {
-        this.orderDetails = orderDetails;
-    }
+//    public Customer getCustomer() {
+//        return customer;
+//    }
+//
+//    public void setCustomer(Customer customer) {
+//        this.customer = customer;
+//    }
+//
+//    public OrderDetails getOrderDetails() {
+//        return orderDetails;
+//    }
+//
+//    public void setOrderDetails(OrderDetails orderDetails) {
+//        this.orderDetails = orderDetails;
+//    }
 }
