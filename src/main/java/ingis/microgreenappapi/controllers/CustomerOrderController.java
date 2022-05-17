@@ -2,15 +2,13 @@ package ingis.microgreenappapi.controllers;
 
 import ingis.microgreenappapi.exception.ResourceNotFoundException;
 import ingis.microgreenappapi.models.CustomerOrder;
-import ingis.microgreenappapi.repositories.CustomerOrderRepository;
+import ingis.microgreenappapi.data.CustomerOrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/orders")
@@ -28,7 +26,7 @@ public class CustomerOrderController {
 
 
         //create order
-        @PostMapping("/orders/add")
+        @PostMapping
         public CustomerOrder createOrder(@RequestBody CustomerOrder customerOrder){
             return customerOrderRepository.save(customerOrder);
         }
@@ -52,8 +50,8 @@ public class CustomerOrderController {
 //                updateOrder.setSeed(orderDetails.getSeed());
 //                updateOrder.setTray(orderDetails.getTray());
 //                updateOrder.setPlantingMedium(orderDetails.getPlantingMedium());
-//                updateOrder.setCustomer(orderDetails.getCustomer());
-//                updateOrder.setOrderDetails(orderDetails.getOrderDetails());
+                updateOrder.setCustomer(orderDetails.getCustomer());
+                updateOrder.setOrderDetails(orderDetails.getOrderDetails());
 
                 customerOrderRepository.save(updateOrder);
                 return ResponseEntity.ok(updateOrder);

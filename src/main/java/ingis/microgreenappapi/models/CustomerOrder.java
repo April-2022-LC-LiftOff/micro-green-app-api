@@ -27,26 +27,25 @@ public class CustomerOrder {
     @Column(name = "active_order")
     private Boolean activeOrder;
 
-//    @OneToOne
-//    @JoinColumn(name="orderDetailsId")
-//    private  OrderDetails orderDetails;
-//    @JsonIgnore
-//    @ManyToOne
-//    @JoinColumn(name="customerId")
-//    private Customer customer;
+    @OneToMany(mappedBy = "customerOrder", fetch = FetchType.LAZY)
+    private  List<OrderDetails> orderDetails;
+
+    @ManyToOne
+    @JoinColumn(name="customerId")
+    private Customer customer;
 
 
     public CustomerOrder() {
 
     }
 
-    public CustomerOrder(int orderId, LocalDate orderDate, LocalDate deliveryDate, Boolean activeOrder, Customer customer, OrderDetails orderDetails) {
+    public CustomerOrder(int orderId, LocalDate orderDate, LocalDate deliveryDate, Boolean activeOrder, Customer customer, List<OrderDetails> orderDetails) {
         this.orderId = orderId;
         this.orderDate = orderDate;
         this.deliveryDate = deliveryDate;
         this.activeOrder = activeOrder;
-//        this.orderDetails = orderDetails;
-//        this.customer = customer;
+        this.orderDetails = orderDetails;
+        this.customer = customer;
     }
 
     public int getOrderId() {
@@ -82,19 +81,19 @@ public class CustomerOrder {
     }
 
 
-//    public Customer getCustomer() {
-//        return customer;
-//    }
-//
-//    public void setCustomer(Customer customer) {
-//        this.customer = customer;
-//    }
-//
-//    public OrderDetails getOrderDetails() {
-//        return orderDetails;
-//    }
-//
-//    public void setOrderDetails(OrderDetails orderDetails) {
-//        this.orderDetails = orderDetails;
-//    }
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public List<OrderDetails> getOrderDetails() {
+        return orderDetails;
+    }
+
+    public void setOrderDetails(List<OrderDetails> orderDetails) {
+        this.orderDetails = orderDetails;
+    }
 }

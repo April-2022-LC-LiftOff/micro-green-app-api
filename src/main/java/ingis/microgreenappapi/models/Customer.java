@@ -21,8 +21,8 @@ public class Customer {
     @Column(name = "customer_name")
     private String customerName;
 
-//    @OneToMany(mappedBy = "customer")
-//    private List<CustomerOrder> customerOrder = new ArrayList<>();
+    @OneToMany(mappedBy = "customer")
+    private List<CustomerOrder> customerOrder = new ArrayList<>();
 
     public Customer() {
     }

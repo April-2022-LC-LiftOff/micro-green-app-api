@@ -16,17 +16,20 @@ public class OrderDetails {
     @Column(name = "Qty")
     private int qty;
 
-    @OneToMany(mappedBy = "orderDetails", fetch = FetchType.LAZY)
-    private List<Seed> seed = new ArrayList<>();
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "seedId")
+    private Seed seed;
 
-    @OneToMany(mappedBy = "orderDetails", fetch = FetchType.LAZY)
-    private List<Tray> tray = new ArrayList<>();
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="trayId")
+    private Tray tray;
 
-    @OneToMany(mappedBy = "orderDetails", fetch = FetchType.LAZY)
-    private List<PlantingMedium> plantingMedium = new ArrayList<>();
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="mediumId")
+    private PlantingMedium plantingMedium;
 
-//    @OneToOne(mappedBy = "orderDetails", fetch = FetchType.LAZY)
-//    private CustomerOrder customerOrder;
+    @ManyToOne
+    private CustomerOrder customerOrder;
 
     public int getOrderDetailsId() {
         return orderDetailsId;
@@ -44,31 +47,31 @@ public class OrderDetails {
         this.qty = qty;
     }
 
-    public List<Seed> getSeed() {
+    public Seed getSeed() {
         return seed;
     }
 
-    public void setSeed(List<Seed> seed) {
+    public void setSeed(Seed seed) {
         this.seed = seed;
     }
 
-    public List<Tray> getTray() {
+    public Tray getTray() {
         return tray;
     }
 
-    public void setTray(List<Tray> tray) {
+    public void setTray(Tray tray) {
         this.tray = tray;
     }
 
-    public List<PlantingMedium> getPlantingMedium() {
+    public PlantingMedium getPlantingMedium() {
         return plantingMedium;
     }
 
-    public void setPlantingMedium(List<PlantingMedium> plantingMedium) {
+    public void setPlantingMedium(PlantingMedium plantingMedium) {
         this.plantingMedium = plantingMedium;
     }
 
-//    public CustomerOrder getCustomerOrder() {
+    //    public CustomerOrder getCustomerOrder() {
 //        return customerOrder;
 //    }
 //
