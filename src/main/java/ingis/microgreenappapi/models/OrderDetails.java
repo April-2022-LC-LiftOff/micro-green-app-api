@@ -1,8 +1,8 @@
 package ingis.microgreenappapi.models;
 
-
-
-
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -15,27 +15,24 @@ public class OrderDetails {
     private int orderDetailsId;
     private static int nextId =1;
 
-    private Integer qty;
+    @Column(name = "Qty")
+    private int qty;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "seedId")
     private Seed seed;
 
-    @OneToOne
-    @JoinColumn(name = "trayId")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="trayId")
     private Tray tray;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="mediumId")
+    private PlantingMedium plantingMedium;
+
     @ManyToOne
-    @JoinColumn(name = "customer_order_order_id")
+    @JoinColumn(name = "orderId")
     private CustomerOrder customerOrder;
-
-    public CustomerOrder getCustomerOrder() {
-        return customerOrder;
-    }
-
-    public void setCustomerOrder(CustomerOrder customerOrder) {
-        this.customerOrder = customerOrder;
-    }
 
     public OrderDetails() {
     }

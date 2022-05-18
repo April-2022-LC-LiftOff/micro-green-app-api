@@ -2,10 +2,10 @@ package ingis.microgreenappapi.models;
 
 
 import javax.persistence.*;
-import javax.persistence.OneToMany;
+import java.util.Objects;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.Objects;
+
 
 @Entity
 @Table(name = "PlantingMedium")
@@ -26,12 +26,16 @@ public class PlantingMedium {
     private Tray tray;
 
     @ManyToOne
+    @JoinColumn(name = "orderDetailsId")
+    private OrderDetails orderDetails;
+
+    @ManyToOne
     @JoinColumn(name = "orderId")
     private CustomerOrder customerOrder;
 
 
-//    @OneToMany
-//    private Tray TrayId;
+    public PlantingMedium() {
+    }
 
     public PlantingMedium(String mediumType, Integer qty, Tray trayId) {
         this.mediumType = mediumType;
@@ -39,8 +43,6 @@ public class PlantingMedium {
         this.mediumId = nextId;
         nextId++;
     }
-
-    public PlantingMedium() {}
 
     public String getMediumType() {
         return mediumType;
@@ -58,6 +60,20 @@ public class PlantingMedium {
         this.qty = qty;
     }
 
+    //    public Tray getTray() {
+//        return tray;
+//    }
+    public void setTray(Tray tray) {
+        this.tray = tray;
+    }
+
+//    public OrderDetails getOrderDetails() {
+//        return orderDetails;
+//    }
+
+    public void setOrderDetails(OrderDetails orderDetails) {
+        this.orderDetails = orderDetails;
+    }
     //    public Tray getTrayId() {
 //        return TrayId;
 //    }
@@ -66,10 +82,10 @@ public class PlantingMedium {
 //        TrayId = trayId;
 //    }
 
-    public int getMediumId() {
+    public int getMediumId()
+    {
         return mediumId;
     }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -88,5 +104,8 @@ public class PlantingMedium {
         return "PlantingMedium{" +
                 "mediumType='" + mediumType + '\'' +
                 '}';
+
     }
 }
+
+

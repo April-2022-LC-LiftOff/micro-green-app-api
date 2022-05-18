@@ -3,15 +3,15 @@ package ingis.microgreenappapi.models;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 
 @Entity
-@Table(name= "Customer")
-public class Customer{
-
+@Table(name = "Customer")
+public class Customer {
 
     @Id
     @GeneratedValue
@@ -50,7 +50,6 @@ public class Customer{
         return customerId;
     }
 
-
     public void setCustomerOrder(List<CustomerOrder> customerOrder) {
         this.customerOrder = customerOrder;
     }
@@ -58,9 +57,11 @@ public class Customer{
     @Override
     public String toString() {
         return "Customer{" +
-                "customerName='" + customerName + '\'' +
+                "customerId=" + customerId +
+                ", customerName='" + customerName + '\'' +
                 '}';
     }
+
 
     @Override
     public boolean equals(Object o) {

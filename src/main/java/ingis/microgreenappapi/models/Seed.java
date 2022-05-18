@@ -1,5 +1,7 @@
 package ingis.microgreenappapi.models;
 
+import javax.persistence.*;
+import java.util.List;
 import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
@@ -15,7 +17,6 @@ public class Seed {
     @Id
     @GeneratedValue
     private int seedId;
-
     @NotBlank
     @Size(max = 50, message = "Name too long!")
     private String seedName;
@@ -35,10 +36,10 @@ public class Seed {
     private String status;
 
     @ManyToOne
-    @JoinColumn(name = "orderId")
-    private CustomerOrder customerOrder;
+    @JoinColumn(name="orderDetailsId")
+    private OrderDetails orderDetails;
 
-    public Seed(String seedName, Integer seedingDensity, Boolean seedPresoak,  Integer blackoutTime, Integer harvestTime, Integer lot ,Integer qty, String status, CustomerOrder customerorder) {
+    public Seed(String seedName, Integer seedingDensity, Boolean seedPresoak,  Integer blackoutTime, Integer harvestTime, Integer lot ,Integer qty, String status, OrderDetails orderDetails) {
 
         this.seedName = seedName;
         this.seedingDensity = seedingDensity;
@@ -106,6 +107,13 @@ public class Seed {
         this.qty = qty;
     }
 
+    //    public OrderDetails getOrderDetails() {
+//        return orderDetails;
+//    }
+
+    public void setOrderDetails(OrderDetails orderDetails) {
+        this.orderDetails = orderDetails;
+    }
     public Integer getLot() {
         return lot;
     }
@@ -125,7 +133,6 @@ public class Seed {
     public int getId() {
         return seedId;
     }
-
     @Override
     public String toString() {
         return "Seed{" +
@@ -151,5 +158,4 @@ public class Seed {
     public int hashCode() {
         return Objects.hash(seedId);
     }
-
 }

@@ -1,6 +1,7 @@
 package ingis.microgreenappapi.models;
 
 import javax.persistence.*;
+import java.util.Objects;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -23,22 +24,21 @@ public class Tray {
     private Double qty;
 
     @ManyToOne
-    @JoinColumn(name="orderId")
-    private CustomerOrder customerOrder;
+    @JoinColumn(name="orderDetailsId")
+    private OrderDetails orderDetails;
 
-     @OneToOne(mappedBy = "tray")
-     private PlantingMedium plantingMedium;
+    @OneToOne(mappedBy = "tray")
+    private PlantingMedium plantingMedium;
 
-     public Tray() {
+    public Tray() {
+    }
 
-     }
-
-    public Tray(int trayId, String trayType, String size, Double qty, CustomerOrder customerOrder, PlantingMedium plantingMedium) {
+    public Tray(int trayId, String trayType, String size, Double qty, OrderDetails orderDetails, PlantingMedium plantingMedium) {
         this.trayId = trayId;
         this.trayType = trayType;
         this.size = size;
         this.qty = qty;
-        this.customerOrder = customerOrder;
+        this.orderDetails = orderDetails;
         this.plantingMedium = plantingMedium;
     }
 
@@ -53,7 +53,6 @@ public class Tray {
     public int getTrayId() {
         return trayId;
     }
-
     public void setTrayId(int trayId) {
         this.trayId = trayId;
     }
@@ -61,7 +60,6 @@ public class Tray {
     public String getSize() {
         return size;
     }
-
     public void setSize(String size) {
         this.size = size;
     }
@@ -74,12 +72,12 @@ public class Tray {
         this.qty = qty;
     }
 
-    public CustomerOrder getCustomerOrder() {
-        return customerOrder;
-    }
+//    public OrderDetails getOrderDetails() {
+//        return orderDetails;
+//    }
 
-    public void setCustomerOrder(CustomerOrder customerOrder) {
-        this.customerOrder = customerOrder;
+    public void setOrderDetails(OrderDetails orderDetails) {
+        this.orderDetails = orderDetails;
     }
 
     public PlantingMedium getPlantingMedium() {
