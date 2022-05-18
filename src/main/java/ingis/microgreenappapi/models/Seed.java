@@ -2,21 +2,35 @@ package ingis.microgreenappapi.models;
 
 import javax.persistence.*;
 import java.util.List;
+import org.springframework.lang.NonNull;
+
+import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
 @Entity
 @Table(name = "Seed")
 public class Seed {
+
     @Id
     @GeneratedValue
     private int seedId;
-    private static int nextId = 1;
-
+    @NotBlank
+    @Size(max = 50, message = "Name too long!")
     private String seedName;
+
     private Integer seedingDensity;
+
     private Boolean seedPresoak;
+
     private Integer blackoutTime;
+
     private Integer harvestTime;
+
+    private Integer lot;
+
     private Integer qty;
 
     private String status;
@@ -25,27 +39,24 @@ public class Seed {
     @JoinColumn(name="orderDetailsId")
     private OrderDetails orderDetails;
 
-    public Seed() {
-    }
+    public Seed(String seedName, Integer seedingDensity, Boolean seedPresoak,  Integer blackoutTime, Integer harvestTime, Integer lot ,Integer qty, String status, OrderDetails orderDetails) {
 
-    public Seed(int seedId, String seedName, Integer seedingDensity, Boolean seedPresoak, Integer blackoutTime, Integer harvestTime, Integer qty, String status, OrderDetails orderDetails) {
-        this.seedId = seedId;
         this.seedName = seedName;
         this.seedingDensity = seedingDensity;
         this.seedPresoak = seedPresoak;
         this.blackoutTime = blackoutTime;
         this.harvestTime = harvestTime;
         this.qty = qty;
+        this.lot = lot;
         this.status = status;
-        this.orderDetails = orderDetails;
     }
 
-    public int getSeedId() {
-        return seedId;
-    }
+    // model for inventory page
+    public Seed() {}
 
-    public void setSeedId(int seedId) {
-        this.seedId = seedId;
+    public Seed(String seedName, Integer qty) {
+        this.seedName = seedName;
+        this.qty = qty;
     }
 
     public String getSeedName() {
@@ -96,6 +107,21 @@ public class Seed {
         this.qty = qty;
     }
 
+    //    public OrderDetails getOrderDetails() {
+//        return orderDetails;
+//    }
+
+    public void setOrderDetails(OrderDetails orderDetails) {
+        this.orderDetails = orderDetails;
+    }
+    public Integer getLot() {
+        return lot;
+    }
+
+    public void setLot(Integer lot) {
+        this.lot = lot;
+    }
+
     public String getStatus() {
         return status;
     }
@@ -104,11 +130,32 @@ public class Seed {
         this.status = status;
     }
 
-    //    public OrderDetails getOrderDetails() {
-//        return orderDetails;
-//    }
+    public int getId() {
+        return seedId;
+    }
+    @Override
+    public String toString() {
+        return "Seed{" +
+                "seedId=" + seedId +
+                ", seedName='" + seedName + '\'' +
+                ", seedingDensity=" + seedingDensity +
+                ", seedPresoak=" + seedPresoak +
+                ", blackoutTime=" + blackoutTime +
+                ", harvestTime=" + harvestTime +
+                ", qty=" + qty +
+                '}';
+    }
 
-    public void setOrderDetails(OrderDetails orderDetails) {
-        this.orderDetails = orderDetails;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Seed seed = (Seed) o;
+        return seedId == seed.seedId;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(seedId);
     }
 }

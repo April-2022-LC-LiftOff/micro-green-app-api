@@ -3,6 +3,8 @@ package ingis.microgreenappapi.models;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "orderDetails")
@@ -31,51 +33,55 @@ public class OrderDetails {
     @ManyToOne
     private CustomerOrder customerOrder;
 
+    public OrderDetails() {
+    }
+
+    public OrderDetails(Number orderDetailsId, Integer qty, Seed seedId, Tray trayId) {
+        this.qty = qty;
+        this.seed = seedId;
+        this.tray = trayId;
+        this.orderDetailsId = nextId;
+        nextId++;
+    }
+
     public int getOrderDetailsId() {
         return orderDetailsId;
     }
 
-    public void setOrderDetailsId(int orderDetailsId) {
-        this.orderDetailsId = orderDetailsId;
-    }
-
-    public int getQty() {
+    public Integer getQty() {
         return qty;
     }
 
-    public void setQty(int qty) {
+    public void setQty(Integer qty) {
         this.qty = qty;
     }
 
-    public Seed getSeed() {
+    public Seed getSeedId() {
         return seed;
     }
 
-    public void setSeed(Seed seed) {
-        this.seed = seed;
+    public void setSeedId(Seed seedId) {
+        this.seed = seedId;
     }
 
-    public Tray getTray() {
+    public Tray getTrayId() {
         return tray;
     }
 
-    public void setTray(Tray tray) {
-        this.tray = tray;
+    public void setTrayId(Tray trayId) {
+        this.tray = trayId;
     }
 
-    public PlantingMedium getPlantingMedium() {
-        return plantingMedium;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        OrderDetails that = (OrderDetails) o;
+        return orderDetailsId == that.orderDetailsId;
     }
 
-    public void setPlantingMedium(PlantingMedium plantingMedium) {
-        this.plantingMedium = plantingMedium;
+    @Override
+    public int hashCode() {
+        return Objects.hash(orderDetailsId);
     }
-
-    //    public CustomerOrder getCustomerOrder() {
-//        return customerOrder;
-//    }
-//
-//    public void setCustomerOrder(CustomerOrder customerOrder) {
-//        this.customerOrder = customerOrder;
-//    }
 }

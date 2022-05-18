@@ -1,18 +1,24 @@
 package ingis.microgreenappapi.models;
 
-import org.springframework.web.bind.annotation.GetMapping;
-
 import javax.persistence.*;
-import java.util.List;
 import java.util.Objects;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+import java.util.Objects;
+
+
 @Entity
 @Table(name = "Tray")
 public class Tray {
+
     @Id
     @GeneratedValue
     private int trayId;
     private static int nextId = 1;
 
+    @NotBlank
+    @Size(max = 50, message = "Name too long!")
     private String trayType;
     private String size;
     private Double qty;
@@ -36,14 +42,6 @@ public class Tray {
         this.plantingMedium = plantingMedium;
     }
 
-    public int getTrayId() {
-        return trayId;
-    }
-
-    public void setTrayId(int trayId) {
-        this.trayId = trayId;
-    }
-
     public String getTrayType() {
         return trayType;
     }
@@ -52,15 +50,21 @@ public class Tray {
         this.trayType = trayType;
     }
 
+    public int getTrayId() {
+        return trayId;
+    }
+    public void setTrayId(int trayId) {
+        this.trayId = trayId;
+    }
+
     public String getSize() {
         return size;
     }
-
     public void setSize(String size) {
         this.size = size;
     }
 
-    public Number getQty() {
+    public Double getQty() {
         return qty;
     }
 
@@ -82,5 +86,26 @@ public class Tray {
 
     public void setPlantingMedium(PlantingMedium plantingMedium) {
         this.plantingMedium = plantingMedium;
+    }
+
+    @Override
+    public String toString() {
+        return "Tray{" +
+                "trayType='" + trayType + '\'' +
+                ", size='" + size + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Tray tray = (Tray) o;
+        return trayId == tray.trayId;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(trayId);
     }
 }

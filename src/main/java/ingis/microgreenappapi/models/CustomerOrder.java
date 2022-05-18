@@ -19,7 +19,8 @@ public class CustomerOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int orderId;
-//    private static int nextId = 1;
+    private static int nextId = 1;
+
     @Column(name = "order_date")
     private LocalDate orderDate;
     @Column(name = "delivery_date")
@@ -28,8 +29,7 @@ public class CustomerOrder {
     private Boolean activeOrder;
 
     @OneToMany(mappedBy = "customerOrder", fetch = FetchType.LAZY)
-    private  List<OrderDetails> orderDetails;
-
+    private  List<OrderDetails> orderDetails = new ArrayList<>();
     @ManyToOne
     @JoinColumn(name="customerId")
     private Customer customer;
@@ -39,7 +39,9 @@ public class CustomerOrder {
 
     }
 
+
     public CustomerOrder(int orderId, LocalDate orderDate, LocalDate deliveryDate, Boolean activeOrder, Customer customer, List<OrderDetails> orderDetails) {
+
         this.orderId = orderId;
         this.orderDate = orderDate;
         this.deliveryDate = deliveryDate;

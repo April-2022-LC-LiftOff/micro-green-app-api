@@ -2,18 +2,21 @@ package ingis.microgreenappapi.models;
 
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 
 @Entity
-@Table(name = "Planting_Medium")
+@Table(name = "PlantingMedium")
 public class PlantingMedium {
     @Id
     @GeneratedValue
     private int mediumId;
     private static int nextId = 1;
 
+    @NotBlank
+    @Size(max = 50, message = "Description to long!")
     private String mediumType;
 
     private Double qty;
@@ -23,27 +26,22 @@ public class PlantingMedium {
     private Tray tray;
 
     @ManyToOne
-    @JoinColumn(name="orderDetailsId")
+    @JoinColumn(name = "orderDetailsId")
     private OrderDetails orderDetails;
+
+    @ManyToOne
+    @JoinColumn(name = "orderId")
+    private CustomerOrder customerOrder;
 
 
     public PlantingMedium() {
     }
 
-    public PlantingMedium(int mediumId, String mediumType, Double qty, Tray tray, OrderDetails orderDetails) {
-        this.mediumId = mediumId;
+    public PlantingMedium(String mediumType, Integer qty, Tray trayId) {
         this.mediumType = mediumType;
-        this.qty = qty;
-        this.tray = tray;
-        this.orderDetails = orderDetails;
-    }
-
-    public int getMediumId() {
-        return mediumId;
-    }
-
-    public void setMediumId(int mediumId) {
-        this.mediumId = mediumId;
+        this.qty = Double.valueOf(qty);
+        this.mediumId = nextId;
+        nextId++;
     }
 
     public String getMediumType() {
@@ -62,10 +60,9 @@ public class PlantingMedium {
         this.qty = qty;
     }
 
-//    public Tray getTray() {
+    //    public Tray getTray() {
 //        return tray;
 //    }
-
     public void setTray(Tray tray) {
         this.tray = tray;
     }
@@ -77,5 +74,38 @@ public class PlantingMedium {
     public void setOrderDetails(OrderDetails orderDetails) {
         this.orderDetails = orderDetails;
     }
+    //    public Tray getTrayId() {
+//        return TrayId;
+//    }
+//
+//    public void setTrayId(Tray trayId) {
+//        TrayId = trayId;
+//    }
+
+    public int getMediumId()
+    {
+        return mediumId;
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PlantingMedium that = (PlantingMedium) o;
+        return mediumId == that.mediumId;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(mediumId);
+    }
+
+    @Override
+    public String toString() {
+        return "PlantingMedium{" +
+                "mediumType='" + mediumType + '\'' +
+                '}';
+
+    }
 }
+
 
