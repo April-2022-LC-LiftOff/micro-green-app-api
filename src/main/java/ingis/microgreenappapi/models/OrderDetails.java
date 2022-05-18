@@ -31,6 +31,7 @@ public class OrderDetails {
     private PlantingMedium plantingMedium;
 
     @ManyToOne
+    @JoinColumn(name = "orderId")
     private CustomerOrder customerOrder;
 
     public OrderDetails() {
