@@ -1,5 +1,6 @@
 package ingis.microgreenappapi.controllers;
 
+import ingis.microgreenappapi.data.SeedRepository;
 import ingis.microgreenappapi.data.TaskRepository;
 import ingis.microgreenappapi.models.Task;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,11 @@ public class TaskController {
 
     @Autowired
     private TaskRepository taskRepo;
+
+    @Autowired
+    private SeedRepository seedRepo;
+
+
 
     public ArrayList<Object> todaysTasks = new ArrayList<>();
     private String dailyTasks;
@@ -55,6 +61,8 @@ public class TaskController {
         return "deleted...";
     }
 
-
-
 }
+
+
+
+

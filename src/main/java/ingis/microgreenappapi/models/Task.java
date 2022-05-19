@@ -2,6 +2,7 @@ package ingis.microgreenappapi.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
@@ -15,9 +16,9 @@ public class Task {
 //    @NotBlank
     private String task;
     private boolean complete = Boolean.FALSE;
-    private String dueDate;
+    private LocalDate dueDate;
 
-    public Task(String task, boolean complete, String dueDate) {
+    public Task(String task, boolean complete, LocalDate dueDate) {
         this.task = task;
         this.complete = complete;
         this.dueDate = dueDate;
@@ -41,11 +42,11 @@ public class Task {
         this.complete = complete;
     }
 
-    public String getDueDate() {
+    public LocalDate getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(String dueDate) {
+    public void setDueDate(LocalDate dueDate) {
         this.dueDate = dueDate;
     }
 
