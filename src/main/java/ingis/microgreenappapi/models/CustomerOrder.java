@@ -20,6 +20,7 @@ public class CustomerOrder {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int orderId;
     private static int nextId = 1;
+
     @Column(name = "order_date")
     private LocalDate orderDate;
     @Column(name = "delivery_date")
@@ -27,10 +28,8 @@ public class CustomerOrder {
     @Column(name = "active_order")
     private Boolean activeOrder;
 
-    @OneToOne
-    @JoinColumn(name="orderDetailsId")
-    private  OrderDetails orderDetails;
-    //    @JsonIgnore
+    @OneToMany(mappedBy = "customerOrder", fetch = FetchType.LAZY)
+    private  List<OrderDetails> orderDetails = new ArrayList<>();
     @ManyToOne
     @JoinColumn(name="customerId")
     private Customer customer;
@@ -40,13 +39,15 @@ public class CustomerOrder {
 
     }
 
-    public CustomerOrder(int orderId, LocalDate orderDate, LocalDate deliveryDate, Boolean activeOrder, Customer customer, OrderDetails orderDetails) {
+
+    public CustomerOrder(int orderId, LocalDate orderDate, LocalDate deliveryDate, Boolean activeOrder, Customer customer, List<OrderDetails> orderDetails) {
+
         this.orderId = orderId;
         this.orderDate = orderDate;
         this.deliveryDate = deliveryDate;
         this.activeOrder = activeOrder;
         this.orderDetails = orderDetails;
-//        this.customer = customer;
+        this.customer = customer;
     }
 
     public int getOrderId() {
@@ -90,11 +91,11 @@ public class CustomerOrder {
         this.customer = customer;
     }
 
-    public OrderDetails getOrderDetails() {
+    public List<OrderDetails> getOrderDetails() {
         return orderDetails;
     }
 
-    public void setOrderDetails(OrderDetails orderDetails) {
+    public void setOrderDetails(List<OrderDetails> orderDetails) {
         this.orderDetails = orderDetails;
     }
 }
