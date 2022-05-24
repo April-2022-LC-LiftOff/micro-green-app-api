@@ -6,6 +6,7 @@ import ingis.microgreenappapi.models.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,12 +30,13 @@ public class TaskController {
     @GetMapping
     public List<Task> findAll() {
         return taskRepo.findAll();
-
     }
+
     // view today's tasks
-    @GetMapping("/today/{dueDate}")
-    public ArrayList todayTasks(@PathVariable String dueDate) {
+    @GetMapping("/{today}")
+    public ArrayList todayTasks(@PathVariable String today) {
     //iterate through task
+        LocalDate dueDate = LocalDate.parse(today);
         todaysTasks.clear();
         for (int i = 0; i < taskRepo.count(); i++) {
             if(taskRepo.findAll().get(i).getDueDate().equals(dueDate)) {
