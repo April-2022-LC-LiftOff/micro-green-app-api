@@ -14,6 +14,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import java.time.LocalDate;
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/details")
 public class OrderDetailsController {
