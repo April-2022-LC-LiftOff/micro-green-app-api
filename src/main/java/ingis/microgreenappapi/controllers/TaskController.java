@@ -2,6 +2,7 @@ package ingis.microgreenappapi.controllers;
 
 import ingis.microgreenappapi.data.SeedRepository;
 import ingis.microgreenappapi.data.TaskRepository;
+import ingis.microgreenappapi.models.Seed;
 import ingis.microgreenappapi.models.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -54,6 +55,17 @@ public class TaskController {
         taskRepo.save(task);
         return "Saved....";
     }
+
+// update complete task
+@PutMapping(value = "/update/{taskId}")
+public String updateCompleteTask(@PathVariable(value = "taskId") Integer taskId, @RequestBody Task task) {
+    Task updatedTask = taskRepo.findById(taskId).get();
+    updatedTask.setComplete(task.isComplete());
+
+    taskRepo.save(updatedTask);
+    return "update";
+}
+
 
 // delete a task
 
