@@ -17,6 +17,9 @@ public class OneToManyUnidirectionMappingTest {
     @Autowired
     private CustomerOrderRepository customerOrderRepo;
 
+    @Autowired
+    private OrderDetailsRepository orderDetailsRepo;
+
     @Test
     void testSaveCustomerOrder() {
 
