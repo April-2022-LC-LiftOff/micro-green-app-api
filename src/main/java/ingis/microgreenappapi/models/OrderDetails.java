@@ -5,10 +5,11 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
+@Table(name = "order_details")
 public class OrderDetails {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int orderDetailsId;
 
     private Integer qty;

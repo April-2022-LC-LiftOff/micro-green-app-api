@@ -124,59 +124,59 @@ public class OrderDetailsController {
         //Create tasks
         LocalDate dd = LocalDate.parse(deliveryDate);
 
-        String todayTask;
-        Task task;
-
-        if (seed.getSeedPresoak()) {
-            //Create soak tasks
-            todayTask = "Soak " + seed.getSeedName();
-            task = new Task();
-            task.setTask(todayTask);
-            task.setDueDate(dd.minusDays(seed.getHarvestTime()+1));
-            taskRepo.save(task);
-        }
-
-        //Create water above days
-        for (int i = 1; i < seed.getBlackoutTime(); i++) {
-            if (i == 1) {
-                //Plant & water from above
-                todayTask = "Plant " + seed.getSeedName() + ", cover & move to dark racks";
-                task = new Task();
-                task.setTask(todayTask);
-                task.setDueDate(dd.minusDays(seed.getHarvestTime()));
-                taskRepo.save(task);
-            }
-            //Just water from above
-            todayTask = "Water " + seed.getSeedName() + " from above";
-            task = new Task();
-            task.setTask(todayTask);
-            task.setDueDate(dd.minusDays(seed.getHarvestTime()-i));
-            taskRepo.save(task);
-        }
-
-        // Create water below days
-        for (int i = (seed.getHarvestTime()- seed.getBlackoutTime()); i > 0; i--) {
-            if (i == (seed.getHarvestTime()- seed.getBlackoutTime())) {
-                todayTask = "Move " + seed.getSeedName() + " lighted racks and water below";
-                task = new Task();
-                task.setTask(todayTask);
-                task.setDueDate(dd.minusDays(i));
-                taskRepo.save(task);
-            } else {
-                todayTask = "Water " + seed.getSeedName() + " from below";
-                task = new Task();
-                task.setTask(todayTask);
-                task.setDueDate((dd.minusDays(i)));
-                taskRepo.save(task);
-            }
-        }
-
-        //Create pull for delivery
-        todayTask = "Pull " + seed.getSeedName() + " for delivery";
-        task = new Task();
-        task.setTask(todayTask);
-        task.setDueDate(dd);
-        taskRepo.save(task);
+//        String todayTask;
+//        Task task;
+//
+//        if (seed.getSeedPresoak()) {
+//            //Create soak tasks
+//            todayTask = "Soak " + seed.getSeedName();
+//            task = new Task();
+//            task.setTask(todayTask);
+//            task.setDueDate(dd.minusDays(seed.getHarvestTime()+1));
+//            taskRepo.save(task);
+//        }
+//
+//        //Create water above days
+//        for (int i = 1; i < seed.getBlackoutTime(); i++) {
+//            if (i == 1) {
+//                //Plant & water from above
+//                todayTask = "Plant " + seed.getSeedName() + ", cover & move to dark racks";
+//                task = new Task();
+//                task.setTask(todayTask);
+//                task.setDueDate(dd.minusDays(seed.getHarvestTime()));
+//                taskRepo.save(task);
+//            }
+//            //Just water from above
+//            todayTask = "Water " + seed.getSeedName() + " from above";
+//            task = new Task();
+//            task.setTask(todayTask);
+//            task.setDueDate(dd.minusDays(seed.getHarvestTime()-i));
+//            taskRepo.save(task);
+//        }
+//
+//        // Create water below days
+//        for (int i = (seed.getHarvestTime()- seed.getBlackoutTime()); i > 0; i--) {
+//            if (i == (seed.getHarvestTime()- seed.getBlackoutTime())) {
+//                todayTask = "Move " + seed.getSeedName() + " lighted racks and water below";
+//                task = new Task();
+//                task.setTask(todayTask);
+//                task.setDueDate(dd.minusDays(i));
+//                taskRepo.save(task);
+//            } else {
+//                todayTask = "Water " + seed.getSeedName() + " from below";
+//                task = new Task();
+//                task.setTask(todayTask);
+//                task.setDueDate((dd.minusDays(i)));
+//                taskRepo.save(task);
+//            }
+//        }
+//
+//        //Create pull for delivery
+//        todayTask = "Pull " + seed.getSeedName() + " for delivery";
+//        task = new Task();
+//        task.setTask(todayTask);
+//        task.setDueDate(dd);
+//        taskRepo.save(task);
 
         seedRepo.save(seed);
         detailRepo.save(orderDetail);
