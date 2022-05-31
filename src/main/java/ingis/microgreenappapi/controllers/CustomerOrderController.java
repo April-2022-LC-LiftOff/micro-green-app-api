@@ -26,7 +26,7 @@ public class CustomerOrderController {
 
 
         //create order
-        @PostMapping
+        @PostMapping("/create")
         public CustomerOrder createOrder(@RequestBody CustomerOrder customerOrder){
             return customerOrderRepository.save(customerOrder);
         }

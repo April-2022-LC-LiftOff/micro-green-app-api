@@ -16,7 +16,7 @@ public class Seed {
 
     @Id
     @GeneratedValue
-    private int seedId;
+    private Integer seedId;
     @NotBlank
     @Size(max = 50, message = "Name too long!")
     private String seedName;
@@ -35,7 +35,7 @@ public class Seed {
 
     private String status;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="orderDetailsId")
     private OrderDetails orderDetails;
 
@@ -54,9 +54,18 @@ public class Seed {
     // model for inventory page
     public Seed() {}
 
-    public Seed(String seedName, Integer qty) {
-        this.seedName = seedName;
-        this.qty = qty;
+//    public Seed(String seedName, Integer qty) {
+//        this.seedName = seedName;
+//        this.qty = qty;
+//    }
+
+
+    public Integer getSeedId() {
+        return seedId;
+    }
+
+    public void setSeedId(Integer seedId) {
+        this.seedId = seedId;
     }
 
     public String getSeedName() {
@@ -129,10 +138,10 @@ public class Seed {
     public void setStatus(String status) {
         this.status = status;
     }
-
-    public int getId() {
-        return seedId;
-    }
+//
+//    public int getId() {
+//        return seedId;
+//    }
     @Override
     public String toString() {
         return "Seed{" +

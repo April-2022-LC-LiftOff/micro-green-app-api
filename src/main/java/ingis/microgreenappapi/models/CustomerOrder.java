@@ -30,7 +30,7 @@ public class CustomerOrder {
 
     @OneToMany(mappedBy = "customerOrder", fetch = FetchType.LAZY)
     private  List<OrderDetails> orderDetails = new ArrayList<>();
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="customerId")
     private Customer customer;
 

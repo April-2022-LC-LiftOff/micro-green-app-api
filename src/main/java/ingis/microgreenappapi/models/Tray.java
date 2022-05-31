@@ -14,8 +14,7 @@ public class Tray {
 
     @Id
     @GeneratedValue
-    private int trayId;
-    private static int nextId = 1;
+    private Integer trayId;
 
     @NotBlank
     @Size(max = 50, message = "Name too long!")
@@ -23,7 +22,7 @@ public class Tray {
     private String size;
     private Double qty;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="orderDetailsId")
     private OrderDetails orderDetails;
 
@@ -33,12 +32,12 @@ public class Tray {
     public Tray() {
     }
 
-    public Tray(int trayId, String trayType, String size, Double qty, OrderDetails orderDetails, PlantingMedium plantingMedium) {
+    public Tray(Integer trayId, String trayType, String size, Double qty, OrderDetails orderDetails, PlantingMedium plantingMedium) {
         this.trayId = trayId;
         this.trayType = trayType;
         this.size = size;
         this.qty = qty;
-        this.orderDetails = orderDetails;
+//        this.orderDetails = orderDetails;
         this.plantingMedium = plantingMedium;
     }
 
@@ -50,10 +49,11 @@ public class Tray {
         this.trayType = trayType;
     }
 
-    public int getTrayId() {
+    public Integer getTrayId() {
         return trayId;
     }
-    public void setTrayId(int trayId) {
+
+    public void setTrayId(Integer trayId) {
         this.trayId = trayId;
     }
 
@@ -79,6 +79,7 @@ public class Tray {
     public void setOrderDetails(OrderDetails orderDetails) {
         this.orderDetails = orderDetails;
     }
+
 
     public PlantingMedium getPlantingMedium() {
         return plantingMedium;
