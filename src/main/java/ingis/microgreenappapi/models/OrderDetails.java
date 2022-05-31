@@ -9,7 +9,7 @@ import java.util.Objects;
 public class OrderDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private int orderDetailsId;
 
     private Integer qty;

@@ -12,15 +12,17 @@ import java.util.Set;
 public class CustomerOrder {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private int orderId;
 
     private Boolean activeOrder;
 
 // one to many unidirectional mapping
 // default fetch type for OneToMany: LAZY
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_detail_id", referencedColumnName = "orderDetailsId")
+    @OneToMany(cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    @JoinColumn(name = "orderId")
     private Set<OrderDetails> orderDetails = new HashSet<>();
 
     public CustomerOrder(Boolean activeOrder, Set<OrderDetails> orderDetails) {

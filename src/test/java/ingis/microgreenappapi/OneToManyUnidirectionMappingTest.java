@@ -34,12 +34,41 @@ public class OneToManyUnidirectionMappingTest {
 
         OrderDetails orderDetails2 = new OrderDetails();
         orderDetails2.setQty(4);
-        orderDetails.setSeedRefId(2);
+        orderDetails2.setSeedRefId(2);
 
         customerOrder.add(orderDetails2);
 
         customerOrder.setActiveOrder(false);
-//        customerOrder.setDeliveryDate("2022-06-15");
         customerOrderRepo.save(customerOrder);
     }
+
+//    @Test
+//    void testUpdateOrder(){
+//        CustomerOrder order = customerOrderRepo.findById(4).get();
+//        order.setActiveOrder(true);
+//        customerOrderRepo.save(order);
+//    }
+
+//    @Test
+//    void testGetAllOrders(){
+//
+//        List<CustomerOrder> orders = customerOrderRepo.findAll();
+//
+//        orders.forEach((o) -> {
+//
+//            System.out.println("order id :: " + o.getOrderId());
+//
+//            o.getOrderDetails().forEach((orderItem -> {
+//                System.out.println("orderItem :: " + orderItem.getOrderDetailsId());
+//            }));
+//        });
+//    }
+
+//    @Test
+//    void testDeleteOrder(){
+//
+//        customerOrderRepo.deleteById(4);
+//    }
+
+
 }
