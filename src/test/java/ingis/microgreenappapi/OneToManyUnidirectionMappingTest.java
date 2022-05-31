@@ -44,7 +44,7 @@ public class OneToManyUnidirectionMappingTest {
 
     @Test
     void testUpdateOrder(){
-        CustomerOrder order = customerOrderRepo.findById(1).get();
+        CustomerOrder order = customerOrderRepo.findById(4).get();
         order.setActiveOrder(true);
         customerOrderRepo.save(order);
     }

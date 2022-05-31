@@ -17,13 +17,10 @@ public class CustomerOrder {
 
 // one to many unidirectional mapping
 // default fetch type for OneToMany: LAZY
-//    @OneToMany(cascade = CascadeType.ALL,
-//            orphanRemoval = true,
-//            mappedBy = "customerOrder")
-@OneToMany(cascade = CascadeType.ALL,
+    @OneToMany(cascade = CascadeType.ALL,
             orphanRemoval = true,
             fetch = FetchType.EAGER)
-@JoinColumn(name = "orderId")
+    @JoinColumn(name = "orderId")
     private List<OrderDetails> orderDetails = new ArrayList<>();
 
     public CustomerOrder(Boolean activeOrder, List<OrderDetails> orderDetails) {
