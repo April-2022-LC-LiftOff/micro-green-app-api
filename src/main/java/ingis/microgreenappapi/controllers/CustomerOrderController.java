@@ -1,8 +1,10 @@
 package ingis.microgreenappapi.controllers;
 
 
+import ingis.microgreenappapi.data.CustomerOrderRepository;
 import ingis.microgreenappapi.data.OrderDetailsRepository;
 import ingis.microgreenappapi.data.SeedRepository;
+import ingis.microgreenappapi.models.CustomerOrder;
 import ingis.microgreenappapi.models.OrderDetails;
 import ingis.microgreenappapi.models.Seed;
 import ingis.microgreenappapi.models.Tray;
@@ -17,7 +19,11 @@ import java.util.List;
 public class CustomerOrderController {
 
     @Autowired
+    private CustomerOrderRepository customerOrderRepo;
+
+    @Autowired
     private OrderDetailsRepository orderDetailsRepo;
+
 
     @Autowired
     private SeedRepository seedRepo;
@@ -26,18 +32,19 @@ public class CustomerOrderController {
     // **** working from the orderDetails is created
 
     @GetMapping
-    public List<OrderDetails> getOrderDetails() {
-        return orderDetailsRepo.findAll();
+    public List<CustomerOrder> getCustomerOrders() {
+        return  customerOrderRepo.findAll();
     }
 
-    @PostMapping(value = "/add")
-    public String addOrderDetail(@RequestBody OrderDetails orderDetails) {
+
+    @PostMapping(value = "/create")
+    public String addOrderDetail(@RequestBody CustomerOrder customerOrder) {
 
         //todo check inventory for enough qty
         //todo deduct from inventory
         //todo add to tasks
 
-        orderDetailsRepo.save(orderDetails);
+        customerOrderRepo.save(customerOrder);
         return "saved......";
 }
 
