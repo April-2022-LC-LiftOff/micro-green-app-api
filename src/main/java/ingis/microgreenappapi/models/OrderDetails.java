@@ -73,9 +73,9 @@ public class OrderDetails {
         this.tray = tray;
     }
 
-//    public CustomerOrder getCustomerOrder() {
-//        return customerOrder;
-//    }
+    public CustomerOrder getCustomerOrder() {
+        return customerOrder;
+    }
 
     public void setCustomerOrder(CustomerOrder customerOrder) {
         this.customerOrder = customerOrder;

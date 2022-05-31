@@ -1,18 +1,22 @@
 package ingis.microgreenappapi.controllers;
 
 import ingis.microgreenappapi.exception.ResourceNotFoundException;
+import ingis.microgreenappapi.models.Customer;
 import ingis.microgreenappapi.models.CustomerOrder;
 import ingis.microgreenappapi.data.CustomerOrderRepository;
+import ingis.microgreenappapi.models.OrderDetails;
+import ingis.microgreenappapi.models.OrderRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
 @RequestMapping("/orders")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:3000/")
 public class CustomerOrderController {
 
         @Autowired
@@ -28,6 +32,7 @@ public class CustomerOrderController {
         //create order
         @PostMapping("/create")
         public CustomerOrder createOrder(@RequestBody CustomerOrder customerOrder){
+
             return customerOrderRepository.save(customerOrder);
         }
 

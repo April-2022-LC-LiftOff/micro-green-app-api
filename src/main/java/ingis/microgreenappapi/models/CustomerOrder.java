@@ -28,7 +28,8 @@ public class CustomerOrder {
     @Column(name = "active_order")
     private Boolean activeOrder;
 
-    @OneToMany(mappedBy = "customerOrder", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JoinColumn(name="orderId")
     private  List<OrderDetails> orderDetails = new ArrayList<>();
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="customerId")
@@ -40,12 +41,10 @@ public class CustomerOrder {
     }
 
 
-    public CustomerOrder(int orderId, LocalDate orderDate, LocalDate deliveryDate, Boolean activeOrder, Customer customer, List<OrderDetails> orderDetails) {
+    public CustomerOrder(LocalDate orderDate, LocalDate deliveryDate, Customer customer, List<OrderDetails> orderDetails) {
 
-        this.orderId = orderId;
         this.orderDate = orderDate;
         this.deliveryDate = deliveryDate;
-        this.activeOrder = activeOrder;
         this.orderDetails = orderDetails;
         this.customer = customer;
     }
