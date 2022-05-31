@@ -2,10 +2,7 @@ package ingis.microgreenappapi.models;
 
 import javax.persistence.*;
 import java.lang.reflect.Type;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 //@Table(name="customer_orders")
@@ -20,12 +17,16 @@ public class CustomerOrder {
 
 // one to many unidirectional mapping
 // default fetch type for OneToMany: LAZY
-    @OneToMany(cascade = CascadeType.ALL,
-            orphanRemoval = true)
-    @JoinColumn(name = "orderId")
-    private Set<OrderDetails> orderDetails = new HashSet<>();
+//    @OneToMany(cascade = CascadeType.ALL,
+//            orphanRemoval = true,
+//            mappedBy = "customerOrder")
+@OneToMany(cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.EAGER)
+@JoinColumn(name = "orderId")
+    private List<OrderDetails> orderDetails = new ArrayList<>();
 
-    public CustomerOrder(Boolean activeOrder, Set<OrderDetails> orderDetails) {
+    public CustomerOrder(Boolean activeOrder, List<OrderDetails> orderDetails) {
         this.activeOrder = activeOrder;
         this.orderDetails = orderDetails;
     }
@@ -45,18 +46,18 @@ public class CustomerOrder {
         this.activeOrder = activeOrder;
     }
 
-    public Set<OrderDetails> getOrderDetails() {
+    public List<OrderDetails> getOrderDetails() {
         return orderDetails;
     }
 
-    public void setOrderDetails(Set<OrderDetails> orderDetails) {
+    public void setOrderDetails(List<OrderDetails> orderDetails) {
         this.orderDetails = orderDetails;
     }
 
     public void add(OrderDetails details) {
         if (details != null) {
             if (orderDetails == null) {
-                orderDetails = new HashSet<>();
+                orderDetails = new ArrayList<>();
             }
 
             orderDetails.add(details);

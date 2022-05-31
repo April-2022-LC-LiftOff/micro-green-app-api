@@ -42,33 +42,33 @@ public class OneToManyUnidirectionMappingTest {
         customerOrderRepo.save(customerOrder);
     }
 
-//    @Test
-//    void testUpdateOrder(){
-//        CustomerOrder order = customerOrderRepo.findById(4).get();
-//        order.setActiveOrder(true);
-//        customerOrderRepo.save(order);
-//    }
+    @Test
+    void testUpdateOrder(){
+        CustomerOrder order = customerOrderRepo.findById(1).get();
+        order.setActiveOrder(true);
+        customerOrderRepo.save(order);
+    }
 
-//    @Test
-//    void testGetAllOrders(){
-//
-//        List<CustomerOrder> orders = customerOrderRepo.findAll();
-//
-//        orders.forEach((o) -> {
-//
-//            System.out.println("order id :: " + o.getOrderId());
-//
-//            o.getOrderDetails().forEach((orderItem -> {
-//                System.out.println("orderItem :: " + orderItem.getOrderDetailsId());
-//            }));
-//        });
-//    }
+    @Test
+    void testGetAllOrders(){
 
-//    @Test
-//    void testDeleteOrder(){
-//
-//        customerOrderRepo.deleteById(4);
-//    }
+        List<CustomerOrder> orders = customerOrderRepo.findAll();
+
+        orders.forEach((o) -> {
+
+            System.out.println("order id :: " + o.getOrderId());
+
+            o.getOrderDetails().forEach((orderItem -> {
+                System.out.println("orderItem :: " + orderItem.getOrderDetailsId());
+            }));
+        });
+    }
+
+    @Test
+    void testDeleteOrder(){
+
+        customerOrderRepo.deleteById(7);
+    }
 
 
 }

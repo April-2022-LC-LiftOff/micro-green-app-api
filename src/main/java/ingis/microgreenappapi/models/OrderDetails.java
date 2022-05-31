@@ -20,6 +20,10 @@ public class OrderDetails {
         this.seedRefId = seedRefId;
     }
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="orderId")
+    private CustomerOrder customerOrder;
+
     public OrderDetails() {
     }
 
