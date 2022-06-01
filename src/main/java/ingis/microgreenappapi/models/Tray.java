@@ -3,6 +3,8 @@ package ingis.microgreenappapi.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
@@ -24,9 +26,8 @@ public class Tray {
     private String size;
     private Double qty;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="orderDetailsId")
-    private OrderDetails orderDetails;
+    @OneToMany(mappedBy = "tray")
+    private List<OrderDetails> orderDetails = new ArrayList<>();
 
     @OneToOne(mappedBy = "tray")
     private PlantingMedium plantingMedium;
@@ -73,14 +74,13 @@ public class Tray {
     }
 
     @JsonIgnore
-    public OrderDetails getOrderDetails() {
+    public List<OrderDetails> getOrderDetails() {
         return orderDetails;
     }
 
-    public void setOrderDetails(OrderDetails orderDetails) {
+    public void setOrderDetails(List<OrderDetails> orderDetails) {
         this.orderDetails = orderDetails;
     }
-
 
     public PlantingMedium getPlantingMedium() {
         return plantingMedium;

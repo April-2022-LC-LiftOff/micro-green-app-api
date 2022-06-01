@@ -1,6 +1,8 @@
 package ingis.microgreenappapi.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -20,12 +22,13 @@ public class OrderDetails {
     @Column(name = "Qty")
     private int qty;
 
-    @OneToOne
-    @JoinColumn(name = "seedId")
+    @ManyToOne
+    @JoinColumn(name="seedId")
     private Seed seed;
 
-    @OneToOne
-    @JoinColumn(name="trayId")
+    @ManyToOne
+//            (cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JoinColumn(name="TrayId")
     private Tray tray;
 
     @ManyToOne(cascade = CascadeType.ALL)

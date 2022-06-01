@@ -17,7 +17,7 @@ import java.util.*;
 @Table(name = "customer_orders")
 public class CustomerOrder {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private int orderId;
     private static int nextId = 1;
 
