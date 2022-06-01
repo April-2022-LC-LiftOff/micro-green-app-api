@@ -1,24 +1,23 @@
 package ingis.microgreenappapi.models;
 
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Objects;
 
 
 @Entity
-public class Customer{
-
+@Table(name = "Customer")
+public class Customer {
 
     @Id
     @GeneratedValue
     private int customerId;
     private static int nextId = 1;
 
+    @NotBlank
     @Size(max = 50, message = "Name too long!")
+    @Column(name = "customer_name")
     private String customerName;
 
 

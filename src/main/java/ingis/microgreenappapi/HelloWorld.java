@@ -10,11 +10,11 @@ public class HelloWorld {
 
     @RequestMapping
     public String helloWorld() {
-        return "Hello, World!";
+        return "Welcome to Ingi's Microgreens";
     }
 
     @RequestMapping("/goodbye")
     public String goodbye() {
-        return"Goodbye, World!";
+        return"Goodbye, Farm";
     }
 }
