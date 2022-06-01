@@ -62,9 +62,9 @@ public class PlantingMedium {
         this.qty = qty;
     }
 
-//    public Tray getTray() {
-//        return tray;
-//    }
+    public Tray getTray() {
+        return tray;
+    }
 
     public void setTray(Tray tray) {
         this.tray = tray;

@@ -40,7 +40,6 @@ public class CustomerOrder {
 
     }
 
-
     public CustomerOrder(LocalDate orderDate, LocalDate deliveryDate, Customer customer, List<OrderDetails> orderDetails) {
 
         this.orderDate = orderDate;

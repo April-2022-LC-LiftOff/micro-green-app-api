@@ -1,22 +1,18 @@
 package ingis.microgreenappapi.controllers;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import ingis.microgreenappapi.exception.ResourceNotFoundException;
-import ingis.microgreenappapi.models.Customer;
 import ingis.microgreenappapi.models.CustomerOrder;
 import ingis.microgreenappapi.data.CustomerOrderRepository;
-import ingis.microgreenappapi.models.OrderDetails;
-import ingis.microgreenappapi.models.OrderRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
 @RequestMapping("/orders")
-@CrossOrigin(origins = "http://localhost:3000/")
+@CrossOrigin(origins = "*")
 public class CustomerOrderController {
 
         @Autowired
@@ -25,6 +21,7 @@ public class CustomerOrderController {
         //view all customer orders
         @GetMapping
         public List<CustomerOrder> getAllOrders(){
+
             return customerOrderRepository.findAll();
         }
 

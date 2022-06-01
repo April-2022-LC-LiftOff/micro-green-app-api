@@ -1,5 +1,7 @@
 package ingis.microgreenappapi.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Objects;
 import javax.persistence.ManyToOne;
@@ -32,12 +34,10 @@ public class Tray {
     public Tray() {
     }
 
-    public Tray(Integer trayId, String trayType, String size, Double qty, OrderDetails orderDetails, PlantingMedium plantingMedium) {
-        this.trayId = trayId;
+    public Tray(String trayType, String size, Double qty, PlantingMedium plantingMedium) {
         this.trayType = trayType;
         this.size = size;
         this.qty = qty;
-//        this.orderDetails = orderDetails;
         this.plantingMedium = plantingMedium;
     }
 
@@ -72,9 +72,10 @@ public class Tray {
         this.qty = qty;
     }
 
-//    public OrderDetails getOrderDetails() {
-//        return orderDetails;
-//    }
+    @JsonIgnore
+    public OrderDetails getOrderDetails() {
+        return orderDetails;
+    }
 
     public void setOrderDetails(OrderDetails orderDetails) {
         this.orderDetails = orderDetails;
