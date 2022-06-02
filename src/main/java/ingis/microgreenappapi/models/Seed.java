@@ -20,7 +20,6 @@ public class Seed {
     @Id
     @GeneratedValue
     private Integer seedId;
-
     @NotBlank
     @Size(max = 50, message = "Name too long!")
     private String seedName;
@@ -57,10 +56,10 @@ public class Seed {
     // model for inventory page
     public Seed() {}
 
-    public Seed(String seedName, Integer qty) {
-        this.seedName = seedName;
-        this.qty = qty;
-    }
+//    public Seed(String seedName, Integer qty) {
+//        this.seedName = seedName;
+//        this.qty = qty;
+//    }
 
 
     public Integer getSeedId() {

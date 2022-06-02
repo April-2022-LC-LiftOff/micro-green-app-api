@@ -53,17 +53,6 @@ public class CustomerOrderController {
                 }
 
             }
-//            customerOrder.getOrderDetails().forEach(orderDetails -> {
-
-//              Check Inventory
-//                int seedId = orderDetails.getSeed().getSeedId();
-//                int currentSeedQty = orderDetails.getSeed().getQty();
-//                int orderedSeedQty = orderDetails.getQty() * orderDetails.getSeed().getSeedingDensity();
-//                if (currentSeedQty < orderedSeedQty) {
-//                    throw new NotEnoughInventoryException("Not enough inventory for order");
-//                }
-//
-//            });
 
             return customerOrderRepository.save(customerOrder);
         }
@@ -71,26 +60,19 @@ public class CustomerOrderController {
 //                checkInventory(orderDetails.getSeed().getSeedId(), orderDetails.getQty());
 //                CustomerOrderController.checkInventory(orderDetails.getSeed().getSeedId(), orderDetails.getQty());
 
-
-//            return true;
-//        } else {
-//            return false;
-//        }
                 //Update Inventory
 //                InventoryController.updateInventorySeedQty(orderDetails.getSeed().getSeedId(), orderDetails.getQty());
 //                InventoryService.updateInventorySeedQty(orderDetails.getSeed().getSeedId(), orderDetails.getQty());
 
             ;
 
-//
-//        //get order by Id
-//        @GetMapping("/{orderId}")
-//        public ResponseEntity<CustomerOrder>getOrderById(@PathVariable int orderId) {
-//            CustomerOrder customerOrder = customerOrderRepository.findById(orderId)
-//                    .orElseThrow (currentSeedQty > orderedSeedQty) {
-//                ;
-//            }
-//        }
+  //get order by Id
+        @GetMapping("/{orderId}")
+        public ResponseEntity<CustomerOrder>getOrderById(@PathVariable int orderId){
+            CustomerOrder customerOrder = customerOrderRepository.findById(orderId)
+                    .orElseThrow(()->new ResourceNotFoundException("Customer order does not exist with id:" + orderId));
+        return ResponseEntity.ok(customerOrder);
+        }
 
         //update order by Id
         @PutMapping("/update/{orderId}")
