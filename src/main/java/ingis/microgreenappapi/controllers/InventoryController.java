@@ -14,26 +14,26 @@ import java.util.List;
 public class InventoryController {
 
     @Autowired
-    private static SeedRepository seedRepo;
+    private  static SeedRepository seedRepo;
 
-//    public static void checkInventory(int seedId, int qty) {
-//        System.out.println("Seed " + seedId);
-////        int currentSeedQty = seedRepo.findById(seedId).get().getQty();
-////        int orderedSeedQty = qty * seedRepo.findById(seedId).get().getSeedingDensity();
+    public void checkInventory(int seedId, int qty) {
+        System.out.println("Seed " + seedId);
+        int currentSeedQty = seedRepo.findById(seedId).get().getQty();
+//        int orderedSeedQty = qty * seedRepo.findById(seedId).get().getSeedingDensity();
 ////        if (currentSeedQty > orderedSeedQty) {
 ////            return true;
 ////        } else {
 ////            return false;
 ////        }
-//    }
+    }
 
-//    public static void updateInventorySeedQty(int seedId, int qty) {
-//        System.out.println(seedId + "qty " + qty);
+    public static void updateInventorySeedQty(int seedId, int qty) {
+        System.out.println(seedId + "qty " + qty);
 ////        Seed updatedSeed = seedRepo.findById(2).
 ////        updatedSeed.setQty(seedRepo.findById(seedId).get().getQty() -
 ////                (qty * seedRepo.findById(seedId).get().getSeedingDensity()));
 ////        seedRepo.save(updatedSeed);
-//    }
+    }
 
     // **** view all seed information
     @GetMapping
