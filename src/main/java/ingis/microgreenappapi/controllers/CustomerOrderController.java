@@ -96,22 +96,22 @@ public class CustomerOrderController {
                     taskRepo.save(task);
                 }
 
-//                // Create water below days
-//                for (int i = (seed.getHarvestTime()- seed.getBlackoutTime()); i > 0; i--) {
-//                    if (i == (seed.getHarvestTime()- seed.getBlackoutTime())) {
-//                        todayTask = "Move " + seed.getSeedName() + " lighted racks and water below";
-//                        task = new Task();
-//                        task.setTask(todayTask);
-//                        task.setDueDate(dd.minusDays(i));
-//                        taskRepo.save(task);
-//                    } else {
-//                        todayTask = "Water " + seed.getSeedName() + " from below";
-//                        task = new Task();
-//                        task.setTask(todayTask);
-//                        task.setDueDate((dd.minusDays(i)));
-//                        taskRepo.save(task);
-//                    }
-//                }
+                // Create water below days
+                for (i = (seed.getHarvestTime()- seed.getBlackoutTime()); i > 0; i--) {
+                    if (i == (seed.getHarvestTime()- seed.getBlackoutTime())) {
+                        todayTask = "Move " + seed.getSeedName() + " lighted racks and water below";
+                        task = new Task();
+                        task.setTask(todayTask);
+                        task.setDueDate(String.valueOf(deliveryDate.minusDays(i)));
+                        taskRepo.save(task);
+                    } else {
+                        todayTask = "Water " + seed.getSeedName() + " from below";
+                        task = new Task();
+                        task.setTask(todayTask);
+                        task.setDueDate(String.valueOf((deliveryDate.minusDays(i))));
+                        taskRepo.save(task);
+                    }
+                }
 
 //                //Create pull for delivery
 //                todayTask = "Pull " + seed.getSeedName() + " for delivery";
