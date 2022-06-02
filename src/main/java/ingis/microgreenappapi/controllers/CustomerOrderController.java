@@ -5,8 +5,6 @@ import ingis.microgreenappapi.data.TaskRepository;
 import ingis.microgreenappapi.exception.NotEnoughInventoryException;
 import ingis.microgreenappapi.models.Seed;
 import ingis.microgreenappapi.models.Task;
-import ingis.microgreenappapi.service.InventoryServicetest;
-import org.apache.tomcat.util.net.jsse.JSSEUtil;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import ingis.microgreenappapi.exception.ResourceNotFoundException;
 import ingis.microgreenappapi.models.CustomerOrder;
@@ -17,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -46,27 +43,28 @@ public class CustomerOrderController {
         @PostMapping("/create")
         public CustomerOrder createOrder(@RequestBody CustomerOrder customerOrder) {
 
-            System.out.println( customerOrder.getOrderDetails().size());
-
             for (int i = 0; i < customerOrder.getOrderDetails().size(); i ++) {
 
                 //intialize variables
                 int seedId = customerOrder.getOrderDetails().get(i).getSeed().getSeedId();
-                Seed seed = seedRepo.getById(seedId);
-                int seedQtyOnHand =seed.getQty();
+
+                Seed seed = seedRepo.findById(seedId)
+                        .orElseThrow(()-> new ResourceNotFoundException("Customer order does not exist with id:"));
+
+                int SeedQtyInInventory = customerOrder.getOrderDetails().get(i).getSeed().getQty();
                 int seedQtyOrdered = customerOrder.getOrderDetails().get(i).getQty() *
-                        seed.getSeedingDensity();
+                        customerOrder.getOrderDetails().get(i).getSeed().getSeedingDensity();
                 String todayTask;
                 Task task;
                 LocalDate deliveryDate = customerOrder.getDeliveryDate();
 
                 //check inventory
-                if (seedQtyOnHand < seedQtyOrdered) {
+                if (SeedQtyInInventory < seedQtyOrdered) {
                     throw new NotEnoughInventoryException("Not enough inventory for order");
                 }
 
                 //Update Inventory
-                seed.setQty(seedQtyOnHand - seedQtyOrdered);
+                seed.setQty(SeedQtyInInventory - seedQtyOrdered);
 
                 //Create tasks
                 if (seed.getSeedPresoak()) {
@@ -127,10 +125,7 @@ public class CustomerOrderController {
         }
 
 
-
-            ;
-
-  //get order by Id
+        //get order by Id
         @GetMapping("/{orderId}")
         public ResponseEntity<CustomerOrder>getOrderById(@PathVariable int orderId){
             CustomerOrder customerOrder = customerOrderRepository.findById(orderId)
@@ -140,7 +135,7 @@ public class CustomerOrderController {
 
         //update order by Id
         @PutMapping("/update/{orderId}")
-    public ResponseEntity<CustomerOrder>updateOrder(@PathVariable int orderId, CustomerOrder orderDetails){
+        public ResponseEntity<CustomerOrder>updateOrder(@PathVariable int orderId, CustomerOrder orderDetails){
             CustomerOrder updateOrder = customerOrderRepository.findById(orderId)
                     .orElseThrow(()-> new ResourceNotFoundException("Customer order does not exist with id:" + orderId));
                 updateOrder.setOrderDate(orderDetails.getOrderDate());
@@ -165,17 +160,6 @@ public class CustomerOrderController {
                     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 
-
-//    public void checkInventory(int seedId, int qty) {
-//        System.out.println("Seed " + seedId);
-//        int currentSeedQty = seedRepo.findById(seedId).get().getQty();
-//    //        int orderedSeedQty = qty * seedRepo.findById(seedId).get().getSeedingDensity();
-//    ////        if (currentSeedQty > orderedSeedQty) {
-//    ////            return true;
-//    ////        } else {
-//    ////            return false;
-//    ////        }
-//    }
 }
 
 
