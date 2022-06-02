@@ -87,14 +87,14 @@ public class CustomerOrderController {
                         task.setDueDate(String.valueOf(deliveryDate.minusDays(seed.getHarvestTime())));
                         taskRepo.save(task);
                     }
-                }
+
 //                    //Just water from above
-//                    todayTask = "Water " + seed.getSeedName() + " from above";
-//                    task = new Task();
-//                    task.setTask(todayTask);
-//                    task.setDueDate(dd.minusDays(seed.getHarvestTime()-i));
-//                    taskRepo.save(task);
-//                }
+                    todayTask = "Water " + seed.getSeedName() + " from above";
+                    task = new Task();
+                    task.setTask(todayTask);
+                    task.setDueDate(String.valueOf(deliveryDate.minusDays(seed.getHarvestTime()-i)));
+                    taskRepo.save(task);
+                }
 
 //                // Create water below days
 //                for (int i = (seed.getHarvestTime()- seed.getBlackoutTime()); i > 0; i--) {
