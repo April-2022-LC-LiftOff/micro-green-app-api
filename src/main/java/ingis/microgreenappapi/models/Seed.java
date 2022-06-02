@@ -18,7 +18,7 @@ import java.util.Objects;
 public class Seed {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer seedId;
     @NotBlank
     @Size(max = 50, message = "Name too long!")

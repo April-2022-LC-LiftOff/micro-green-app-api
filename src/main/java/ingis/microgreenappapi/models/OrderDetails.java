@@ -16,7 +16,7 @@ import java.util.Objects;
 public class OrderDetails {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer orderDetailsId;
 
     @Column(name = "Qty")

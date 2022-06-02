@@ -1,5 +1,7 @@
 package ingis.microgreenappapi.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -14,9 +16,8 @@ import java.util.Objects;
 public class Customer {
 
     @Id
-    @GeneratedValue
-    private int customerId;
-    private static int nextId = 1;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer customerId;
 
     @NotBlank
     @Size(max = 50, message = "Name too long!")
@@ -31,9 +32,15 @@ public class Customer {
 
     }
 
-    public Customer(int customerId, String customerName, List<CustomerOrder> customerOrder) {
-        this.customerId = nextId;
-        nextId++;
+//    public Customer(int customerId, String customerName, List<CustomerOrder> customerOrder) {
+//        this.customerId = nextId;
+//        nextId++;
+//        this.customerName = customerName;
+//        this.customerOrder = customerOrder;
+//    }
+
+
+    public Customer(String customerName, List<CustomerOrder> customerOrder) {
         this.customerName = customerName;
         this.customerOrder = customerOrder;
     }
@@ -46,12 +53,17 @@ public class Customer {
         this.customerName = customerName;
     }
 
-    public int getId() {
+    public Integer getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerOrder(List<CustomerOrder> customerOrder) {
-        this.customerOrder = customerOrder;
+    public void setCustomerId(Integer customerId) {
+        this.customerId = customerId;
+    }
+
+    @JsonIgnore
+    public List<CustomerOrder> getCustomerOrder() {
+        return customerOrder;
     }
 
     @Override
