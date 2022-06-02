@@ -50,6 +50,7 @@ public class CustomerOrderController {
 
             for (int i = 0; i < customerOrder.getOrderDetails().size(); i ++) {
 
+                //intialize variables
                 int seedId = customerOrder.getOrderDetails().get(i).getSeed().getSeedId();
                 Seed seed = seedRepo.getById(seedId);
                 int seedQtyOnHand =seed.getQty();
@@ -88,7 +89,7 @@ public class CustomerOrderController {
                         taskRepo.save(task);
                     }
 
-//                    //Just water from above
+                    //Just water from above
                     todayTask = "Water " + seed.getSeedName() + " from above";
                     task = new Task();
                     task.setTask(todayTask);
@@ -113,17 +114,12 @@ public class CustomerOrderController {
                     }
                 }
 
-//                //Create pull for delivery
-//                todayTask = "Pull " + seed.getSeedName() + " for delivery";
-//                task = new Task();
-//                task.setTask(todayTask);
-//                task.setDueDate(dd);
-//                taskRepo.save(task);
-//
-//                seedRepo.save(seed);
-//                detailRepo.save(orderDetail);
-//        return newQty.toString();
-//                return " processed";
+                //Create pull for delivery
+                todayTask = "Pull " + seed.getSeedName() + " for delivery";
+                task = new Task();
+                task.setTask(todayTask);
+                task.setDueDate(String.valueOf(deliveryDate));
+                taskRepo.save(task);
 
             }
 
