@@ -43,6 +43,11 @@ public class CustomerOrderController {
         @PostMapping("/create")
         public CustomerOrder createOrder(@RequestBody CustomerOrder customerOrder) {
 
+            //customer handling
+            int customerId = customerOrder.getCustomer().getCustomerId();
+            String customerName = customerOrder.getCustomer().getCustomerName();
+            System.out.println(customerId + ": " + customerName);
+
             for (int i = 0; i < customerOrder.getOrderDetails().size(); i ++) {
 
                 //intialize variables
