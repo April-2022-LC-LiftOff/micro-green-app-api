@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
 @RestController
@@ -29,6 +31,13 @@ public class CustomerOrderController {
         //create order
         @PostMapping("/create")
         public CustomerOrder createOrder(@RequestBody CustomerOrder customerOrder){
+
+//            System.out.println(customerOrder.getOrderDetails().get(0).getSeed().getSeedId());
+            customerOrder.getOrderDetails().forEach(orderDetails -> {
+                System.out.println(orderDetails.getSeed().getSeedId() + " qty " +  orderDetails.getQty());
+//                InventoryController.checkInventory(orderDetails.getSeed().getSeedId(), orderDetails.getQty());
+//                InventoryController.updateInventorySeedQty(orderDetails.getSeed().getSeedId(), orderDetails.getQty());
+            });
 
             return customerOrderRepository.save(customerOrder);
         }

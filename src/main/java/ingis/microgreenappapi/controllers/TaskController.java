@@ -6,6 +6,7 @@ import ingis.microgreenappapi.models.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +20,8 @@ public class TaskController {
     public ArrayList<Object> todaysTasks = new ArrayList<>();
     private String dailyTasks;
 
-// view all tasks
+
+    // view all tasks
     @GetMapping
     public List<Task> findAll() {
         return taskRepo.findAll();

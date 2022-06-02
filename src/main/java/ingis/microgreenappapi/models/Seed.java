@@ -20,6 +20,7 @@ public class Seed {
     @Id
     @GeneratedValue
     private Integer seedId;
+
     @NotBlank
     @Size(max = 50, message = "Name too long!")
     private String seedName;
@@ -38,8 +39,8 @@ public class Seed {
 
     private String status;
 
-    @OneToMany(mappedBy = "seed")
-    private List<OrderDetails> orderDetails = new ArrayList<>();
+//    @OneToMany(mappedBy = "seed")
+//    private List<OrderDetails> orderDetails = new ArrayList<>();
 
     public Seed(String seedName, Integer seedingDensity, Boolean seedPresoak,  Integer blackoutTime, Integer harvestTime, Integer lot ,Integer qty, String status, OrderDetails orderDetails) {
 
@@ -117,15 +118,15 @@ public class Seed {
     public void setQty(Integer qty) {
         this.qty = qty;
     }
-
-    @JsonIgnore
-    public List<OrderDetails> getOrderDetails() {
-        return orderDetails;
-    }
-
-    public void setOrderDetails(List<OrderDetails> orderDetails) {
-        this.orderDetails = orderDetails;
-    }
+//
+//    @JsonIgnore
+//    public List<OrderDetails> getOrderDetails() {
+//        return orderDetails;
+//    }
+//
+//    public void setOrderDetails(List<OrderDetails> orderDetails) {
+//        this.orderDetails = orderDetails;
+//    }
 
     public Integer getLot() {
         return lot;
