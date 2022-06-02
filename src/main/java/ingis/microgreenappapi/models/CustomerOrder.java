@@ -17,21 +17,23 @@ import java.util.*;
 @Table(name = "customer_orders")
 public class CustomerOrder {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int orderId;
-    private static int nextId = 1;
 
     @Column(name = "order_date")
     private LocalDate orderDate;
+
     @Column(name = "delivery_date")
     private LocalDate deliveryDate;
+
     @Column(name = "active_order")
     private Boolean activeOrder;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name="orderId")
     private  List<OrderDetails> orderDetails = new ArrayList<>();
-    @ManyToOne(cascade = CascadeType.ALL)
+
+    @ManyToOne
     @JoinColumn(name="customerId")
     private Customer customer;
 
