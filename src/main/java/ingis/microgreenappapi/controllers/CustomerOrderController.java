@@ -42,27 +42,25 @@ public class CustomerOrderController {
 
             for (int i = 0; i < customerOrder.getOrderDetails().size(); i ++) {
 
-                //check inventory
                 int seedId = customerOrder.getOrderDetails().get(i).getSeed().getSeedId();
                 int seedQtyOnHand =seedRepo.getById(seedId).getQty();
                 int seedQtyOrdered = customerOrder.getOrderDetails().get(i).getQty() *
                         seedRepo.getById(seedId).getSeedingDensity();
 
+                //check inventory
                 if (seedQtyOnHand < seedQtyOrdered) {
                     throw new NotEnoughInventoryException("Not enough inventory for order");
                 }
+
+                //Update Inventory
+                seedRepo.getById(seedId).setQty(seedQtyOnHand - seedQtyOrdered);
 
             }
 
             return customerOrderRepository.save(customerOrder);
         }
 
-//                checkInventory(orderDetails.getSeed().getSeedId(), orderDetails.getQty());
-//                CustomerOrderController.checkInventory(orderDetails.getSeed().getSeedId(), orderDetails.getQty());
 
-                //Update Inventory
-//                InventoryController.updateInventorySeedQty(orderDetails.getSeed().getSeedId(), orderDetails.getQty());
-//                InventoryService.updateInventorySeedQty(orderDetails.getSeed().getSeedId(), orderDetails.getQty());
 
             ;
 
