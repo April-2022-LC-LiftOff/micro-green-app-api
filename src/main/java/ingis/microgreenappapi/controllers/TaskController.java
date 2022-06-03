@@ -2,7 +2,6 @@ package ingis.microgreenappapi.controllers;
 
 import ingis.microgreenappapi.data.SeedRepository;
 import ingis.microgreenappapi.data.TaskRepository;
-import ingis.microgreenappapi.models.Seed;
 import ingis.microgreenappapi.models.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,19 +21,17 @@ public class TaskController {
     @Autowired
     private SeedRepository seedRepo;
 
-
-
     public ArrayList<Object> todaysTasks = new ArrayList<>();
     private String dailyTasks;
 
 
-// view all tasks
+//  view all tasks
     @GetMapping
     public List<Task> findAll() {
         return taskRepo.findAll();
     }
 
-    // view today's tasks
+//  view today's tasks
     @GetMapping("/{today}")
     public ArrayList todayTasks(@PathVariable String today) {
     //iterate through task
@@ -49,26 +46,24 @@ public class TaskController {
         return todaysTasks;
     }
 
-// add a task
+//  add a task
     @PostMapping(value = "add")
     public String addTask(@RequestBody Task task) {
         taskRepo.save(task);
         return "Saved....";
     }
 
-// update complete task
-@PutMapping(value = "/update/{taskId}")
-public String updateCompleteTask(@PathVariable(value = "taskId") Integer taskId, @RequestBody Task task) {
-    Task updatedTask = taskRepo.findById(taskId).get();
-    updatedTask.setComplete(task.isComplete());
+//  update complete task
+    @PutMapping(value = "/update/{taskId}")
+    public String updateCompleteTask(@PathVariable(value = "taskId") Integer taskId,
+                                     @RequestBody Task task) {
+        Task updatedTask = taskRepo.findById(taskId).get();
+        updatedTask.setComplete(task.isComplete());
+        taskRepo.save(updatedTask);
+        return "update";
+    }
 
-    taskRepo.save(updatedTask);
-    return "update";
-}
-
-
-// delete a task
-
+//  delete a task
     @DeleteMapping(value = "/delete/{id}")
     public String deleteTask(@PathVariable Integer id) {
         Task deletedTask = taskRepo.findById(id).get();
