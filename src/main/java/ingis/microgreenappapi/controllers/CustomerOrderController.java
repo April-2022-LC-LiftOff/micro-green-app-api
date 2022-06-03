@@ -1,17 +1,11 @@
 package ingis.microgreenappapi.controllers;
 
-import ingis.microgreenappapi.data.CustomerRepository;
-import ingis.microgreenappapi.data.SeedRepository;
-import ingis.microgreenappapi.data.TaskRepository;
+import ingis.microgreenappapi.data.*;
 import ingis.microgreenappapi.exception.NotEnoughInventoryException;
-import ingis.microgreenappapi.models.Customer;
-import ingis.microgreenappapi.models.Seed;
-import ingis.microgreenappapi.models.Task;
+import ingis.microgreenappapi.models.*;
 import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import ingis.microgreenappapi.exception.ResourceNotFoundException;
-import ingis.microgreenappapi.models.CustomerOrder;
-import ingis.microgreenappapi.data.CustomerOrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,6 +31,9 @@ public class CustomerOrderController {
         @Autowired
         private CustomerRepository customerRepo;
 
+        @Autowired
+        private TrayRepository trayRepo;
+
         //view all customer orders
         @GetMapping
         public List<CustomerOrder> getAllOrders(){
@@ -48,25 +45,31 @@ public class CustomerOrderController {
         public CustomerOrder createOrder(@RequestBody CustomerOrder customerOrder) {
 
 
-            //customer handling
+            //customer exception handling
             int customerId = customerOrder.getCustomer().getCustomerId();
             Customer customer = customerRepo.findById(customerId)
                     .orElseThrow(()-> new ResourceNotFoundException(
                             "Customer not exist with id:" + customerId));
-            String customerName = customerOrder.getCustomer().getCustomerName();
 
             for (int i = 0; i < customerOrder.getOrderDetails().size(); i ++) {
 
-                //initialize variables
-                int seedId = customerOrder.getOrderDetails().get(i).getSeed().getSeedId();
 
+                //exception handling
+                int seedId = customerOrder.getOrderDetails().get(i).getSeed().getSeedId();
                 Seed seed = seedRepo.findById(seedId)
                         .orElseThrow(()-> new ResourceNotFoundException(
                                 "Seed does not exist with id:" + seedId));
 
+                int trayId = customerOrder.getOrderDetails().get(i).getTray().getTrayId();
+                Tray tray = trayRepo.findById(trayId)
+                        .orElseThrow(()-> new ResourceNotFoundException(
+                                "Tray does not exist with id:" + trayId));
+
+                //initialize variables
                 int SeedQtyInInventory = customerOrder.getOrderDetails().get(i).getSeed().getQty();
                 int seedQtyOrdered = customerOrder.getOrderDetails().get(i).getQty() *
                         customerOrder.getOrderDetails().get(i).getSeed().getSeedingDensity();
+                String customerName = customerOrder.getCustomer().getCustomerName();
                 String todayTask;
                 Task task;
                 LocalDate deliveryDate = customerOrder.getDeliveryDate();
@@ -74,6 +77,12 @@ public class CustomerOrderController {
                 //check inventory
                 if (SeedQtyInInventory < seedQtyOrdered) {
                     throw new NotEnoughInventoryException("Not enough " + seed.getSeedName() +
+                            " in inventory for order.");
+                }
+
+                System.out.println("tray on hand" + tray.getQty() + "ordered" + customerOrder.getOrderDetails().get(i).getQty());
+                if (tray.getQty() < customerOrder.getOrderDetails().get(i).getQty()) {
+                    throw new NotEnoughInventoryException("Not enough " + tray.getTrayType() +
                             " in inventory for order.");
                 }
 
