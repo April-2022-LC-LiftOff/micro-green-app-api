@@ -1,6 +1,10 @@
 package ingis.microgreenappapi.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
@@ -14,8 +18,7 @@ public class Tray {
 
     @Id
     @GeneratedValue
-    private int trayId;
-    private static int nextId = 1;
+    private Integer trayId;
 
     @NotBlank
     @Size(max = 50, message = "Name too long!")
@@ -23,9 +26,8 @@ public class Tray {
     private String size;
     private Double qty;
 
-    @ManyToOne
-    @JoinColumn(name="orderDetailsId")
-    private OrderDetails orderDetails;
+    @OneToMany(mappedBy = "tray")
+    private List<OrderDetails> orderDetails = new ArrayList<>();
 
     @OneToOne(mappedBy = "tray")
     private PlantingMedium plantingMedium;
@@ -33,12 +35,10 @@ public class Tray {
     public Tray() {
     }
 
-    public Tray(int trayId, String trayType, String size, Double qty, OrderDetails orderDetails, PlantingMedium plantingMedium) {
-        this.trayId = trayId;
+    public Tray(String trayType, String size, Double qty, PlantingMedium plantingMedium) {
         this.trayType = trayType;
         this.size = size;
         this.qty = qty;
-        this.orderDetails = orderDetails;
         this.plantingMedium = plantingMedium;
     }
 
@@ -50,10 +50,11 @@ public class Tray {
         this.trayType = trayType;
     }
 
-    public int getTrayId() {
+    public Integer getTrayId() {
         return trayId;
     }
-    public void setTrayId(int trayId) {
+
+    public void setTrayId(Integer trayId) {
         this.trayId = trayId;
     }
 
@@ -72,11 +73,12 @@ public class Tray {
         this.qty = qty;
     }
 
-//    public OrderDetails getOrderDetails() {
-//        return orderDetails;
-//    }
+    @JsonIgnore
+    public List<OrderDetails> getOrderDetails() {
+        return orderDetails;
+    }
 
-    public void setOrderDetails(OrderDetails orderDetails) {
+    public void setOrderDetails(List<OrderDetails> orderDetails) {
         this.orderDetails = orderDetails;
     }
 

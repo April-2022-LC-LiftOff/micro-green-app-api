@@ -1,7 +1,10 @@
 package ingis.microgreenappapi.models;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
@@ -16,7 +19,7 @@ public class Seed {
 
     @Id
     @GeneratedValue
-    private int seedId;
+    private Integer seedId;
     @NotBlank
     @Size(max = 50, message = "Name too long!")
     private String seedName;
@@ -35,9 +38,8 @@ public class Seed {
 
     private String status;
 
-    @ManyToOne
-    @JoinColumn(name="orderDetailsId")
-    private OrderDetails orderDetails;
+    @OneToMany(mappedBy = "seed")
+    private List<OrderDetails> orderDetails = new ArrayList<>();
 
     public Seed(String seedName, Integer seedingDensity, Boolean seedPresoak,  Integer blackoutTime, Integer harvestTime, Integer lot ,Integer qty, String status, OrderDetails orderDetails) {
 
@@ -54,9 +56,18 @@ public class Seed {
     // model for inventory page
     public Seed() {}
 
-    public Seed(String seedName, Integer qty) {
-        this.seedName = seedName;
-        this.qty = qty;
+//    public Seed(String seedName, Integer qty) {
+//        this.seedName = seedName;
+//        this.qty = qty;
+//    }
+
+
+    public Integer getSeedId() {
+        return seedId;
+    }
+
+    public void setSeedId(Integer seedId) {
+        this.seedId = seedId;
     }
 
     public String getSeedName() {
@@ -107,13 +118,15 @@ public class Seed {
         this.qty = qty;
     }
 
-    //    public OrderDetails getOrderDetails() {
-//        return orderDetails;
-//    }
+    @JsonIgnore
+    public List<OrderDetails> getOrderDetails() {
+        return orderDetails;
+    }
 
-    public void setOrderDetails(OrderDetails orderDetails) {
+    public void setOrderDetails(List<OrderDetails> orderDetails) {
         this.orderDetails = orderDetails;
     }
+
     public Integer getLot() {
         return lot;
     }
@@ -129,10 +142,10 @@ public class Seed {
     public void setStatus(String status) {
         this.status = status;
     }
-
-    public int getId() {
-        return seedId;
-    }
+//
+//    public int getId() {
+//        return seedId;
+//    }
     @Override
     public String toString() {
         return "Seed{" +

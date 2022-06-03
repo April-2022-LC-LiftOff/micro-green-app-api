@@ -1,9 +1,14 @@
 package ingis.microgreenappapi.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.Objects;
 
 @Entity
@@ -12,65 +17,74 @@ public class OrderDetails {
 
     @Id
     @GeneratedValue
-    private int orderDetailsId;
-    private static int nextId =1;
+    private Integer orderDetailsId;
 
     @Column(name = "Qty")
     private int qty;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "seedId")
+    @ManyToOne
+    @JoinColumn(name="seedId")
     private Seed seed;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="trayId")
+    @ManyToOne
+//            (cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JoinColumn(name="TrayId")
     private Tray tray;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="mediumId")
-    private PlantingMedium plantingMedium;
-
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "orderId")
     private CustomerOrder customerOrder;
 
     public OrderDetails() {
     }
 
-    public OrderDetails(Number orderDetailsId, Integer qty, Seed seedId, Tray trayId) {
+
+    public OrderDetails(int qty, Seed seed, Tray tray, CustomerOrder customerOrder) {
         this.qty = qty;
-        this.seed = seedId;
-        this.tray = trayId;
-        this.orderDetailsId = nextId;
-        nextId++;
+        this.seed = seed;
+        this.tray = tray;
+        this.customerOrder = customerOrder;
     }
 
-    public int getOrderDetailsId() {
+    public Integer getOrderDetailsId() {
         return orderDetailsId;
     }
 
-    public Integer getQty() {
+    public void setOrderDetailsId(Integer orderDetailsId) {
+        this.orderDetailsId = orderDetailsId;
+    }
+
+    public int getQty() {
         return qty;
     }
 
-    public void setQty(Integer qty) {
+    public void setQty(int qty) {
         this.qty = qty;
     }
 
-    public Seed getSeedId() {
+    public Seed getSeed() {
         return seed;
     }
 
-    public void setSeedId(Seed seedId) {
-        this.seed = seedId;
+    public void setSeed(Seed seed) {
+        this.seed = seed;
     }
 
-    public Tray getTrayId() {
+    public Tray getTray() {
         return tray;
     }
 
-    public void setTrayId(Tray trayId) {
-        this.tray = trayId;
+    public void setTray(Tray tray) {
+        this.tray = tray;
+    }
+
+    @JsonIgnore
+    public CustomerOrder getCustomerOrder() {
+        return customerOrder;
+    }
+
+    public void setCustomerOrder(CustomerOrder customerOrder) {
+        this.customerOrder = customerOrder;
     }
 
     @Override

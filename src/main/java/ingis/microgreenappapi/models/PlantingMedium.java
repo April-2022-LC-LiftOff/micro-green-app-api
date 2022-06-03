@@ -12,8 +12,7 @@ import javax.validation.constraints.Size;
 public class PlantingMedium {
     @Id
     @GeneratedValue
-    private int mediumId;
-    private static int nextId = 1;
+    private Integer mediumId;
 
     @NotBlank
     @Size(max = 50, message = "Description to long!")
@@ -25,23 +24,26 @@ public class PlantingMedium {
     @JoinColumn(name = "trayId")
     private Tray tray;
 
-    @ManyToOne
-    @JoinColumn(name = "orderDetailsId")
-    private OrderDetails orderDetails;
-
-    @ManyToOne
-    @JoinColumn(name = "orderId")
-    private CustomerOrder customerOrder;
-
 
     public PlantingMedium() {
     }
 
-    public PlantingMedium(String mediumType, Integer qty, Tray trayId) {
+    public PlantingMedium(String mediumType, Double qty, Tray tray) {
         this.mediumType = mediumType;
-        this.qty = Double.valueOf(qty);
-        this.mediumId = nextId;
-        nextId++;
+        this.qty = qty;
+        this.tray = tray;
+    }
+
+    //    public PlantingMedium(String mediumType, Integer qty, Tray trayId) {
+//        this.mediumType = mediumType;
+//        this.qty = Double.valueOf(qty);
+//        this.mediumId = nextId;
+//        nextId++;
+//    }
+
+
+    public void setMediumId(Integer mediumId) {
+        this.mediumId = mediumId;
     }
 
     public String getMediumType() {
@@ -60,27 +62,13 @@ public class PlantingMedium {
         this.qty = qty;
     }
 
-    //    public Tray getTray() {
-//        return tray;
-//    }
+    public Tray getTray() {
+        return tray;
+    }
+
     public void setTray(Tray tray) {
         this.tray = tray;
     }
-
-//    public OrderDetails getOrderDetails() {
-//        return orderDetails;
-//    }
-
-    public void setOrderDetails(OrderDetails orderDetails) {
-        this.orderDetails = orderDetails;
-    }
-    //    public Tray getTrayId() {
-//        return TrayId;
-//    }
-//
-//    public void setTrayId(Tray trayId) {
-//        TrayId = trayId;
-//    }
 
     public int getMediumId()
     {
