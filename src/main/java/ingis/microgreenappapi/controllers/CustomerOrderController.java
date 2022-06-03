@@ -53,7 +53,6 @@ public class CustomerOrderController {
 
             for (int i = 0; i < customerOrder.getOrderDetails().size(); i ++) {
 
-
                 //exception handling
                 int seedId = customerOrder.getOrderDetails().get(i).getSeed().getSeedId();
                 Seed seed = seedRepo.findById(seedId)
@@ -66,9 +65,15 @@ public class CustomerOrderController {
                                 "Tray does not exist with id:" + trayId));
 
                 //initialize variables
-                int SeedQtyInInventory = customerOrder.getOrderDetails().get(i).getSeed().getQty();
-                int seedQtyOrdered = customerOrder.getOrderDetails().get(i).getQty() *
-                        customerOrder.getOrderDetails().get(i).getSeed().getSeedingDensity();
+                float sqIn = 0;
+                if (tray.getSize().contains("10x20")) {
+                     sqIn = 200;
+                } else if (tray.getSize().contains("5x8")) {
+                     sqIn = 40;
+                }
+                float seedQtyOrdered = customerOrder.getOrderDetails().get(i).getQty() *
+                        customerOrder.getOrderDetails().get(i).getSeed().getSeedingDensity() * sqIn;
+                float SeedQtyInInventory = customerOrder.getOrderDetails().get(i).getSeed().getQty();
                 String customerName = customerOrder.getCustomer().getCustomerName();
                 String todayTask;
                 Task task;
@@ -87,6 +92,7 @@ public class CustomerOrderController {
                 }
 
                 //Update Inventory
+                System.out.println(SeedQtyInInventory + " - " + seedQtyOrdered);
                 seed.setQty(SeedQtyInInventory - seedQtyOrdered);
 
                 //Create tasks
