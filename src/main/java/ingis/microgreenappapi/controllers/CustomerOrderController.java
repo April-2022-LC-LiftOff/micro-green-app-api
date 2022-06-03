@@ -85,10 +85,9 @@ public class CustomerOrderController {
                             " in inventory for order.");
                 }
 
-                System.out.println("tray on hand" + tray.getQty() + "ordered" + customerOrder.getOrderDetails().get(i).getQty());
                 if (tray.getQty() < customerOrder.getOrderDetails().get(i).getQty()) {
                     throw new NotEnoughInventoryException("Not enough " + tray.getTrayType() +
-                            " in inventory for order.");
+                            " on hand for order.");
                 }
 
                 //Update Inventory
