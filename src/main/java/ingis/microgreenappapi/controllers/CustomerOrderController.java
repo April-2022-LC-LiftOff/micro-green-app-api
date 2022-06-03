@@ -1,5 +1,7 @@
 package ingis.microgreenappapi.controllers;
 
+import ingis.microgreenappapi.data.CustomerRepository;
+import ingis.microgreenappapi.models.Customer;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import ingis.microgreenappapi.exception.ResourceNotFoundException;
 import ingis.microgreenappapi.models.CustomerOrder;
@@ -9,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/orders")
@@ -18,6 +21,10 @@ public class CustomerOrderController {
         @Autowired
         private CustomerOrderRepository customerOrderRepository;
 
+        @Autowired
+        private CustomerRepository customerRepository;
+
+
         //view all customer orders
         @GetMapping
         public List<CustomerOrder> getAllOrders(){
@@ -26,10 +33,14 @@ public class CustomerOrderController {
         }
 
 
-        //create order
+//        create order
         @PostMapping("/create")
         public CustomerOrder createOrder(@RequestBody CustomerOrder customerOrder){
-
+//            for (int i = 0; i < customerOrder.getCustomer().size(); i++) {
+//                int customerId = customerOrder.getCustomer().getCustomerId();
+//                Customer customer = customerRepository.findById(customerId)
+//                        .orElseThrow(() -> new ResourceNotFoundException("Customer does not exist with id:"));
+//            }
             return customerOrderRepository.save(customerOrder);
         }
 

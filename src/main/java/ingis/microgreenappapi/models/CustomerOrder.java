@@ -39,10 +39,10 @@ public class CustomerOrder {
 
     }
 
-    public CustomerOrder(LocalDate orderDate, LocalDate deliveryDate, Customer customer, List<OrderDetails> orderDetails) {
-
+    public CustomerOrder(LocalDate orderDate, LocalDate deliveryDate, Boolean activeOrder, List<OrderDetails> orderDetails, Customer customer) {
         this.orderDate = orderDate;
         this.deliveryDate = deliveryDate;
+        this.activeOrder = activeOrder;
         this.orderDetails = orderDetails;
         this.customer = customer;
     }

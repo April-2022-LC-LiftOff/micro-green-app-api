@@ -9,6 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/customers")
+@CrossOrigin(origins = "http://localhost:3000")
 public class CustomerController {
 
 
@@ -22,10 +23,9 @@ public class CustomerController {
         return customerRepo.findAll();
     }
 
-    @PostMapping(value = "/add")
-    public String addCustomers(@RequestBody Customer customer) {
-        customerRepo.save(customer);
-        return "Saved....";
+    @PostMapping("/add")
+    public Customer addCustomers(@RequestBody Customer customer) {
+        return customerRepo.save(customer);
     }
 
     @PutMapping(value = "/update/{customerId}")
