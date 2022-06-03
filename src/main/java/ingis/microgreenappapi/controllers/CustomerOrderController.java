@@ -99,7 +99,8 @@ public class CustomerOrderController {
                 if (seed.getSeedPresoak()) {
                     //Create soak tasks
                     todayTask = "Order for " + customerName +
-                            "\nSoak "  + customerOrder.getOrderDetails().get(i).getQty() +
+                            "\nSoak "  + (int)customerOrder.getOrderDetails().get(i).getQty() +
+                            " " + tray.getSize() +
                             " tray(s) of " +
                             seed.getSeedName();
                     task = new Task();
@@ -112,8 +113,8 @@ public class CustomerOrderController {
                 for (int j = 1; j < seed.getBlackoutTime(); j++) {
                     if (j == 1) {
                         //Plant & water from above
-                        todayTask = "Order for " + customerName + "\nPlant " +  customerOrder.getOrderDetails().get(i).getQty() +
-                                " tray(s) of " +seed.getSeedName() + ", cover & move to dark racks";
+                        todayTask = "Order for " + customerName + "\nPlant " +  (int)customerOrder.getOrderDetails().get(i).getQty() +  " " +
+                                tray.getSize() + " tray(s) of " +seed.getSeedName() + ", cover & move to dark racks";
                         task = new Task();
                         task.setTask(todayTask);
                         task.setDueDate(String.valueOf(deliveryDate.minusDays(seed.getHarvestTime())));
