@@ -57,9 +57,9 @@ public class Customer {
         return customerId;
     }
 
-    public void setCustomerId(Integer customerId) {
-        this.customerId = customerId;
-    }
+//    public void setCustomerId(Integer customerId) {
+//        this.customerId = customerId;
+//    }
 
     @JsonIgnore
     public List<CustomerOrder> getCustomerOrder() {

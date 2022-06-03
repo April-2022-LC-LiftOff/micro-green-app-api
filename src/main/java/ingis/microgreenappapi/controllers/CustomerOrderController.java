@@ -1,10 +1,13 @@
 package ingis.microgreenappapi.controllers;
 
+import ingis.microgreenappapi.data.CustomerRepository;
 import ingis.microgreenappapi.data.SeedRepository;
 import ingis.microgreenappapi.data.TaskRepository;
 import ingis.microgreenappapi.exception.NotEnoughInventoryException;
+import ingis.microgreenappapi.models.Customer;
 import ingis.microgreenappapi.models.Seed;
 import ingis.microgreenappapi.models.Task;
+import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import ingis.microgreenappapi.exception.ResourceNotFoundException;
 import ingis.microgreenappapi.models.CustomerOrder;
@@ -31,30 +34,35 @@ public class CustomerOrderController {
         @Autowired
         private TaskRepository taskRepo;
 
+        @Autowired
+        private CustomerRepository customerRepo;
+
         //view all customer orders
         @GetMapping
         public List<CustomerOrder> getAllOrders(){
-
             return customerOrderRepository.findAll();
         }
-
 
         //create order
         @PostMapping("/create")
         public CustomerOrder createOrder(@RequestBody CustomerOrder customerOrder) {
 
+
             //customer handling
             int customerId = customerOrder.getCustomer().getCustomerId();
+            Customer customer = customerRepo.findById(customerId)
+                    .orElseThrow(()-> new ResourceNotFoundException(
+                            "Customer not exist with id:" + customerId));
             String customerName = customerOrder.getCustomer().getCustomerName();
-            System.out.println(customerId + ": " + customerName);
 
             for (int i = 0; i < customerOrder.getOrderDetails().size(); i ++) {
 
-                //intialize variables
+                //initialize variables
                 int seedId = customerOrder.getOrderDetails().get(i).getSeed().getSeedId();
 
                 Seed seed = seedRepo.findById(seedId)
-                        .orElseThrow(()-> new ResourceNotFoundException("Customer order does not exist with id:"));
+                        .orElseThrow(()-> new ResourceNotFoundException(
+                                "Seed does not exist with id:" + seedId));
 
                 int SeedQtyInInventory = customerOrder.getOrderDetails().get(i).getSeed().getQty();
                 int seedQtyOrdered = customerOrder.getOrderDetails().get(i).getQty() *
@@ -65,7 +73,8 @@ public class CustomerOrderController {
 
                 //check inventory
                 if (SeedQtyInInventory < seedQtyOrdered) {
-                    throw new NotEnoughInventoryException("Not enough inventory for order");
+                    throw new NotEnoughInventoryException("Not enough " + seed.getSeedName() +
+                            " in inventory for order.");
                 }
 
                 //Update Inventory
@@ -74,7 +83,10 @@ public class CustomerOrderController {
                 //Create tasks
                 if (seed.getSeedPresoak()) {
                     //Create soak tasks
-                    todayTask = "Soak " + seed.getSeedName();
+                    todayTask = "Order for " + customerName +
+                            "\nSoak "  + customerOrder.getOrderDetails().get(i).getQty() +
+                            " tray(s) of " +
+                            seed.getSeedName();
                     task = new Task();
                     task.setTask(todayTask);
                     task.setDueDate(String.valueOf(deliveryDate.minusDays(seed.getHarvestTime()+1)));
@@ -82,10 +94,11 @@ public class CustomerOrderController {
                 }
 
                 //Create water above days
-                for (i = 1; i < seed.getBlackoutTime(); i++) {
-                    if (i == 1) {
+                for (int j = 1; j < seed.getBlackoutTime(); j++) {
+                    if (j == 1) {
                         //Plant & water from above
-                        todayTask = "Plant " + seed.getSeedName() + ", cover & move to dark racks";
+                        todayTask = "Order for " + customerName + "\nPlant " +  customerOrder.getOrderDetails().get(i).getQty() +
+                                " tray(s) of " +seed.getSeedName() + ", cover & move to dark racks";
                         task = new Task();
                         task.setTask(todayTask);
                         task.setDueDate(String.valueOf(deliveryDate.minusDays(seed.getHarvestTime())));
@@ -93,7 +106,7 @@ public class CustomerOrderController {
                     }
 
                     //Just water from above
-                    todayTask = "Water " + seed.getSeedName() + " from above";
+                    todayTask = "Order for " + customerName + "\nWater " + seed.getSeedName() + " from above";
                     task = new Task();
                     task.setTask(todayTask);
                     task.setDueDate(String.valueOf(deliveryDate.minusDays(seed.getHarvestTime()-i)));
@@ -103,13 +116,13 @@ public class CustomerOrderController {
                 // Create water below days
                 for (i = (seed.getHarvestTime()- seed.getBlackoutTime()); i > 0; i--) {
                     if (i == (seed.getHarvestTime()- seed.getBlackoutTime())) {
-                        todayTask = "Move " + seed.getSeedName() + " lighted racks and water below";
+                        todayTask = "Order for " + customerName + "\nMove " + seed.getSeedName() + " lighted racks and water below";
                         task = new Task();
                         task.setTask(todayTask);
                         task.setDueDate(String.valueOf(deliveryDate.minusDays(i)));
                         taskRepo.save(task);
                     } else {
-                        todayTask = "Water " + seed.getSeedName() + " from below";
+                        todayTask = "Order for " + customerName + "\nWater " + seed.getSeedName() + " from below";
                         task = new Task();
                         task.setTask(todayTask);
                         task.setDueDate(String.valueOf((deliveryDate.minusDays(i))));
@@ -118,7 +131,7 @@ public class CustomerOrderController {
                 }
 
                 //Create pull for delivery
-                todayTask = "Pull " + seed.getSeedName() + " for delivery";
+                todayTask = "Order for " + customerName + "\nPull " + seed.getSeedName() + " for delivery";
                 task = new Task();
                 task.setTask(todayTask);
                 task.setDueDate(String.valueOf(deliveryDate));
