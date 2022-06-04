@@ -7,7 +7,6 @@ import ingis.microgreenappapi.exception.NotEnoughInventoryException;
 import ingis.microgreenappapi.models.Customer;
 import ingis.microgreenappapi.models.Seed;
 import ingis.microgreenappapi.models.Task;
-import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import ingis.microgreenappapi.exception.ResourceNotFoundException;
 import ingis.microgreenappapi.models.CustomerOrder;
@@ -18,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -42,6 +42,23 @@ public class CustomerOrderController {
         public List<CustomerOrder> getAllOrders(){
             return customerOrderRepository.findAll();
         }
+
+
+        // view today's tasks
+        @GetMapping("/active")
+        public ResponseEntity<ArrayList<Object>> getActiveOrders() {
+            ArrayList<Object> activeOrders = new ArrayList<>();
+            //iterate through task
+            activeOrders.clear();
+            for (int i = 0; i < customerOrderRepository.count(); i++) {
+                if(customerOrderRepository.findAll().get(i).getActiveOrder().equals(true)) {
+                    Object order = customerOrderRepository.findAll().get(i);
+                    activeOrders.add(order);
+                }
+            }
+            return ResponseEntity.ok(activeOrders);
+        }
+
 
         //create order
         @PostMapping("/create")
