@@ -48,19 +48,18 @@ public class TaskController {
 
 //  add a task
     @PostMapping(value = "add")
-    public String addTask(@RequestBody Task task) {
-        taskRepo.save(task);
-        return "Saved....";
+    public Task addTask(@RequestBody Task task) {
+        return taskRepo.save(task);
+
     }
 
 //  update complete task
     @PutMapping(value = "/update/{taskId}")
-    public String updateCompleteTask(@PathVariable(value = "taskId") Integer taskId,
+    public Task updateCompleteTask(@PathVariable(value = "taskId") Integer taskId,
                                      @RequestBody Task task) {
         Task updatedTask = taskRepo.findById(taskId).get();
         updatedTask.setComplete(task.isComplete());
-        taskRepo.save(updatedTask);
-        return "update";
+        return  taskRepo.save(updatedTask);
     }
 
 //  delete a task
