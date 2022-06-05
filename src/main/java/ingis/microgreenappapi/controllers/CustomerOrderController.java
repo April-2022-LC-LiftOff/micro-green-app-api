@@ -1,6 +1,7 @@
 package ingis.microgreenappapi.controllers;
 
 import ingis.microgreenappapi.data.CustomerRepository;
+import ingis.microgreenappapi.data.OrderDetailsRepository;
 import ingis.microgreenappapi.models.Customer;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import ingis.microgreenappapi.exception.ResourceNotFoundException;
@@ -23,6 +24,9 @@ public class CustomerOrderController {
 
         @Autowired
         private CustomerRepository customerRepository;
+
+        @Autowired
+        private OrderDetailsRepository orderDetailsRepository;
 
 
         //view all customer orders
