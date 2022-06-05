@@ -36,11 +36,7 @@ public class CustomerOrderController {
 //        create order
         @PostMapping("/create")
         public CustomerOrder createOrder(@RequestBody CustomerOrder customerOrder){
-//            for (int i = 0; i < customerOrder.getCustomer().size(); i++) {
-//                int customerId = customerOrder.getCustomer().getCustomerId();
-//                Customer customer = customerRepository.findById(customerId)
-//                        .orElseThrow(() -> new ResourceNotFoundException("Customer does not exist with id:"));
-//            }
+//
             return customerOrderRepository.save(customerOrder);
         }
 

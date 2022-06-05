@@ -3,6 +3,7 @@ package ingis.microgreenappapi.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -53,7 +54,7 @@ public class Customer {
         this.customerName = customerName;
     }
 
-    public Integer getCustomerId() {
+    public  Integer getCustomerId() {
         return customerId;
     }
 
