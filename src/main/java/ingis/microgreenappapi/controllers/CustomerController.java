@@ -3,12 +3,15 @@ package ingis.microgreenappapi.controllers;
 import ingis.microgreenappapi.data.CustomerRepository;
 import ingis.microgreenappapi.models.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
 @RequestMapping("/customers")
+@CrossOrigin(origins = "*")
 public class CustomerController {
 
 
@@ -23,9 +26,9 @@ public class CustomerController {
     }
 
     @PostMapping(value = "/add")
-    public String addCustomers(@RequestBody Customer customer) {
+    public String addCustomers(@Valid @RequestBody Customer customer) {
         customerRepo.save(customer);
-        return "Saved....";
+        return "/customers";
     }
 
     @PutMapping(value = "/update/{customerId}")
@@ -38,10 +41,10 @@ public class CustomerController {
     }
 
     @DeleteMapping(value = "/delete/{customerId}")
-    public String deleteCustomer(@PathVariable Integer customerId) {
+    public ResponseEntity<?> deleteCustomer(@PathVariable Integer customerId) {
         Customer deletedCustomer = customerRepo.findById(customerId).get();
         customerRepo.delete(deletedCustomer);
-        return "deleted...";
+        return ResponseEntity.ok().body("Customer" + customerId + " has been removed");
     }
 
 
