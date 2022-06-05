@@ -31,6 +31,10 @@ public class CustomerController {
         return "/customers";
     }
 
+    @GetMapping(value = "/{customerId}")
+    public Customer viewCustomerById(@PathVariable(value = "customerId") Integer customerId) {
+        return customerRepo.findById(customerId).get();
+    }
     @PutMapping(value = "/update/{customerId}")
     public String updateCustomer(@PathVariable(value = "customerId") Integer customerId, @RequestBody Customer customer) {
         Customer updatedCustomer = customerRepo.findById(customerId).get();
