@@ -30,7 +30,7 @@ public class CustomerOrder {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name="orderId")
     private  List<OrderDetails> orderDetails = new ArrayList<>();
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name="customerId")
     private Customer customer;
 
@@ -79,7 +79,6 @@ public class CustomerOrder {
         this.activeOrder = activeOrder;
     }
 
-
     public Customer getCustomer() {
         return customer;
     }
@@ -94,5 +93,18 @@ public class CustomerOrder {
 
     public void setOrderDetails(List<OrderDetails> orderDetails) {
         this.orderDetails = orderDetails;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CustomerOrder)) return false;
+        CustomerOrder customerOrder = (CustomerOrder) o;
+        return orderId != null && orderId.equals(((CustomerOrder)o).getOrderId());
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }

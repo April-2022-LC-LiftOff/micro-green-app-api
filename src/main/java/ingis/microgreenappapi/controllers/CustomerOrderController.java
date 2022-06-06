@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,7 +25,7 @@ public class CustomerOrderController {
         private CustomerOrderRepository customerOrderRepository;
 
         @Autowired
-        private CustomerRepository customerRepository;
+        private CustomerRepository customerRepo;
 
         @Autowired
         private OrderDetailsRepository orderDetailsRepository;
@@ -36,12 +38,10 @@ public class CustomerOrderController {
             return customerOrderRepository.findAll();
         }
 
-
 //        create order
         @PostMapping("/create")
         public CustomerOrder createOrder(@RequestBody CustomerOrder customerOrder){
-//
-            return customerOrderRepository.save(customerOrder);
+           return customerOrderRepository.save(customerOrder);
         }
 
         //get order by Id

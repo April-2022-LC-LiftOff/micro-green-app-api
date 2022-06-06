@@ -20,14 +20,14 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer customerId;
 
-    @NotBlank
+//    @NotBlank
     @Size(max = 50, message = "Name too long!")
     @Column(name = "customer_name")
     private String customerName;
 
 
-    @OneToMany(mappedBy = "customer")
-    private List<CustomerOrder> customerOrder = new ArrayList<>();
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<CustomerOrder> orders = new ArrayList<>();
 
     public Customer() {
 
@@ -41,9 +41,9 @@ public class Customer {
 //    }
 
 
-    public Customer(String customerName, List<CustomerOrder> customerOrder) {
+    public Customer(String customerName, List<CustomerOrder> orders) {
         this.customerName = customerName;
-        this.customerOrder = customerOrder;
+        this.orders = orders;
     }
 
     public String getCustomerName() {
@@ -61,10 +61,23 @@ public class Customer {
     public void setCustomerId(Integer customerId) {
         this.customerId = customerId;
     }
-
     @JsonIgnore
-    public List<CustomerOrder> getCustomerOrder() {
-        return customerOrder;
+    public List<CustomerOrder> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<CustomerOrder> orders) {
+        this.orders = orders;
+    }
+
+    public void addOrder(CustomerOrder order){
+       this.orders.add(order);
+        order.setCustomer(this);
+    }
+
+    public void removeOrder(CustomerOrder order){
+        this.orders.remove(order);
+        order.setCustomer(null);
     }
 
     @Override
