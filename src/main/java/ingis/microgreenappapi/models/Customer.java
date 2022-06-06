@@ -1,16 +1,18 @@
 package ingis.microgreenappapi.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-
+@CrossOrigin(origins = "*")
 @Entity
 @Table(name = "Customer")
 public class Customer {
@@ -19,10 +21,12 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer customerId;
 
-    @NotBlank
+    @NotNull(message = "Name is required")
     @Size(max = 50, message = "Name too long!")
     @Column(name = "customer_name")
     private String customerName;
+
+    private boolean activeCustomer = true;
 
 
     @OneToMany(mappedBy = "customer")
@@ -32,18 +36,12 @@ public class Customer {
 
     }
 
-//    public Customer(int customerId, String customerName, List<CustomerOrder> customerOrder) {
-//        this.customerId = nextId;
-//        nextId++;
-//        this.customerName = customerName;
-//        this.customerOrder = customerOrder;
-//    }
-
-
-    public Customer(String customerName, List<CustomerOrder> customerOrder) {
+    public Customer(String customerName, boolean activeCustomer, List<CustomerOrder> customerOrder) {
         this.customerName = customerName;
+        this.activeCustomer = activeCustomer;
         this.customerOrder = customerOrder;
     }
+
 
     public String getCustomerName() {
         return customerName;
@@ -53,13 +51,18 @@ public class Customer {
         this.customerName = customerName;
     }
 
+    public boolean isActiveCustomer() {
+        return activeCustomer;
+    }
+
+    public void setActiveCustomer(boolean activeCustomer) {
+        this.activeCustomer = activeCustomer;
+    }
+
     public Integer getCustomerId() {
         return customerId;
     }
 
-//    public void setCustomerId(Integer customerId) {
-//        this.customerId = customerId;
-//    }
 
     @JsonIgnore
     public List<CustomerOrder> getCustomerOrder() {
@@ -71,9 +74,10 @@ public class Customer {
         return "Customer{" +
                 "customerId=" + customerId +
                 ", customerName='" + customerName + '\'' +
+                ", activeCustomer=" + activeCustomer +
+                ", customerOrder=" + customerOrder +
                 '}';
     }
-
 
     @Override
     public boolean equals(Object o) {
