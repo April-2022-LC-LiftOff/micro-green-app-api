@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -17,10 +18,36 @@ public class CustomerController {
     @Autowired
     private CustomerRepository customerRepo;
 
+    public ArrayList<Object> customers = new ArrayList<>();
+
     // view all customers
     @GetMapping
     public List<Customer> getCustomers() {
         return customerRepo.findAll();
+    }
+
+    // view active customers
+    @GetMapping(value = "/active")
+    public ArrayList viewActiveCustomers() {
+        for (int i = 0; i < customerRepo.count(); i++) {
+            if(customerRepo.findAll().get(i).isActiveCustomer()) {
+                Object customerIsActive = customerRepo.findAll().get(i);
+                customers.add(customerIsActive);
+            }
+        }
+        return customers;
+    }
+
+    // view active customers
+    @GetMapping(value = "/inactive")
+    public ArrayList viewNonActiveCustomers() {
+        for (int i = 0; i < customerRepo.count(); i++) {
+            if (!(customerRepo.findAll().get(i).isActiveCustomer())) {
+                Object customerNotActive = customerRepo.findAll().get(i);
+                customers.add(customerNotActive);
+            }
+        }
+        return customers;
     }
 
     // add new customer
@@ -45,13 +72,23 @@ public class CustomerController {
         return ResponseEntity.ok( customerRepo.save(updatedCustomer));
     }
 
-    // delete customer
-    @DeleteMapping(value = "/delete/{customerId}")
-    public ResponseEntity<?> deleteCustomer(@PathVariable Integer customerId) {
-        Customer deletedCustomer = customerRepo.findById(customerId).get();
-        customerRepo.delete(deletedCustomer);
-        return ResponseEntity.ok().body("Customer" + customerId + " has been removed");
+    // "delete" customer = flag customer to inactive
+    @PutMapping(value = "/delete/{customerId}")
+    public ResponseEntity<Customer>  deleteCustomer(@PathVariable(value = "customerId") Integer customerId,
+                                                    @RequestBody Customer customer) {
+        Customer updatedCustomer = customerRepo.findById(customerId).get();
+        updatedCustomer.setActiveCustomer(false);
+        return ResponseEntity.ok( customerRepo.save(updatedCustomer));
     }
+
+
+    // Cannot delete customer because of relationship with orders.
+//    @DeleteMapping(value = "/delete/{customerId}")
+//    public ResponseEntity<?> deleteCustomer(@PathVariable Integer customerId) {
+//        Customer deletedCustomer = customerRepo.findById(customerId).get();
+//        customerRepo.delete(deletedCustomer);
+//        return ResponseEntity.ok().body("Customer" + customerId + " has been removed");
+//    }
 
 }
 
