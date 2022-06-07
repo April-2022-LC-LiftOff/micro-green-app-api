@@ -109,9 +109,10 @@ public class CustomerOrderController {
                     todayTask = "Order for " + customerName + "\nWater " + seed.getSeedName() + " from above";
                     task = new Task();
                     task.setTask(todayTask);
-                    task.setDueDate(String.valueOf(deliveryDate.minusDays(seed.getHarvestTime()-i)));
+                    task.setDueDate(String.valueOf(deliveryDate.minusDays(seed.getHarvestTime()-j)));
                     taskRepo.save(task);
                 }
+
 
                 // Create water below days
                 for (i = (seed.getHarvestTime()- seed.getBlackoutTime()); i > 0; i--) {
