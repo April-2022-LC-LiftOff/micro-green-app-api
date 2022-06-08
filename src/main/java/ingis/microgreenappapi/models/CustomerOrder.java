@@ -1,7 +1,9 @@
 package ingis.microgreenappapi.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.sun.istack.NotNull;
 import net.bytebuddy.build.ToStringPlugin;
 import org.apache.tomcat.jni.Local;
@@ -12,6 +14,7 @@ import javax.persistence.*;
 import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.util.*;
+
 
 @Entity
 @Table(name = "customer_orders")
@@ -30,7 +33,8 @@ public class CustomerOrder {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name="orderId")
     private  List<OrderDetails> orderDetails = new ArrayList<>();
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+
+    @ManyToOne
     @JoinColumn(name="customerId")
     private Customer customer;
 
@@ -99,7 +103,7 @@ public class CustomerOrder {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof CustomerOrder)) return false;
-        CustomerOrder customerOrder = (CustomerOrder) o;
+        CustomerOrder customerOrder = (CustomerOrder)o;
         return orderId != null && orderId.equals(((CustomerOrder)o).getOrderId());
     }
 

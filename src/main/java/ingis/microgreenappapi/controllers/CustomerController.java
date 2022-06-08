@@ -77,6 +77,13 @@ public class CustomerController {
         return ResponseEntity.ok(customer);
     }
 
+    @GetMapping("/{customerName}")
+    public ResponseEntity<Customer> getCustomerByName(@PathVariable String customerName){
+        Customer customer = customerRepo.findByCustomerName(customerName);
+//                .orElseThrow(()->new ResourceNotFoundException("Customer does not exist with name:" + customerName));
+        return ResponseEntity.ok(customer);
+    }
+
     @PutMapping(value = "/update/{customerId}")
     public String updateCustomer(@PathVariable(value = "customerId") Integer customerId, @RequestBody Customer customer) {
         Customer updatedCustomer = customerRepo.findById(customerId).get();

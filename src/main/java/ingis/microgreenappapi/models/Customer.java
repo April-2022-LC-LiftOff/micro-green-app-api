@@ -1,16 +1,15 @@
 package ingis.microgreenappapi.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 
 @Entity
 @Table(name = "Customer")
@@ -20,13 +19,12 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer customerId;
 
-//    @NotBlank
+    @NotBlank
     @Size(max = 50, message = "Name too long!")
     @Column(name = "customer_name")
     private String customerName;
 
-
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(mappedBy = "customer")
     private List<CustomerOrder> orders = new ArrayList<>();
 
     public Customer() {
