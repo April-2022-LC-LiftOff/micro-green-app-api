@@ -24,7 +24,7 @@ public class Seed {
     @Size(max = 50, message = "Name too long!")
     private String seedName;
 
-    private Integer seedingDensity;
+    private float seedingDensity;
 
     private Boolean seedPresoak;
 
@@ -34,14 +34,14 @@ public class Seed {
 
     private Integer lot;
 
-    private Integer qty;
+    private float qty;
 
     private String status;
 
     @OneToMany(mappedBy = "seed")
     private List<OrderDetails> orderDetails = new ArrayList<>();
 
-    public Seed(String seedName, Integer seedingDensity, Boolean seedPresoak,  Integer blackoutTime, Integer harvestTime, Integer lot ,Integer qty, String status, OrderDetails orderDetails) {
+    public Seed(String seedName, float seedingDensity, Boolean seedPresoak,  Integer blackoutTime, Integer harvestTime, Integer lot ,float qty, String status, OrderDetails orderDetails) {
 
         this.seedName = seedName;
         this.seedingDensity = seedingDensity;
@@ -78,11 +78,11 @@ public class Seed {
         this.seedName = seedName;
     }
 
-    public Integer getSeedingDensity() {
+    public float getSeedingDensity() {
         return seedingDensity;
     }
 
-    public void setSeedingDensity(Integer seedingDensity) {
+    public void setSeedingDensity(float seedingDensity) {
         this.seedingDensity = seedingDensity;
     }
 
@@ -110,11 +110,11 @@ public class Seed {
         this.harvestTime = harvestTime;
     }
 
-    public Integer getQty() {
+    public float getQty() {
         return qty;
     }
 
-    public void setQty(Integer qty) {
+    public void setQty(float qty) {
         this.qty = qty;
     }
 
