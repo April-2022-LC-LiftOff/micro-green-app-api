@@ -38,16 +38,19 @@ public class TaskController {
     @GetMapping("/{today}")
     public ResponseEntity<ArrayList<Object>> todayTasks(@PathVariable String today) {
         //iterate through task
-        LocalDate dueDate = LocalDate.parse(today);
+//        LocalDate dueDate = LocalDate.parse(today);
+        System.out.println(today);
         todaysTasks.clear();
         for (int i = 0; i < taskRepo.count(); i++) {
-            if(taskRepo.findAll().get(i).getDueDate().equals(dueDate)) {
+            if(taskRepo.findAll().get(i).getDueDate().equals(today)) {
                 Object task = taskRepo.findAll().get(i);
                 todaysTasks.add(task);
             }
         }
         return ResponseEntity.ok(todaysTasks);
     }
+
+
 
 
     //  add a task
