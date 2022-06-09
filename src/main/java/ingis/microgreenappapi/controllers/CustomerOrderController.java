@@ -3,6 +3,7 @@ package ingis.microgreenappapi.controllers;
 import ingis.microgreenappapi.data.*;
 import ingis.microgreenappapi.exception.NotEnoughInventoryException;
 import ingis.microgreenappapi.models.*;
+import ingis.microgreenappapi.service.OrderFormService;
 import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import ingis.microgreenappapi.exception.ResourceNotFoundException;
@@ -18,6 +19,9 @@ import java.util.List;
 @RequestMapping("/orders")
 @CrossOrigin(origins = "*")
 public class CustomerOrderController {
+
+    @Autowired
+    private OrderFormService orderFormService;
 
         @Autowired
         private CustomerOrderRepository customerOrderRepository;
@@ -38,6 +42,13 @@ public class CustomerOrderController {
         @GetMapping
         public List<CustomerOrder> getAllOrders(){
             return customerOrderRepository.findAll();
+        }
+
+
+        @PostMapping("/create")
+        public ResponseEntity<CustomerOrder> addOrder(@RequestBody CustomerOrder customerOrder) {
+            CustomerOrder order = orderFormService.addOrder(customerOrder);
+            return new ResponseEntity<>(order, HttpStatus.OK);
         }
 
         //create order
