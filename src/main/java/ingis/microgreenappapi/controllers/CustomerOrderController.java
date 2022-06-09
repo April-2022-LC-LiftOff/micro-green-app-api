@@ -39,13 +39,14 @@ public class CustomerOrderController {
         private TrayRepository trayRepo;
 
         //view all customer orders
-        @GetMapping
-        public List<CustomerOrder> getAllOrders(){
-            return customerOrderRepository.findAll();
+        @GetMapping()
+        public ResponseEntity<List<CustomerOrder>> getAllOrders() {
+            List<CustomerOrder> customerOrders = orderFormService.getAllOrders();
+            return new ResponseEntity<>(customerOrders, HttpStatus.OK);
         }
 
 
-        @PostMapping("/create")
+        @PostMapping("/add")
         public ResponseEntity<CustomerOrder> addOrder(@RequestBody CustomerOrder customerOrder) {
             CustomerOrder order = orderFormService.addOrder(customerOrder);
             return new ResponseEntity<>(order, HttpStatus.OK);
@@ -178,6 +179,12 @@ public class CustomerOrderController {
         return ResponseEntity.ok(customerOrder);
         }
 
+//    @PutMapping("/update")
+//    public ResponseEntity<CustomerOrder> updateOrder(@RequestBody CustomerOrder customerOrder) {
+//        CustomerOrder order = orderFormService.editOrder(customerOrder);
+//        return new ResponseEntity<>(order, HttpStatus.OK);
+//    }
+
         //update order by Id
         @PutMapping("/update/{orderId}")
         public ResponseEntity<CustomerOrder>updateOrder(@PathVariable int orderId, CustomerOrder orderDetails){
@@ -195,6 +202,13 @@ public class CustomerOrderController {
                 customerOrderRepository.save(updateOrder);
                 return ResponseEntity.ok(updateOrder);
         }
+
+
+//    @DeleteMapping("/delete")
+//    public ResponseEntity<String> deleteOrder(@RequestParam(name = "orderId") Integer orderId) {
+//        orderFormService.deleteOrder(orderId);
+//        return new ResponseEntity<>("Customer order with ID :" + orderId + " deleted successfully", HttpStatus.OK);
+//    }
 
         //delete order by Id
         @DeleteMapping("/delete/{orderId}")
