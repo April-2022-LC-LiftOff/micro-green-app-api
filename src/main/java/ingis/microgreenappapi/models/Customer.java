@@ -24,20 +24,12 @@ public class Customer {
     @Column(name = "customer_name")
     private String customerName;
 
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CustomerOrder> orders = new ArrayList<>();
 
     public Customer() {
 
     }
-
-//    public Customer(int customerId, String customerName, List<CustomerOrder> customerOrder) {
-//        this.customerId = nextId;
-//        nextId++;
-//        this.customerName = customerName;
-//        this.customerOrder = customerOrder;
-//    }
-
 
     public Customer(String customerName, List<CustomerOrder> orders) {
         this.customerName = customerName;

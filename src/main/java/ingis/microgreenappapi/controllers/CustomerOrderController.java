@@ -12,10 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/orders")
@@ -24,11 +22,21 @@ public class CustomerOrderController {
 
     @Autowired
     private OrderFormService orderFormService;
+
+    @Autowired
+    private  CustomerOrderRepository customerOrderRepository;
     @GetMapping()
     public ResponseEntity<List<CustomerOrder>> getAllOrders() {
         List<CustomerOrder> customerOrders = orderFormService.getAllOrders();
         return new ResponseEntity<>(customerOrders, HttpStatus.OK);
     }
+
+//    create order
+//        @PostMapping("/create")
+//        public CustomerOrder createOrder(@RequestBody CustomerOrder customerOrder){
+//           return customerOrderRepository.save(customerOrder);
+//        }
+
     @PostMapping("/create")
     public ResponseEntity<CustomerOrder> addOrder(@RequestBody CustomerOrder customerOrder) {
         CustomerOrder order = orderFormService.addOrder(customerOrder);
