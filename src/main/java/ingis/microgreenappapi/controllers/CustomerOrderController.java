@@ -85,14 +85,14 @@ public class CustomerOrderController {
                             " in inventory for order.");
                 }
 
-                if (customerOrder.getOrderDetails().get(i).getTray().getQty()< customerOrder.getOrderDetails().get(i).getQty()) {
+                if (tray.getQty() < customerOrder.getOrderDetails().get(i).getQty()) {
                     throw new NotEnoughInventoryException("Not enough " + tray.getTrayType() +
                             " on hand for order.");
                 }
 
                 //Update Inventory
-
                 seed.setQty(SeedQtyInInventory - seedQtyOrdered);
+                tray.setQty(tray.getQty() - customerOrder.getOrderDetails().get(i).getQty());
 
                 //Create tasks
                 if (seed.getSeedPresoak()) {
