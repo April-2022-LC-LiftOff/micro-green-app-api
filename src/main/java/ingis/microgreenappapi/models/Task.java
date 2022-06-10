@@ -9,7 +9,7 @@ import java.util.Objects;
 public class Task {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
 //    @NotBlank

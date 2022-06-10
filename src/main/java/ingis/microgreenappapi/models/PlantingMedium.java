@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
 @Table(name = "PlantingMedium")
 public class PlantingMedium {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer mediumId;
 
     @NotBlank
