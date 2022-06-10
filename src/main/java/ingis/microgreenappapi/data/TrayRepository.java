@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TrayRepository extends JpaRepository<Tray, Integer> {
-
+        Tray findByTrayType(String trayType);
 }

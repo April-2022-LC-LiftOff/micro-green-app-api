@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SeedRepository extends JpaRepository<Seed, Integer> {
-
+        Seed findBySeedName(String seedName);
 }
 
