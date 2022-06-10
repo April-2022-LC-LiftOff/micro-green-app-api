@@ -36,7 +36,7 @@ public class InventoryController {
     }
 
 // **** update inventory seed qty
-    @PutMapping(value = "/update/{seedId}")
+    @PostMapping(value = "/update/{seedId}")
     public float updateSeed(@PathVariable(value = "seedId") Integer seedId, @RequestBody Seed seed) {
         //todo add exception handling
         Seed updatedSeed = seedRepo.findById(seedId).get();
