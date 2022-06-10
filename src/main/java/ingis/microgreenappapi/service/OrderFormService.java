@@ -26,11 +26,10 @@ public class OrderFormService {
 
         public CustomerOrder addOrder(CustomerOrder customerOrder) {
             Customer customer = customerRepository.findByCustomerName(customerOrder.getCustomer().getCustomerName());
-//            if (null == customer) {
-//                customer = new Customer();
-//            }
             customer.setCustomerName(customerOrder.getCustomer().getCustomerName());
             customerOrder.setCustomer(customer);
+
+
             return customerOrderRepository.save(customerOrder);
         }
 
