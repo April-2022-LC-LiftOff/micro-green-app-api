@@ -30,7 +30,7 @@ public class OrderDetails {
     @JoinColumn(name="TrayId")
     private Tray tray;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "orderId")
     private CustomerOrder customerOrder;
 
