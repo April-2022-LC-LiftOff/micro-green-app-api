@@ -27,11 +27,10 @@ public class OrderDetails {
     private Seed seed;
 
     @ManyToOne
-//            (cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JoinColumn(name="TrayId")
     private Tray tray;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "orderId")
     private CustomerOrder customerOrder;
 

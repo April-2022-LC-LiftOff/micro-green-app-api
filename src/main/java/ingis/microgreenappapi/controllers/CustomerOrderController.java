@@ -36,16 +36,17 @@ public class CustomerOrderController {
         CustomerOrder order = orderFormService.addOrder(customerOrder);
         return new ResponseEntity<>(order, HttpStatus.OK);
     }
-    @PutMapping("/update")
-    public ResponseEntity<CustomerOrder> updateOrder(@RequestBody CustomerOrder customerOrder) {
-        CustomerOrder order = orderFormService.editOrder(customerOrder);
-        return new ResponseEntity<>(order, HttpStatus.OK);
+    @PutMapping("/update/{orderId}")
+    public ResponseEntity<CustomerOrder> updateOrder(@PathVariable Integer orderId, @RequestBody CustomerOrder customerOrder) {
+       orderFormService.editOrder(orderId, customerOrder);
+        return new ResponseEntity<>(customerOrder, HttpStatus.OK);
     }
-    @DeleteMapping("/delete")
-    public ResponseEntity<String> deleteOrder(@RequestParam(name = "orderId") Integer orderId) {
+    @DeleteMapping("/delete/{orderId}")
+    public ResponseEntity<String> deleteOrder(@PathVariable Integer orderId) {
         orderFormService.deleteOrder(orderId);
         return new ResponseEntity<>("Customer order with ID :" + orderId + " deleted successfully", HttpStatus.OK);
     }
+
 }
 
 

@@ -1,12 +1,11 @@
 package ingis.microgreenappapi.service;
 
 import ingis.microgreenappapi.data.*;
-import ingis.microgreenappapi.models.Customer;
-import ingis.microgreenappapi.models.CustomerOrder;
-import ingis.microgreenappapi.models.Seed;
-import ingis.microgreenappapi.models.Tray;
+import ingis.microgreenappapi.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -23,6 +22,10 @@ public class OrderFormService {
 
     @Autowired
     private TrayRepository trayRepository;
+
+    @Autowired
+    private OrderDetailsRepository orderDetailsRepository;
+
         public List<CustomerOrder> getAllOrders() {
             return customerOrderRepository.findAll();
         }
@@ -48,8 +51,31 @@ public class OrderFormService {
             return customerOrderRepository.save(customerOrder);
         }
 
-        public CustomerOrder editOrder(CustomerOrder entity) {
-            return customerOrderRepository.save(entity);
+        public CustomerOrder editOrder(@PathVariable(value = "orderId") Integer orderId, @RequestBody CustomerOrder customerOrder) {
+            CustomerOrder updatedOrder = customerOrderRepository.findById(orderId).get();
+
+            updatedOrder.setOrderDate(customerOrder.getOrderDate());
+            updatedOrder.setDeliveryDate(customerOrder.getDeliveryDate());
+
+//            Customer customer = customerRepository.findByCustomerName(customerOrder.getCustomer().getCustomerName());
+//            updatedOrder.getCustomer().setCustomerName(customerOrder.getCustomer().getCustomerName());
+
+            for (int i = 0; i < customerOrder.getOrderDetails().size(); i ++) {
+
+                updatedOrder.getOrderDetails().get(i).setQty(customerOrder.getOrderDetails().get(i).getQty());
+
+                String seedName = customerOrder.getOrderDetails().get(i).getSeed().getSeedName();
+                Seed seed = seedRepository.findBySeedName(seedName);
+                seed.setSeedName(customerOrder.getOrderDetails().get(i).getSeed().getSeedName());
+                updatedOrder.getOrderDetails().get(i).setSeed(seed);
+
+                String trayType = customerOrder.getOrderDetails().get(i).getTray().getTrayType();
+                Tray tray = trayRepository.findByTrayType(trayType);
+                tray.setTrayType(customerOrder.getOrderDetails().get(i).getTray().getTrayType());
+                updatedOrder.getOrderDetails().get(i).setTray(tray);
+            }
+
+            return customerOrderRepository.save(updatedOrder);
         }
         public void deleteOrder(Integer orderId) {
             customerOrderRepository.deleteById(orderId);
