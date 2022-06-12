@@ -30,7 +30,12 @@ public class CustomerOrderController {
         List<CustomerOrder> customerOrders = orderFormService.getAllOrders();
         return new ResponseEntity<>(customerOrders, HttpStatus.OK);
     }
-
+    @GetMapping("/{orderId}")
+    public ResponseEntity<CustomerOrder> getOrderById(@PathVariable Integer orderId){
+        CustomerOrder customerOrder = customerOrderRepository.findById(orderId)
+                .orElseThrow(()->new ResourceNotFoundException("Customer Order does not exist with id:" + orderId));
+        return ResponseEntity.ok(customerOrder);
+    }
     @PostMapping("/create")
     public ResponseEntity<CustomerOrder> addOrder(@RequestBody CustomerOrder customerOrder) {
         CustomerOrder order = orderFormService.addOrder(customerOrder);
