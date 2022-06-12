@@ -56,8 +56,9 @@ public class OrderFormService {
 
             updatedOrder.setOrderDate(customerOrder.getOrderDate());
             updatedOrder.setDeliveryDate(customerOrder.getDeliveryDate());
-
+//
 //            Customer customer = customerRepository.findByCustomerName(customerOrder.getCustomer().getCustomerName());
+//            customer.setCustomerName(customerOrder.getCustomer().getCustomerName());
 //            updatedOrder.getCustomer().setCustomerName(customerOrder.getCustomer().getCustomerName());
 
             for (int i = 0; i < customerOrder.getOrderDetails().size(); i ++) {

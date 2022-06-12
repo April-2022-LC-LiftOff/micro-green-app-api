@@ -20,7 +20,7 @@ public class Seed {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer seedId;
-    @NotBlank
+//    @NotBlank
     @Size(max = 50, message = "Name too long!")
     private String seedName;
 
