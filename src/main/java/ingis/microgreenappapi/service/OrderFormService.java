@@ -45,9 +45,9 @@ public class OrderFormService {
                 seed.setSeedName(customerOrder.getOrderDetails().get(i).getSeed().getSeedName());
                 customerOrder.getOrderDetails().get(i).setSeed(seed);
 
-                String trayType = customerOrder.getOrderDetails().get(i).getTray().getTrayType();
-                Tray tray = trayRepository.findByTrayType(trayType);
-                tray.setTrayType(customerOrder.getOrderDetails().get(i).getTray().getTrayType());
+                String size = customerOrder.getOrderDetails().get(i).getTray().getSize();
+                Tray tray = trayRepository.findBySize(size);
+                tray.setSize(customerOrder.getOrderDetails().get(i).getTray().getSize());
                 customerOrder.getOrderDetails().get(i).setTray(tray);
             }
 
@@ -74,9 +74,9 @@ public class OrderFormService {
                 seed.setSeedName(customerOrder.getOrderDetails().get(i).getSeed().getSeedName());
                 updatedOrder.getOrderDetails().get(i).setSeed(seed);
 
-                String trayType = customerOrder.getOrderDetails().get(i).getTray().getTrayType();
-                Tray tray = trayRepository.findByTrayType(trayType);
-                tray.setTrayType(customerOrder.getOrderDetails().get(i).getTray().getTrayType());
+                String size = customerOrder.getOrderDetails().get(i).getTray().getSize();
+                Tray tray = trayRepository.findBySize(size);
+                tray.setSize(customerOrder.getOrderDetails().get(i).getTray().getSize());
                 updatedOrder.getOrderDetails().get(i).setTray(tray);
             }
 
