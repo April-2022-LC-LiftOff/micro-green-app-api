@@ -1,6 +1,8 @@
 package ingis.microgreenappapi.controllers;
 
 import ingis.microgreenappapi.data.SeedRepository;
+import ingis.microgreenappapi.exception.NotEnoughInventoryException;
+import ingis.microgreenappapi.exception.ResourceNotFoundException;
 import ingis.microgreenappapi.models.Seed;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -32,14 +34,16 @@ public class InventoryController {
     @GetMapping(value = "/{seedId}")
     public Seed  viewSeedInfo(@PathVariable(value = "seedId") Integer seedId) {
         //todo add exception handling
-        return seedRepo.findById(seedId).get();
+        return seedRepo.findById(seedId)
+                .orElseThrow(()-> new NotEnoughInventoryException("Seed does not exist in inventory with id:" + seedId));
     }
 
 // **** update inventory seed qty
     @PutMapping(value = "/update/{seedId}")
     public float updateSeed(@PathVariable(value = "seedId") Integer seedId, @RequestBody Seed seed) {
         //todo add exception handling
-        Seed updatedSeed = seedRepo.findById(seedId).get();
+        Seed updatedSeed = seedRepo.findById(seedId)
+                .orElseThrow(()-> new NotEnoughInventoryException("Seed does not exist in inventory with id:" + seedId));
 //        updatedSeed.setSeedName(seed.getSeedName());
         updatedSeed.setQty(seed.getQty() + seedRepo.findById(seedId).get().getQty());
         seedRepo.save(updatedSeed);
@@ -49,7 +53,8 @@ public class InventoryController {
     @DeleteMapping(value = "/delete/{seedId}")
     public String deleteSeed(@PathVariable Integer seedId) {
         //todo add exception handling
-        Seed deletedSeed = seedRepo.findById(seedId).get();
+        Seed deletedSeed = seedRepo.findById(seedId)
+                .orElseThrow(()-> new NotEnoughInventoryException("Seed does not exist in inventory with id:" + seedId));
         seedRepo.delete(deletedSeed);
         return "deleted...";
     }

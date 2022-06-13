@@ -3,6 +3,7 @@ package ingis.microgreenappapi.controllers;
 import ingis.microgreenappapi.data.SeedRepository;
 import ingis.microgreenappapi.data.TaskRepository;
 
+import ingis.microgreenappapi.exception.ResourceNotFoundException;
 import ingis.microgreenappapi.models.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -62,7 +63,8 @@ public class TaskController {
     @PutMapping(value = "/update/{taskId}")
     public ResponseEntity<Task> updateCompleteTask(@PathVariable(value = "taskId") Integer taskId,
                                                    @RequestBody Task task) {
-        Task updatedTask = taskRepo.findById(taskId).get();
+        Task updatedTask = taskRepo.findById(taskId)
+                .orElseThrow(()-> new ResourceNotFoundException("A task does not exist with id:" + taskId));
         updatedTask.setComplete(task.isComplete());
         return ResponseEntity.ok(taskRepo.save(updatedTask)) ;
     }
@@ -71,7 +73,8 @@ public class TaskController {
     // delete a task
     @DeleteMapping(value = "/delete/{id}")
     public String deleteTask(@PathVariable Integer id) {
-        Task deletedTask = taskRepo.findById(id).get();
+        Task deletedTask = taskRepo.findById(id)
+                .orElseThrow(()-> new ResourceNotFoundException("A task does not exist with id:" + id ));
         taskRepo.delete(deletedTask);
         return "deleted...";
     }

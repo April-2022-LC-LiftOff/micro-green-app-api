@@ -1,6 +1,7 @@
 package ingis.microgreenappapi.controllers;
 
 import ingis.microgreenappapi.data.CustomerRepository;
+import ingis.microgreenappapi.exception.ResourceNotFoundException;
 import ingis.microgreenappapi.models.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -60,14 +61,16 @@ public class CustomerController {
     // view customer by id
     @GetMapping(value = "/{customerId}")
     public ResponseEntity<Customer>  viewCustomerById(@PathVariable(value = "customerId") Integer customerId) {
-        return ResponseEntity.ok( customerRepo.findById(customerId).get());
+        return ResponseEntity.ok( customerRepo.findById(customerId)
+                .orElseThrow(()-> new ResourceNotFoundException("Customer order does not exist with id:" + customerId));
     }
 
     // update customer
     @PutMapping(value = "/update/{customerId}")
     public ResponseEntity<Customer>  updateCustomer(@PathVariable(value = "customerId") Integer customerId,
                                                     @RequestBody Customer customer) {
-        Customer updatedCustomer = customerRepo.findById(customerId).get();
+        Customer updatedCustomer = customerRepo.findById(customerId)
+                .orElseThrow(()-> new ResourceNotFoundException("Customer order does not exist with id:" + customerId));
         updatedCustomer.setCustomerName(customer.getCustomerName());
         return ResponseEntity.ok( customerRepo.save(updatedCustomer));
     }
@@ -76,7 +79,8 @@ public class CustomerController {
     @PutMapping(value = "/delete/{customerId}")
     public ResponseEntity<Customer>  deleteCustomer(@PathVariable(value = "customerId") Integer customerId,
                                                     @RequestBody Customer customer) {
-        Customer updatedCustomer = customerRepo.findById(customerId).get();
+        Customer updatedCustomer = customerRepo.findById(customerId)
+                .orElseThrow(()-> new ResourceNotFoundException("Customer order does not exist with id:" + customerId));
         updatedCustomer.setActiveCustomer(false);
         return ResponseEntity.ok( customerRepo.save(updatedCustomer));
     }

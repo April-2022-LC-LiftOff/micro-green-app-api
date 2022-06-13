@@ -1,6 +1,7 @@
 package ingis.microgreenappapi.controllers;
 
 import ingis.microgreenappapi.data.TrayRepository;
+import ingis.microgreenappapi.exception.ResourceNotFoundException;
 import ingis.microgreenappapi.models.Tray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +30,8 @@ public class TrayController {
 
     @PutMapping(value = "/update/{trayId}")
     public String updateTray(@PathVariable(value = "trayId") Integer trayId, @RequestBody Tray tray) {
-        Tray updatedTray = trayRepo.findById(trayId).get();
+        Tray updatedTray = trayRepo.findById(trayId)
+                .orElseThrow(()-> new ResourceNotFoundException("A tray does not exist with id:" + trayId));
         updatedTray.setTrayType(tray.getTrayType());
         updatedTray.setSize(tray.getSize());
         updatedTray.setQty(tray.getQty());
@@ -39,7 +41,8 @@ public class TrayController {
 
     @DeleteMapping(value = "/delete/{trayId}")
     public String deleteTray(@PathVariable Integer trayId) {
-        Tray deletedTray = trayRepo.findById(trayId).get();
+        Tray deletedTray = trayRepo.findById(trayId)
+                .orElseThrow(()-> new ResourceNotFoundException("A tray does not exist with id:" + trayId));
         trayRepo.delete(deletedTray);
         return "deleted...";
     }

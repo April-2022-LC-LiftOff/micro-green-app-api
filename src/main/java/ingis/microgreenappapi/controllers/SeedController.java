@@ -1,6 +1,7 @@
 package ingis.microgreenappapi.controllers;
 
 import ingis.microgreenappapi.data.SeedRepository;
+import ingis.microgreenappapi.exception.ResourceNotFoundException;
 import ingis.microgreenappapi.models.Seed;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +32,8 @@ public class SeedController {
 
     @PutMapping(value = "/update/{seedId}")
     public String updateSeed(@PathVariable(value = "seedId") Integer seedId, @RequestBody Seed seed) {
-        Seed updatedSeed = seedRepo.findById(seedId).get();
+        Seed updatedSeed = seedRepo.findById(seedId)
+                .orElseThrow(()-> new ResourceNotFoundException("A seed does not exist with id:" + seedId));
         updatedSeed.setSeedName(seed.getSeedName());
         updatedSeed.setSeedingDensity(seed.getSeedingDensity());
         updatedSeed.setSeedPresoak(seed.getSeedPresoak());
@@ -44,7 +46,8 @@ public class SeedController {
 
     @DeleteMapping(value = "/delete/{seedId}")
     public String deleteSeed(@PathVariable Integer seedId) {
-        Seed deletedSeed = seedRepo.findById(seedId).get();
+        Seed deletedSeed = seedRepo.findById(seedId)
+                .orElseThrow(()-> new ResourceNotFoundException("A seed does not exist with id:" + seedId));
         seedRepo.delete(deletedSeed);
         return "deleted...";
     }
