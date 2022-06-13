@@ -32,11 +32,10 @@ public class CustomerOrderController {
     }
     @GetMapping("/{orderId}")
     public ResponseEntity<CustomerOrder> getOrderById(@PathVariable Integer orderId){
-        CustomerOrder customerOrder = customerOrderRepository.findById(orderId)
-                .orElseThrow(()->new ResourceNotFoundException("Customer Order does not exist with id:" + orderId));
+        CustomerOrder customerOrder = orderFormService.getOrderById(orderId);
         return ResponseEntity.ok(customerOrder);
     }
-    @PostMapping("/create")
+    @PostMapping("/add")
     public ResponseEntity<CustomerOrder> addOrder(@RequestBody CustomerOrder customerOrder) {
         CustomerOrder order = orderFormService.addOrder(customerOrder);
         return new ResponseEntity<>(order, HttpStatus.OK);

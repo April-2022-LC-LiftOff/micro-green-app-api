@@ -4,6 +4,7 @@ import ingis.microgreenappapi.data.*;
 import ingis.microgreenappapi.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -30,6 +31,9 @@ public class OrderFormService {
             return customerOrderRepository.findAll();
         }
 
+        public CustomerOrder  getOrderById(@PathVariable(value = "orderId") Integer orderId) {
+        return customerOrderRepository.findById(orderId).get();
+    }
         public CustomerOrder addOrder(CustomerOrder customerOrder) {
             Customer customer = customerRepository.findByCustomerName(customerOrder.getCustomer().getCustomerName());
             customer.setCustomerName(customerOrder.getCustomer().getCustomerName());
