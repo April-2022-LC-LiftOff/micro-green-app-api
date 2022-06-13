@@ -74,8 +74,7 @@ public class CustomerController {
 
     // "delete" customer = flag customer to inactive
     @PutMapping(value = "/delete/{customerId}")
-    public ResponseEntity<Customer>  deleteCustomer(@PathVariable(value = "customerId") Integer customerId,
-                                                    @RequestBody Customer customer) {
+    public ResponseEntity<Customer>  deleteCustomer(@PathVariable(value = "customerId") Integer customerId) {
         Customer updatedCustomer = customerRepo.findById(customerId).get();
         updatedCustomer.setActiveCustomer(false);
         return ResponseEntity.ok( customerRepo.save(updatedCustomer));
