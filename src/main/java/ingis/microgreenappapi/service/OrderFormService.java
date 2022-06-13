@@ -142,7 +142,7 @@ public class OrderFormService {
 
 
                 // Create water below days
-                for (int j = (seed.getHarvestTime()- seed.getBlackoutTime()); j > 0; i--) {
+                for (int j = (seed.getHarvestTime()- seed.getBlackoutTime()); j > 0; j--) {
                     if (j == (seed.getHarvestTime()- seed.getBlackoutTime())) {
                         todayTask = "Order for " + customerName + "\nMove " + seed.getSeedName() + " lighted racks and water below";
                         task = new Task();
