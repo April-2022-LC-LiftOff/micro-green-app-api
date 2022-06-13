@@ -12,7 +12,7 @@ public class Task {
     @GeneratedValue
     private int id;
 
-//    @NotBlank
+    //    @NotBlank
     private String task;
     private boolean complete = Boolean.FALSE;
     private String dueDate;

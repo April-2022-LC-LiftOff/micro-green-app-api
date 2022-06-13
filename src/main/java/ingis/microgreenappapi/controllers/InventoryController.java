@@ -13,9 +13,9 @@ import java.util.List;
 public class InventoryController {
 
     @Autowired
-    private SeedRepository seedRepo;
+    private  SeedRepository seedRepo;
 
-// **** view all seed information
+    // **** view all seed information
     @GetMapping
     public List<Seed> viewInventory() {
         return seedRepo.findAll();
@@ -36,11 +36,11 @@ public class InventoryController {
     }
 
 // **** update inventory seed qty
-    @PutMapping(value = "/update/{seedId}")
-    public Integer updateSeed(@PathVariable(value = "seedId") Integer seedId, @RequestBody Seed seed) {
+    @PostMapping(value = "/update/{seedId}")
+    public float updateSeed(@PathVariable(value = "seedId") Integer seedId, @RequestBody Seed seed) {
         //todo add exception handling
         Seed updatedSeed = seedRepo.findById(seedId).get();
-        updatedSeed.setSeedName(seed.getSeedName());
+//        updatedSeed.setSeedName(seed.getSeedName());
         updatedSeed.setQty(seed.getQty() + seedRepo.findById(seedId).get().getQty());
         seedRepo.save(updatedSeed);
         return (updatedSeed.getQty());

@@ -20,7 +20,7 @@ public class OrderDetails {
     private Integer orderDetailsId;
 
     @Column(name = "Qty")
-    private int qty;
+    private float qty;
 
     @ManyToOne
     @JoinColumn(name="seedId")
@@ -38,7 +38,7 @@ public class OrderDetails {
     }
 
 
-    public OrderDetails(int qty, Seed seed, Tray tray, CustomerOrder customerOrder) {
+    public OrderDetails(float qty, Seed seed, Tray tray, CustomerOrder customerOrder) {
         this.qty = qty;
         this.seed = seed;
         this.tray = tray;
@@ -53,11 +53,11 @@ public class OrderDetails {
         this.orderDetailsId = orderDetailsId;
     }
 
-    public int getQty() {
+    public float getQty() {
         return qty;
     }
 
-    public void setQty(int qty) {
+    public void setQty(float qty) {
         this.qty = qty;
     }
 

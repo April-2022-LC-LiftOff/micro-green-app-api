@@ -1,17 +1,14 @@
 package ingis.microgreenappapi.controllers;
 
-import ingis.microgreenappapi.data.CustomerRepository;
-import ingis.microgreenappapi.data.OrderDetailsRepository;
-import ingis.microgreenappapi.models.Customer;
 import ingis.microgreenappapi.service.OrderFormService;
+import ingis.microgreenappapi.data.*;
+import ingis.microgreenappapi.models.*;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import ingis.microgreenappapi.exception.ResourceNotFoundException;
-import ingis.microgreenappapi.models.CustomerOrder;
-import ingis.microgreenappapi.data.CustomerOrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 
@@ -52,7 +49,4 @@ public class CustomerOrderController {
     }
 
 }
-
-
-
 

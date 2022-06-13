@@ -1,17 +1,7 @@
 package ingis.microgreenappapi.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import com.sun.istack.NotNull;
-import net.bytebuddy.build.ToStringPlugin;
-import org.apache.tomcat.jni.Local;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
-import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -25,8 +15,10 @@ public class CustomerOrder {
 
     @Column(name = "order_date")
     private LocalDate orderDate;
+
     @Column(name = "delivery_date")
     private LocalDate deliveryDate;
+
     @Column(name = "active_order")
     private Boolean activeOrder;
 
