@@ -17,7 +17,7 @@ import java.util.Objects;
 public class Tray {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer trayId;
 
     @NotBlank

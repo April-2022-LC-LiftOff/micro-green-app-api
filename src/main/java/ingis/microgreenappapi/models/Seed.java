@@ -5,10 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.lang.NonNull;
-
-import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.Objects;
@@ -20,6 +16,7 @@ public class Seed {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer seedId;
+
 
     @NotBlank
     @Size(max = 50, message = "Name too long!")

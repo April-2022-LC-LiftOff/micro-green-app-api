@@ -16,7 +16,7 @@ import java.util.Objects;
 public class OrderDetails {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer orderDetailsId;
 
     @Column(name = "Qty")
@@ -27,7 +27,6 @@ public class OrderDetails {
     private Seed seed;
 
     @ManyToOne
-//            (cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JoinColumn(name="TrayId")
     private Tray tray;
 

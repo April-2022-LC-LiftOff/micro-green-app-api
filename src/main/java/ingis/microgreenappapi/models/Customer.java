@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.persistence.*;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -26,11 +27,11 @@ public class Customer {
     @Column(name = "customer_name")
     private String customerName;
 
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CustomerOrder> customerOrder = new ArrayList<>();
+
     private boolean activeCustomer = true;
 
-
-    @OneToMany(mappedBy = "customer")
-    private List<CustomerOrder> customerOrder = new ArrayList<>();
 
     public Customer() {
 
@@ -51,6 +52,22 @@ public class Customer {
         this.customerName = customerName;
     }
 
+    public  Integer getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Integer customerId) {
+        this.customerId = customerId;
+    }
+    @JsonIgnore
+    public List<CustomerOrder> getCustomerOrder() {
+        return customerOrder;
+    }
+
+    public void setCustomerOrder(List<CustomerOrder> customerOrder) {
+        this.customerOrder = customerOrder;
+    }
+
     public boolean isActiveCustomer() {
         return activeCustomer;
     }
@@ -59,15 +76,7 @@ public class Customer {
         this.activeCustomer = activeCustomer;
     }
 
-    public Integer getCustomerId() {
-        return customerId;
-    }
 
-
-    @JsonIgnore
-    public List<CustomerOrder> getCustomerOrder() {
-        return customerOrder;
-    }
 
     @Override
     public String toString() {

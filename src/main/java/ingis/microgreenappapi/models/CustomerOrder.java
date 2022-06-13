@@ -1,24 +1,17 @@
 package ingis.microgreenappapi.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sun.istack.NotNull;
-import net.bytebuddy.build.ToStringPlugin;
-import org.apache.tomcat.jni.Local;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
-import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.util.*;
+
 
 @Entity
 @Table(name = "customer_orders")
 public class CustomerOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int orderId;
+    private Integer orderId;
 
     @Column(name = "order_date")
     private LocalDate orderDate;
@@ -29,7 +22,7 @@ public class CustomerOrder {
     @Column(name = "active_order")
     private Boolean activeOrder;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
     @JoinColumn(name="orderId")
     private  List<OrderDetails> orderDetails = new ArrayList<>();
 
@@ -42,19 +35,19 @@ public class CustomerOrder {
 
     }
 
-    public CustomerOrder(LocalDate orderDate, LocalDate deliveryDate, Customer customer, List<OrderDetails> orderDetails) {
-
+    public CustomerOrder(LocalDate orderDate, LocalDate deliveryDate, Boolean activeOrder, List<OrderDetails> orderDetails, Customer customer) {
         this.orderDate = orderDate;
         this.deliveryDate = deliveryDate;
+        this.activeOrder = activeOrder;
         this.orderDetails = orderDetails;
         this.customer = customer;
     }
 
-    public int getOrderId() {
+    public Integer getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(int orderId) {
+    public void setOrderId(Integer orderId) {
         this.orderId = orderId;
     }
 
@@ -82,7 +75,6 @@ public class CustomerOrder {
         this.activeOrder = activeOrder;
     }
 
-
     public Customer getCustomer() {
         return customer;
     }
@@ -97,5 +89,18 @@ public class CustomerOrder {
 
     public void setOrderDetails(List<OrderDetails> orderDetails) {
         this.orderDetails = orderDetails;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CustomerOrder)) return false;
+        CustomerOrder customerOrder = (CustomerOrder)o;
+        return orderId != null && orderId.equals(((CustomerOrder)o).getOrderId());
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }
