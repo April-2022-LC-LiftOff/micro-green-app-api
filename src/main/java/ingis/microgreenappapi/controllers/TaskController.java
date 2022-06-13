@@ -38,7 +38,6 @@ public class TaskController {
     @GetMapping("/{today}")
     public ResponseEntity<ArrayList<Object>> todayTasks(@PathVariable String today) {
         //iterate through task
-//        LocalDate dueDate = LocalDate.parse(today);
         System.out.println(today);
         todaysTasks.clear();
         for (int i = 0; i < taskRepo.count(); i++) {

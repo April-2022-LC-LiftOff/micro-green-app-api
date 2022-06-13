@@ -72,8 +72,8 @@ public class CustomerOrderController {
                      sqIn = 40;
                 }
                 float seedQtyOrdered = customerOrder.getOrderDetails().get(i).getQty() *
-                        customerOrder.getOrderDetails().get(i).getSeed().getSeedingDensity() * sqIn;
-                float SeedQtyInInventory = customerOrder.getOrderDetails().get(i).getSeed().getQty();
+                        seed.getSeedingDensity() * sqIn;
+                float SeedQtyInInventory = seed.getQty();
                 String customerName = customerOrder.getCustomer().getCustomerName();
                 String todayTask;
                 Task task;
@@ -85,14 +85,14 @@ public class CustomerOrderController {
                             " in inventory for order.");
                 }
 
-                if (customerOrder.getOrderDetails().get(i).getTray().getQty()< customerOrder.getOrderDetails().get(i).getQty()) {
+                if (tray.getQty()< customerOrder.getOrderDetails().get(i).getQty()) {
                     throw new NotEnoughInventoryException("Not enough " + tray.getTrayType() +
                             " on hand for order.");
                 }
 
                 //Update Inventory
-
                 seed.setQty(SeedQtyInInventory - seedQtyOrdered);
+                tray.setQty(tray.getQty() - customerOrder.getOrderDetails().get(i).getQty());
 
                 //Create tasks
                 if (seed.getSeedPresoak()) {
@@ -130,8 +130,8 @@ public class CustomerOrderController {
 
 
                 // Create water below days
-                for (i = (seed.getHarvestTime()- seed.getBlackoutTime()); i > 0; i--) {
-                    if (i == (seed.getHarvestTime()- seed.getBlackoutTime())) {
+                for (int j = (seed.getHarvestTime()- seed.getBlackoutTime()); j > 0; j--) {
+                    if (j == (seed.getHarvestTime()- seed.getBlackoutTime())) {
                         todayTask = "Order for " + customerName + "\nMove " + seed.getSeedName() + " lighted racks and water below";
                         task = new Task();
                         task.setTask(todayTask);
