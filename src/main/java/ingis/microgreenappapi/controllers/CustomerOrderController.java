@@ -142,8 +142,8 @@ public class CustomerOrderController {
 
 
                 // Create water below days
-                for (i = (seed.getHarvestTime()- seed.getBlackoutTime()); i > 0; i--) {
-                    if (i == (seed.getHarvestTime()- seed.getBlackoutTime())) {
+                for (int j = (seed.getHarvestTime()- seed.getBlackoutTime()); j > 0; j--) {
+                    if (j == (seed.getHarvestTime()- seed.getBlackoutTime())) {
                         todayTask = "Order for " + customerName + "\nMove " + seed.getSeedName() + " lighted racks and water below";
                         task = new Task();
                         task.setTask(todayTask);
