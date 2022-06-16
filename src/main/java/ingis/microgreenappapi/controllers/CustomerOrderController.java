@@ -62,6 +62,7 @@ public class CustomerOrderController {
             Customer customer = customerRepo.findById(customerId)
                     .orElseThrow(()-> new ResourceNotFoundException(
                             "Customer not exist with id:" + customerId));
+            customerOrder.setCustomer(customer);
 
             for (int i = 0; i < customerOrder.getOrderDetails().size(); i ++) {
 

@@ -1,6 +1,7 @@
 package ingis.microgreenappapi.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ import java.util.Objects;
 public class Tray {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer trayId;
 
     @NotBlank

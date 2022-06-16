@@ -38,11 +38,12 @@ public class OrderFormService {
         // find and set customer
         Customer customer = customerRepository.findByCustomerName(customerOrder.getCustomer().getCustomerName());
         customer.setCustomerName(customerOrder.getCustomer().getCustomerName());
-        customerOrder.setCustomer(customer);
         System.out.println(customer);
+        customerOrder.setCustomer(customer);
+
 
         // process order detail
-        addOrderProcessDetails(customerOrder);
+//        addOrderProcessDetails(customerOrder);
 
         return customerOrderRepository.save(customerOrder);
     }
